@@ -5,12 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/monthOverviewFragment">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="no.hiof.trondkw.budgetapp.MainActivity"
-        android:label="MainActivity" />
+    <fragment
+        android:id="@+id/monthOverviewFragment"
+        android:name="no.hiof.trondkw.budgetapp.ui.MonthOverviewFragment"
+        android:label="fragment_month_overview"
+        tools:layout="@layout/fragment_month_overview" />
 
 
 </navigation>
