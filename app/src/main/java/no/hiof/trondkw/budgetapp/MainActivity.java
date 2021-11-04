@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+        // R.id.... get ID from NavHostFragment <fragment> in activity_main.xml
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+
+
 
         /*
 
