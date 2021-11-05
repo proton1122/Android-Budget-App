@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"/>
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/monthOverviewFragment">
+
+    <fragment
+        android:id="@+id/monthOverviewFragment"
+        android:name="no.hiof.trondkw.budgetapp.ui.MonthOverviewFragment"
+        android:label="fragment_month_overview"
+        tools:layout="@layout/fragment_month_overview" />
+    <fragment
+        android:id="@+id/monthDetailsFragment"
+        android:name="no.hiof.trondkw.budgetapp.ui.MonthDetailsFragment"
+        android:label="fragment_month_details"
+        tools:layout="@layout/fragment_month_details" />
+    <fragment
+        android:id="@+id/yearOverviewFragment"
+        android:name="no.hiof.trondkw.budgetapp.ui.YearOverviewFragment"
+        android:label="fragment_year_overview"
+        tools:layout="@layout/fragment_year_overview" />
+    <fragment
+        android:id="@+id/savingsOverviewFragment"
+        android:name="no.hiof.trondkw.budgetapp.ui.SavingsOverviewFragment"
+        android:label="fragment_savings_overview"
+        tools:layout="@layout/fragment_savings_overview" />
+    <fragment
+        android:id="@+id/addExpenseFragment"
+        android:name="no.hiof.trondkw.budgetapp.ui.AddExpenseFragment"
+        android:label="fragment_add_expense"
+        tools:layout="@layout/fragment_add_expense" />
+
+
+</navigation>
