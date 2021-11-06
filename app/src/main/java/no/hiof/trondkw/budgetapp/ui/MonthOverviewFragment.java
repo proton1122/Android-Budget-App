@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.time.LocalDate;
+
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthDetailsBinding;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;

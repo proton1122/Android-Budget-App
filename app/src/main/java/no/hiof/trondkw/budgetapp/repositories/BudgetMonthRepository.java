@@ -15,7 +15,18 @@ public class BudgetMonthRepository {
 
 
 
-    public BudgetMonth getCurrentMonth() {
+    public BudgetMonth getCurrentMonth(int year, String month) {
+
+        // check local storage
+
+
+
+        // check firebase storage
+
+
+
+        // if doesn't exist, create new
+
         return new BudgetMonth();
     }
 
@@ -27,7 +38,6 @@ public class BudgetMonthRepository {
 
 
     // Local storage data
-        // get, send etc
 
 
 }

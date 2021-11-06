@@ -13,6 +13,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.time.LocalDate;
+
 import no.hiof.trondkw.budgetapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
