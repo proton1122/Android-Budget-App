@@ -15,19 +15,16 @@ public class BudgetMonthViewModel extends ViewModel {
 
     private BudgetMonthRepository repository;
     private BudgetMonth currentMonth;
-    private int year;
-    private String month;
 
     private MutableLiveData<ArrayList<Expense>> expenseList;
     private MutableLiveData<Double> budget;
     private MutableLiveData<Double> totalExpenses;
 
     public BudgetMonthViewModel() {
-        year = LocalDate.now().getYear();
-        month = LocalDate.now().getMonth().toString().toLowerCase();
+        int monthId = getMonthId();
 
         repository = new BudgetMonthRepository();
-        currentMonth = repository.getCurrentMonth(year, month);
+        currentMonth = repository.getCurrentMonth(monthId);
 
         expenseList = new MutableLiveData<>();
         expenseList.setValue(currentMonth.getMonthlyExpenses());
@@ -81,6 +78,14 @@ public class BudgetMonthViewModel extends ViewModel {
             totalExpenses += expense.getSum();
 
         return totalExpenses;
+    }
+
+
+    private int getMonthId() {
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonth().getValue();
+
+        return Integer.parseInt("" + year + month);
     }
 
 
