@@ -9,7 +9,7 @@ public class LocalDatabase {
 
     // fake local database
 
-    private static HashMap<Integer, BudgetMonth> database = new HashMap<>();
+    private static final HashMap<Integer, BudgetMonth> database = new HashMap<>();
 
 
 

@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 
-import no.hiof.trondkw.budgetapp.database.LocalDatabase;
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;

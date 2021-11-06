@@ -11,6 +11,7 @@ public class BudgetMonthRepository {
     public BudgetMonthRepository() {
 
         // initiate data?
+        // singleton?
 
     }
 
