@@ -10,12 +10,6 @@
         <variable
             name="currentMonth"
             type="no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel" />
-        <variable
-            name="budget"
-            type="double" />
-        <variable
-            name="expenses"
-            type="double" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -116,7 +110,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_remaining_label"
-                android:text="@{String.valueOf(budget - expenses)}"/>
+                android:text="@{String.valueOf(currentMonth.budget - currentMonth.expenses)}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
