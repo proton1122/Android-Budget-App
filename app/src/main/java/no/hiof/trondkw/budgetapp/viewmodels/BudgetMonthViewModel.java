@@ -2,12 +2,13 @@ package no.hiof.trondkw.budgetapp.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
 import no.hiof.trondkw.budgetapp.models.Expense;
 
-public class BudgetMonthViewModel {
+public class BudgetMonthViewModel extends ViewModel {
 
 
     private MutableLiveData<ArrayList<Expense>> mExpenseList;
