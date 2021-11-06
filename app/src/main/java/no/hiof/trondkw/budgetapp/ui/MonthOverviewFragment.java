@@ -39,4 +39,6 @@ public class MonthOverviewFragment extends Fragment {
 
         return binding.getRoot();
     }
-}
+
+
+} // end MonthOverviewFragment class
