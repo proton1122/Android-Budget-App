@@ -5,7 +5,11 @@ import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 public class BudgetMonthRepository {
 
 
-    public BudgetMonthRepository() {}
+    public BudgetMonthRepository() {
+
+        // initiate data?
+
+    }
 
 
 

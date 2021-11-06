@@ -17,7 +17,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<Expense>> expenseList;
     private MutableLiveData<Double> budget;
-    private MutableLiveData<Double> expenses;
+    private MutableLiveData<Double> totalExpenses;
 
     public BudgetMonthViewModel() {
         repository = new BudgetMonthRepository();
@@ -29,10 +29,8 @@ public class BudgetMonthViewModel extends ViewModel {
         budget = new MutableLiveData<>();
         budget.setValue(currentMonth.getBudget());
 
-        expenses = new MutableLiveData<>();
-        expenses.setValue(calculateExpenses());
-
-
+        totalExpenses = new MutableLiveData<>();
+        totalExpenses.setValue(calculateExpenses());
 
     }
 
@@ -42,6 +40,11 @@ public class BudgetMonthViewModel extends ViewModel {
     public LiveData<ArrayList<Expense>> getExpenseList() {
         return expenseList;
     }
+
+    public void addExpense(Expense expense) {
+        expenseList.getValue().add(expense);
+    }
+
 
     public LiveData<Double> getBudget() {
         return budget;
