@@ -5,8 +5,11 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -24,16 +27,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+        //NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        //NavController navController = navHostFragment.getNavController();
+
+
         // R.id.... get ID from NavHostFragment <fragment> in activity_main.xml
+        // Klarer ikke finne ID gjennom binding
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
+        DrawerLayout drawerLayout = binding.drawerLayout;
+        Toolbar toolbar = binding.toolbar;
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.monthOverviewFragment,
+                R.id.monthDetailsFragment,
+                R.id.yearOverviewFragment,
+                R.id.savingsOverviewFragment)
+                .setOpenableLayout(drawerLayout)
+                .build();
+
+
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+
+        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+        NavigationUI.setupWithNavController(binding.navigationView, navController);
 
 
 
         /*
 
         -- REMOVED ALL NAVIGATION ELEMENTS FOR CLEAN START --
-
 
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
