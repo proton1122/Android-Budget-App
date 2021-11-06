@@ -8,6 +8,9 @@
 
     <data>
         <variable
+            name="currentMonth"
+            type="no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel" />
+        <variable
             name="budget"
             type="double" />
         <variable
@@ -46,6 +49,18 @@
             android:layout_height="match_parent"
             android:paddingTop="?attr/actionBarSize">
 
+            <!--android:text="@{currentMonth.dateString}"-->
+            <TextView
+                android:id="@+id/textview_year_and_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@{currentMonth.dateString}"
+                app:layout_constraintBottom_toTopOf="@+id/textview_budget_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/textview_budget_label"
                 android:layout_width="wrap_content"
@@ -63,7 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@{String.valueOf(budget)}"/>
+                android:text="@{String.valueOf(currentMonth.budget)}"/>
 
             <TextView
                 android:id="@+id/textview_expenses_label"
@@ -82,7 +97,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_expenses_label"
-                android:text="@{String.valueOf(expenses)}"/>
+                android:text="@{String.valueOf(currentMonth.expenses)}"/>
 
             <TextView
                 android:id="@+id/textview_remaining_label"
@@ -102,7 +117,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_remaining_label"
                 android:text="@{String.valueOf(budget - expenses)}"/>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -11,7 +11,9 @@ public class BudgetMonth {
      *
      */
 
-    private String id;
+    private int id;
+    private int year;
+    private int month;
     private double budget;
     private ArrayList<Expense> monthlyExpenses;
 
@@ -21,10 +23,33 @@ public class BudgetMonth {
         this.monthlyExpenses = new ArrayList<>();
     }
 
+    public BudgetMonth(int year, int month) {
+        this.budget = 0;
+        this.monthlyExpenses = new ArrayList<>();
+        this.year = year;
+        this.month = month;
 
-    public String getId() {
+        this.id = Integer.parseInt("" + year + month);
+    }
+
+
+    public int getId() {
         return id;
     }
+
+    public int getYear() {
+        return year;
+    }
+    public void setYear(int year) {
+        this.year = year;
+    }
+    public int getMonth() {
+        return month;
+    }
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
     public double getBudget() {
         return budget;
     }

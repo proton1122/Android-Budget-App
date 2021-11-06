@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 
+import no.hiof.trondkw.budgetapp.database.LocalDatabase;
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
@@ -21,10 +23,12 @@ public class BudgetMonthViewModel extends ViewModel {
     private MutableLiveData<Double> totalExpenses;
 
     public BudgetMonthViewModel() {
-        int monthId = getMonthId();
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonth().getValue();
+        //int monthId = generateMonthId();
 
         repository = new BudgetMonthRepository();
-        currentMonth = repository.getCurrentMonth(monthId);
+        currentMonth = repository.getCurrentMonth(year, month);
 
         expenseList = new MutableLiveData<>();
         expenseList.setValue(currentMonth.getMonthlyExpenses());
@@ -52,6 +56,24 @@ public class BudgetMonthViewModel extends ViewModel {
         return budget;
     }
 
+    public LiveData<Double> getExpenses() {
+        return totalExpenses;
+    }
+
+
+
+    public String getDateString() {
+        int year = currentMonth.getYear();
+        int month = currentMonth.getMonth();
+
+        System.out.println("year: " + year);
+        System.out.println("month: " + month);
+
+        String yearString = String.valueOf(year);
+        String monthString = Month.of(month).toString();
+
+        return yearString + " - " + monthString;
+    }
 
 
     // methods for changing the values...
@@ -78,14 +100,6 @@ public class BudgetMonthViewModel extends ViewModel {
             totalExpenses += expense.getSum();
 
         return totalExpenses;
-    }
-
-
-    private int getMonthId() {
-        int year = LocalDate.now().getYear();
-        int month = LocalDate.now().getMonth().getValue();
-
-        return Integer.parseInt("" + year + month);
     }
 
 

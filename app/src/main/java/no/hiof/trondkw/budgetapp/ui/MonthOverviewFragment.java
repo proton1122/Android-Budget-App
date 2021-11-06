@@ -32,9 +32,8 @@ public class MonthOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
+        binding.setCurrentMonth(budgetMonthViewModel);
 
-        // set this after adding <data> to xml
-        // binding.setBudgetMonthViewModel(....)
 
         // observer viewModel...
         // budgetMonthViewModel.get(...).observer.....
