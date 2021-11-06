@@ -43,7 +43,6 @@
             android:layout_height="match_parent"
             android:paddingTop="?attr/actionBarSize">
 
-            <!--android:text="@{currentMonth.dateString}"-->
             <TextView
                 android:id="@+id/textview_year_and_month"
                 android:layout_width="wrap_content"
@@ -73,6 +72,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@{String.valueOf(currentMonth.budget)}"/>
+
+            <ImageButton
+                android:id="@+id/edit_budget_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_budget_sum"
+                app:layout_constraintStart_toEndOf="@+id/textview_budget_sum"
+                app:layout_constraintTop_toTopOf="@+id/textview_budget_sum"
+                android:src="@drawable/ic_edit_icon"
+                android:contentDescription="Edit Budget Button" />
 
             <TextView
                 android:id="@+id/textview_expenses_label"
