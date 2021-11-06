@@ -32,6 +32,13 @@ public class BudgetMonth {
         this.id = Integer.parseInt("" + year + month);
     }
 
+    public BudgetMonth(int year, int month, double budget, ArrayList<Expense> expenses) {
+        this.year = year;
+        this.month = month;
+        this.budget = budget;
+        this.monthlyExpenses = expenses;
+    }
+
 
     public int getId() {
         return id;

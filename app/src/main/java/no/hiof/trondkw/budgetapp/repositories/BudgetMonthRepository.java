@@ -1,9 +1,12 @@
 package no.hiof.trondkw.budgetapp.repositories;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import no.hiof.trondkw.budgetapp.database.LocalDatabase;
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
+import no.hiof.trondkw.budgetapp.models.Expense;
 
 public class BudgetMonthRepository {
 
@@ -28,6 +31,12 @@ public class BudgetMonthRepository {
             return LocalDatabase.getMonth(monthId);
 
 
+        boolean testing = true;
+        if (testing)
+            return createTestData(year, month);
+
+
+
         // check firebase storage
 
 
@@ -50,6 +59,29 @@ public class BudgetMonthRepository {
 
 
     // other
+
+    private BudgetMonth createTestData(int year, int month) {
+
+        double budget = 100000;
+
+        ArrayList<Expense> list = new ArrayList<>(getTestExpenseList());
+
+        return new BudgetMonth(year, month, budget, list);
+    }
+
+    // Generate dummy data
+    public static List<Expense> getTestExpenseList() {
+        List<Expense> list = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            String title = "Expense " + i;
+            int sum = 1000 + i;
+
+            list.add(new Expense(title, sum));
+        }
+        return list;
+    }
+
+
     private int generateMonthId() {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonth().getValue();

@@ -18,6 +18,10 @@ public class Expense {
 
 
     public Expense() {}
+    public Expense(String title, double sum) {
+        this.expenseTitle = title;
+        this.sum = sum;
+    }
 
 
     public int getExpenseId() {
