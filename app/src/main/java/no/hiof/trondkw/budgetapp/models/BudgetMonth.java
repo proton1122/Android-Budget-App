@@ -18,6 +18,7 @@ public class BudgetMonth {
 
     public BudgetMonth() {
         this.budget = 0;
+        this.monthlyExpenses = new ArrayList<>();
     }
 
 

@@ -6,31 +6,45 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
+import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Expense;
+import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
 
 public class BudgetMonthViewModel extends ViewModel {
 
+    private BudgetMonthRepository repository;
+    private BudgetMonth currentMonth;
 
-    private MutableLiveData<ArrayList<Expense>> mExpenseList;
-    private MutableLiveData<Integer> mBudget;
+    private MutableLiveData<ArrayList<Expense>> expenseList;
+    private MutableLiveData<Double> budget;
+    private MutableLiveData<Double> expenses;
 
     public BudgetMonthViewModel() {
-        mExpenseList = new MutableLiveData<>();
-        //mExpenseList.setValue();
+        repository = new BudgetMonthRepository();
+        currentMonth = repository.getCurrentMonth();
 
-        mBudget = new MutableLiveData<>();
-        //mBudget.setValue();
+        expenseList = new MutableLiveData<>();
+        expenseList.setValue(currentMonth.getMonthlyExpenses());
+
+        budget = new MutableLiveData<>();
+        budget.setValue(currentMonth.getBudget());
+
+        expenses = new MutableLiveData<>();
+        expenses.setValue(calculateExpenses());
+
+
+
     }
 
 
 
 
     public LiveData<ArrayList<Expense>> getExpenseList() {
-        return mExpenseList;
+        return expenseList;
     }
 
-    public LiveData<Integer> getBudget() {
-        return mBudget;
+    public LiveData<Double> getBudget() {
+        return budget;
     }
 
 
@@ -43,6 +57,23 @@ public class BudgetMonthViewModel extends ViewModel {
 
 
 
+    // load from Repository
+
+
+
+
+    // private methods
+    private double calculateExpenses() {
+        double totalExpenses = 0;
+
+        if (expenseList.getValue() == null)
+            return totalExpenses;
+
+        for (Expense expense : expenseList.getValue())
+            totalExpenses += expense.getSum();
+
+        return totalExpenses;
+    }
 
 
 
