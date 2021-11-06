@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,9 +24,22 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // same id for all toolbars in all fragments...
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // R.id.... get ID from NavHostFragment <fragment> in activity_main.xml
+        // Klarer ikke finne ID gjennom binding
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.yearOverviewFragment,
+                R.id.monthOverviewFragment,
+                R.id.monthDetailsFragment,
+                R.id.savingsOverviewFragment).build();
+
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
         NavigationUI.setupWithNavController(binding.navigationView, navController);
 
@@ -34,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         /*
 
         -- REMOVED ALL NAVIGATION ELEMENTS FOR CLEAN START --
-
 
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
