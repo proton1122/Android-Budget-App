@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
+import no.hiof.trondkw.budgetapp.interfaces.IEditBudgetDialogListener;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MonthOverviewFragment extends Fragment {

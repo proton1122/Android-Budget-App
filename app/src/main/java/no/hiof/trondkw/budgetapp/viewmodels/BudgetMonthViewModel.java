@@ -51,6 +51,10 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
 
+    public void setBudget(String b) {
+        System.out.println(b);
+        budget.setValue(Double.parseDouble(b));
+    }
     public LiveData<Double> getBudget() {
         return budget;
     }
