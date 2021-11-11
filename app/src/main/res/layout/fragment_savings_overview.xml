@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="?attr/actionBarSize"
+            android:paddingBottom="56dp"
             tools:context=".ui.SavingsOverviewFragment">
 
 
@@ -27,16 +28,11 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:paddingTop="?actionBarSize"
-                android:paddingBottom="56dp"
-
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/add_expense_fab"
 
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/expense_list_item" />
 
 
@@ -45,20 +41,13 @@
                 android:id="@+id/add_expense_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view"
+                android:layout_margin="16dp"
 
                 android:contentDescription="Add new expense"
                 app:srcCompat="@drawable/ic_add_icon" />
 
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>
