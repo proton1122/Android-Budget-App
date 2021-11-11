@@ -21,16 +21,35 @@
             android:paddingTop="?attr/actionBarSize"
             tools:context=".ui.AddExpenseFragment">
 
-
-            <!-- Placeholder -->
             <TextView
-                android:id="@+id/placeholder_textview"
+                android:id="@+id/date_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Expense Fragment"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp"
+                android:text="Select Date"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/select_date_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/date_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="6dp"
+                android:ems="10"
+                android:textAlignment="center"
+                android:text="click here to select date..."/>
+                <!--
+                    android:background="@drawable/temp_datepicker_background"
+                -->
+
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
