@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +49,16 @@ public class SavingsOverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // set the adapter for recycler view and push list of expenses to be shown
         ExpenseRecyclerAdapter adapter = new ExpenseRecyclerAdapter();
         binding.recyclerView.setAdapter(adapter);
         adapter.setExpenses(budgetMonthViewModel.getExpenseList().getValue());
+
+
+        // set navigation to addExpenseFragment with FAB, move this to .xml later
+        binding.addExpenseFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_savingsOverviewFragment_to_addExpenseFragment));
+
+
     }
 
 

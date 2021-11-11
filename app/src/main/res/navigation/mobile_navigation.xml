@@ -30,7 +30,11 @@
         android:id="@+id/savingsOverviewFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.SavingsOverviewFragment"
         android:label="fragment_savings_overview"
-        tools:layout="@layout/fragment_savings_overview" />
+        tools:layout="@layout/fragment_savings_overview" >
+        <action
+            android:id="@+id/action_savingsOverviewFragment_to_addExpenseFragment"
+            app:destination="@id/addExpenseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addExpenseFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.AddExpenseFragment"
