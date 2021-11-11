@@ -52,7 +52,6 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     }
 
 
-    // opens the DatePickerDialog
     private void showDatePickerDialog() {
         if (!dateSet)
             setDateToday();
@@ -63,6 +62,8 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
 
 
     // gets the input from the DatePickerDialog and displays it
+    // TODO
+    // Set a more fitting date format for display
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         this.year = year;
