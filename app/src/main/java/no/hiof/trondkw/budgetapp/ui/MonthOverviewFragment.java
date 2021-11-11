@@ -4,16 +4,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Locale;
+
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
-import no.hiof.trondkw.budgetapp.interfaces.IEditBudgetDialogListener;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MonthOverviewFragment extends Fragment {
@@ -34,8 +35,17 @@ public class MonthOverviewFragment extends Fragment {
         binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
         binding.setCurrentMonth(budgetMonthViewModel);
 
-        // observer viewModel...
-        // budgetMonthViewModel.get(...).observer.....
+        budgetMonthViewModel.getBudget().observe(requireActivity(), new Observer<Double>() {
+            @Override
+            public void onChanged(Double aDouble) {
+                System.out.println("aDouble variable: " + aDouble);
+                Double viewmodelbudget = budgetMonthViewModel.getBudget().getValue();
+                System.out.println("viewmodelbudget: " + viewmodelbudget);
+
+                //binding.textviewBudgetSum.setText(String.format(Locale.ENGLISH, "%.2f", viewmodelbudget));
+                binding.setCurrentMonth(budgetMonthViewModel);
+            }
+        });
 
         return binding.getRoot();
     }
@@ -44,12 +54,13 @@ public class MonthOverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.editBudgetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new EditBudgetDialogFragment().show(getChildFragmentManager(), null);
-            }
-        });
-
+        binding.editBudgetButton.setOnClickListener(view1 -> openEditBudgetDialog());
     }
+
+    public void openEditBudgetDialog() {
+        BudgetDialog budgetDialog = new BudgetDialog();
+        budgetDialog.show(requireActivity().getSupportFragmentManager(), null);
+        //testDialogFragment.show(getChildFragmentManager(), null);
+    }
+
 } // end MonthOverviewFragment class
