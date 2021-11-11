@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Calendar;
+
 import no.hiof.trondkw.budgetapp.databinding.FragmentAddExpenseBinding;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
@@ -19,6 +21,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     private BudgetMonthViewModel budgetMonthViewModel;
     private FragmentAddExpenseBinding binding;
 
+    private boolean dateSet = false;
     private int dayOfMonth;
     private int month;
     private int year;
@@ -51,6 +54,9 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
 
     // opens the DatePickerDialog
     private void showDatePickerDialog() {
+        if (!dateSet)
+            setDateToday();
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this, year, month, dayOfMonth);
         datePickerDialog.show();
     }
@@ -66,6 +72,14 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         binding.selectDateView.setText(date);
     }
 
+    // sets the start date of the DatePickerDialog
+    // if no date has already been picked, set as 'today'
+    private void setDateToday() {
+            year = Calendar.getInstance().get(Calendar.YEAR);
+            month = Calendar.getInstance().get(Calendar.MONTH);
+            dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+            dateSet = true;
+    }
 
 
     // -------------------------------------------------------------
