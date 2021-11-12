@@ -64,7 +64,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
 
                 // TODO
                 // return to previous fragment....
-
+                // add navigation action from mobile_navigation.xml
 
 
             }
