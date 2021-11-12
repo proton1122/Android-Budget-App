@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import no.hiof.trondkw.budgetapp.R;
@@ -26,7 +25,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     private BudgetMonthViewModel budgetMonthViewModel;
     private FragmentAddExpenseBinding binding;
 
-    private boolean dateSet = false;
+    private boolean isDateSet = false;
     private int dayOfMonth;
     private int month;
     private int year;
@@ -34,22 +33,16 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentAddExpenseBinding.inflate(inflater, container, false);
-
-        // set view model in binding
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
-        // set onclick listener for date picker dialog
         binding.selectDateView.setOnClickListener(view -> showDatePickerDialog());
-
-        // set onclick listener for add expense button
+        
         binding.addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,13 +57,12 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
                 Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_savingsOverviewFragment);
             }
         });
-
         return binding.getRoot();
     }
 
 
     private void showDatePickerDialog() {
-        if (!dateSet)
+        if (!isDateSet)
             setDateToday();
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this, year, month, dayOfMonth);
@@ -96,18 +88,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
             year = Calendar.getInstance().get(Calendar.YEAR);
             month = Calendar.getInstance().get(Calendar.MONTH);
             dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-            dateSet = true;
+            isDateSet = true;
     }
-
-
-    // -------------------------------------------------------------
-    // needed?
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-    // -------------------------------------------------------------
-
 
 } // end AddExpenseFragment class

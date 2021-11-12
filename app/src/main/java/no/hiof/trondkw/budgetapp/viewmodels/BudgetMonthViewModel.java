@@ -48,6 +48,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
     public void addExpense(Expense expense) {
         expenseList.getValue().add(expense);
+        totalExpenses.setValue(calculateExpenses());
 
     }
 
@@ -60,7 +61,7 @@ public class BudgetMonthViewModel extends ViewModel {
         return budget;
     }
 
-    public LiveData<Double> getExpenses() {
+    public LiveData<Double> getTotalExpenses() {
         return totalExpenses;
     }
 

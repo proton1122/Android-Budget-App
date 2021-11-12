@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
+import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MonthOverviewFragment extends Fragment {
@@ -25,12 +27,11 @@ public class MonthOverviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
         binding.setCurrentMonth(budgetMonthViewModel);
@@ -38,15 +39,9 @@ public class MonthOverviewFragment extends Fragment {
         budgetMonthViewModel.getBudget().observe(requireActivity(), new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
-                System.out.println("aDouble variable: " + aDouble);
-                Double viewmodelbudget = budgetMonthViewModel.getBudget().getValue();
-                System.out.println("viewmodelbudget: " + viewmodelbudget);
-
-                //binding.textviewBudgetSum.setText(String.format(Locale.ENGLISH, "%.2f", viewmodelbudget));
                 binding.setCurrentMonth(budgetMonthViewModel);
             }
         });
-
         return binding.getRoot();
     }
 
@@ -60,7 +55,6 @@ public class MonthOverviewFragment extends Fragment {
     public void openEditBudgetDialog() {
         BudgetDialog budgetDialog = new BudgetDialog();
         budgetDialog.show(requireActivity().getSupportFragmentManager(), null);
-        //testDialogFragment.show(getChildFragmentManager(), null);
     }
 
 } // end MonthOverviewFragment class
