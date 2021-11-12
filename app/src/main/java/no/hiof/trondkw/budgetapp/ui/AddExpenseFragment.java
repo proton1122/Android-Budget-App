@@ -10,11 +10,13 @@ import android.widget.DatePicker;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
+import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentAddExpenseBinding;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
@@ -47,7 +49,6 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         // set onclick listener for date picker dialog
         binding.selectDateView.setOnClickListener(view -> showDatePickerDialog());
 
-
         // set onclick listener for add expense button
         binding.addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,21 +59,11 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
                 double expenseSum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
 
                 Expense newExpense = new Expense(expenseDate, expenseDescription, expenseSum);
-
                 budgetMonthViewModel.addExpense(newExpense);
 
-
-                // TODO
-                // return to previous fragment....
-                // add navigation action from mobile_navigation.xml
-
-
+                Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_savingsOverviewFragment);
             }
         });
-
-
-        // observer viewModel...
-        // budgetMonthViewModel.get(...).observer.....
 
         return binding.getRoot();
     }
