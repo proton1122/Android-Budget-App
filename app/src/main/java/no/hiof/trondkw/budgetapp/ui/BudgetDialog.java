@@ -32,12 +32,16 @@ public class BudgetDialog extends DialogFragment {
         budgetInput = view.findViewById(R.id.edittext_edit_budget);
 
 
+
         builder.setView(view)
                 .setPositiveButton("Set", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String budget = budgetInput.getText().toString();
-                        listener.setNewBudget(budget);
+
+                        if (budget.length() > 0)
+                            listener.setNewBudget(budget);
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
