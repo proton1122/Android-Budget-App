@@ -1,5 +1,7 @@
 package no.hiof.trondkw.budgetapp.models;
 
+import java.time.LocalDate;
+
 public class Expense {
 
     /**
@@ -13,13 +15,20 @@ public class Expense {
     private String expenseDescription;
     //private ExpenseCategory category;
     private String expenseCategory;
-    //private Date date;
+    private LocalDate expenseDate;
     private double sum;
 
 
     public Expense() {}
+
     public Expense(String title, double sum) {
         this.expenseTitle = title;
+        this.sum = sum;
+    }
+
+    public Expense(LocalDate date, String description, double sum) {
+        this.expenseDate = date;
+        this.expenseTitle = description;
         this.sum = sum;
     }
 
@@ -33,6 +42,14 @@ public class Expense {
     public void setExpenseTitle(String expenseTitle) {
         this.expenseTitle = expenseTitle;
     }
+
+    public LocalDate getExpenseDate() {
+        return expenseDate;
+    }
+    public void setExpenseDate(LocalDate expenseDate) {
+        this.expenseDate = expenseDate;
+    }
+
     public String getExpenseDescription() {
         return expenseDescription;
     }

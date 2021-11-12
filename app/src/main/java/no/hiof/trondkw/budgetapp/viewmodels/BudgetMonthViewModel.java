@@ -48,6 +48,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
     public void addExpense(Expense expense) {
         expenseList.getValue().add(expense);
+
     }
 
 

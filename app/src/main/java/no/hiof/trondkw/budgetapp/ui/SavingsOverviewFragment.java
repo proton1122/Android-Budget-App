@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -12,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.adapter.ExpenseRecyclerAdapter;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.databinding.FragmentSavingsOverviewBinding;
+import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class SavingsOverviewFragment extends Fragment {
@@ -40,7 +44,12 @@ public class SavingsOverviewFragment extends Fragment {
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
         // observer viewModel...
-        // budgetMonthViewModel.get(...).observer.....
+        budgetMonthViewModel.getExpenseList().observe(requireActivity(), new Observer<ArrayList<Expense>>() {
+            @Override
+            public void onChanged(ArrayList<Expense> expenses) {
+                binding.setBudgetMonthViewModel(budgetMonthViewModel);
+            }
+        });
 
         return binding.getRoot();
     }
