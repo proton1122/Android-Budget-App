@@ -2,37 +2,36 @@ package no.hiof.trondkw.budgetapp;
 
 import android.os.Bundle;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import no.hiof.trondkw.budgetapp.databinding.ActivityMainBinding;
+import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
+import no.hiof.trondkw.budgetapp.ui.BudgetDialog;
+import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IBudgetDialogListener {
 
     private ActivityMainBinding binding;
+    private BudgetMonthViewModel budgetMonthViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 
-        //NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-        //NavController navController = navHostFragment.getNavController();
-
-
         // R.id.... get ID from NavHostFragment <fragment> in activity_main.xml
-        // Klarer ikke finne ID gjennom binding
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
 
         DrawerLayout drawerLayout = binding.drawerLayout;
@@ -73,4 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void setNewBudget(String budgetInput) {
+        budgetMonthViewModel.setBudget(budgetInput);
+    }
+
 }
