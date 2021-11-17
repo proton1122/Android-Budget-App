@@ -45,7 +45,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         binding = FragmentAddExpenseBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
-        binding.selectDateView.setOnClickListener(view -> showDatePickerDialog());
+        binding.dateInput.setOnClickListener(view -> showDatePickerDialog());
         
         binding.addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         this.month = month;
         this.dayOfMonth = dayOfMonth;
         String date = "day/month/year: " + dayOfMonth + "/" + (month + 1) + "/" + year;
-        binding.selectDateView.setText(date);
+        binding.dateInput.setText(date);
     }
 
     // sets the start date of the DatePickerDialog
