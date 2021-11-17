@@ -3,9 +3,13 @@ package no.hiof.trondkw.budgetapp.ui;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -90,5 +94,35 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
             dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             isDateSet = true;
     }
+
+
+    // TODO: remove if not using toolbar menu
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        //MenuInflater menuInflater = requireActivity().getMenuInflater();
+        inflater.inflate(R.menu.add_expense_menu, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    // TODO: remove if not using toolbar menu
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.save_expense) {
+            saveExpense();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void saveExpense() {
+        // TODO: move adding new expense from onClickListener to here?
+        Toast toast = Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+
 
 } // end AddExpenseFragment class
