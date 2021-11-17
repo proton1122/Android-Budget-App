@@ -17,10 +17,19 @@
             android:id="@+id/ExpenseCardView_Category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
 
             android:text="category" />
+
+        <TextView
+            android:id="@+id/ExpenseCardView_Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@id/ExpenseCardView_Sum"
+            android:text="date" />
+
 
         <TextView
             android:id="@+id/ExpenseCardView_Title"

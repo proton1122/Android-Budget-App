@@ -77,7 +77,9 @@ public class BudgetMonthRepository {
             //int sum = 1000 + i;
             int sum = 1000;
 
-            list.add(new Expense(title, sum));
+            LocalDate date = LocalDate.now();
+
+            list.add(new Expense(date, title, sum));
         }
         return list;
     }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.adapter.ExpenseRecyclerAdapter;
-import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.databinding.FragmentSavingsOverviewBinding;
 import no.hiof.trondkw.budgetapp.interfaces.IOnItemClickListener;
 import no.hiof.trondkw.budgetapp.models.Expense;
@@ -73,7 +72,20 @@ public class SavingsOverviewFragment extends Fragment {
         adapter.setOnItemClickListener(new IOnItemClickListener() {
             @Override
             public void onItemClick(Expense expense) {
-                Toast.makeText(requireActivity(), ("Clicked on: " + expense.getExpenseTitle()), Toast.LENGTH_LONG).show();
+                // TODO: Go to EditExpenseFragment (or AddEditExpenseFragment?), and pass along the values from this Expense
+                Toast.makeText(requireActivity(), ("Clicked on: " + expense.getTitle()), Toast.LENGTH_LONG).show();
+
+                Bundle args = new Bundle();
+
+                args.putBoolean(Expense.EDIT, true);
+
+                args.putString(Expense.ID, "");
+                args.putString(Expense.TITLE, expense.getTitle());
+                args.putString(Expense.CATEGORY, "");
+                args.putString(Expense.DATE, expense.getDate().toString());
+                args.putDouble(Expense.SUM, expense.getSum());
+
+                Navigation.findNavController(view).navigate(R.id.action_savingsOverviewFragment_to_addExpenseFragment, args);
             }
         });
 

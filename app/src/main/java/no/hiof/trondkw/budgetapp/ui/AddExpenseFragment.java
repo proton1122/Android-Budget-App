@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Locale;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentAddExpenseBinding;
@@ -29,11 +30,9 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     private BudgetMonthViewModel budgetMonthViewModel;
     private FragmentAddExpenseBinding binding;
 
-    private boolean isDateSet = false;
     private int dayOfMonth;
     private int month;
     private int year;
-    private boolean inputValid = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,61 +45,103 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         binding = FragmentAddExpenseBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
+        // 1. Check if there is bundle...
+        // 2. If NO bundle - ADD EXPENSE path
+        // 3. If bundle - EDIT EXPENSE path
+        if(getArguments() == null)
+            addExpense();
+        else
+            editExpense();
 
-        setDateToday();
-        binding.dateInput.setText(getDateFormat(dayOfMonth, month, year));
+
         binding.dateInput.setOnClickListener(view -> showDatePickerDialog());
         
         binding.addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                validateInput();
+                boolean validInput = validateInput();
 
-                if(inputValid) {
+                if(validInput) {
                     saveExpense();
                     Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_savingsOverviewFragment);
                 }
+
             }
         });
         return binding.getRoot();
     }
 
 
-    private void showDatePickerDialog() {
-        if (!isDateSet)
-            setDateToday();
+    private void addExpense() {
+        LocalDate now = LocalDate.now();
+        setDate(now);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this, year, month, dayOfMonth);
+        String date1 = getDateFormat(now.getDayOfMonth(), now.getMonthValue(), now.getYear());
+        binding.dateInput.setText(date1);
+
+        // TODO: Set String variable
+        binding.addExpenseButton.setText("Add Expense");
+    }
+
+    private void editExpense() {
+
+        if (getArguments() != null) {
+
+            LocalDate date = LocalDate.parse(getArguments().get(Expense.DATE).toString());
+            setDate(date);
+
+            String date2 = getDateFormat(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+            binding.dateInput.setText(date2);
+
+            binding.titleInput.setText(getArguments().get(Expense.TITLE).toString());
+
+            String sum = Double.toString(getArguments().getDouble(Expense.SUM));
+            binding.expenseSumInput.setText(sum);
+
+            // TODO: Set String variable
+            binding.addExpenseButton.setText("Save");
+
+            // TODO: EDIT EXPENSE, NOT CREATE NEW ONE....
+
+        }
+    }
+
+
+    /**
+     *      Shows the DatePickerDialog.
+     *      DatePickerDialog starts month from 0, so the month passed into it has to be increased by 1.
+     */
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), this, year, month - 1, dayOfMonth);
         datePickerDialog.show();
     }
 
-
-    // gets the input from the DatePickerDialog and displays it
-    // TODO
-    // Set a more fitting date format for display
+    /**
+     *      Gets the user selected date value from the DatePickerDialog.
+     *      DatePickerDialog starts month from 0, so the month returned has to be decreased by 1.
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         this.year = year;
-        this.month = month;
+        this.month = month + 1;
         this.dayOfMonth = dayOfMonth;
-        String date = getDateFormat(dayOfMonth, month, year);
+        String date = getDateFormat(dayOfMonth, month + 1, year);
         binding.dateInput.setText(date);
     }
 
-    // sets the start date of the DatePickerDialog
-    // if no date has already been picked, set as 'today'
-    private void setDateToday() {
-        year = Calendar.getInstance().get(Calendar.YEAR);
-        month = Calendar.getInstance().get(Calendar.MONTH);
-        dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        isDateSet = true;
+
+    private void setDate(LocalDate date) {
+        dayOfMonth = date.getDayOfMonth();
+        month = date.getMonthValue();
+        year = date.getYear();
     }
+
 
     // TODO: move to utils
     private String getDateFormat(int day, int month, int year) {
-        // Both Calendar.MONTH and DatePickerDialog.onDateSet() starts month at 0!
-        return day + " / " + (month + 1) + " / " + year;
+        // DatePickerDialog.onDateSet() starts month at 0!
+        return day + " / " + month + " / " + year;
     }
 
 
@@ -126,26 +167,25 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     }
 
 
-    private void validateInput() {
-        if(binding.descriptionInput.getText().toString().isEmpty()) {
-            binding.descriptionLayout.setErrorEnabled(true);
-            binding.descriptionLayout.setError("Description required");
-            return;
+    private boolean validateInput() {
+        if(binding.titleInput.getText().toString().isEmpty()) {
+            binding.titleLayout.setErrorEnabled(true);
+            binding.titleLayout.setError("Description required");
+            return false;
         }
         else {
-            binding.descriptionLayout.setErrorEnabled(false);
+            binding.titleLayout.setErrorEnabled(false);
         }
 
         if(binding.expenseSumInput.getText().toString().isEmpty()) {
             binding.expenseSumLayout.setErrorEnabled(true);
             binding.expenseSumLayout.setError("Sum required");
-            return;
+            return false;
         }
         else {
             binding.expenseSumLayout.setErrorEnabled(false);
         }
-
-        inputValid = true;
+        return true;
     }
 
     private void saveExpense() {
@@ -154,12 +194,13 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         toast.show();
 
         LocalDate expenseDate = LocalDate.of(year, month, dayOfMonth);
-        String expenseDescription = binding.descriptionInput.getText().toString();
+        String expenseDescription = binding.titleInput.getText().toString();
         double expenseSum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
 
         Expense newExpense = new Expense(expenseDate, expenseDescription, expenseSum);
         budgetMonthViewModel.addExpense(newExpense);
     }
+
 
 
 

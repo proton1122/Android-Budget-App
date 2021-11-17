@@ -4,64 +4,68 @@ import java.time.LocalDate;
 
 public class Expense {
 
+    public static final String EDIT = "edit";
+    public static final String ID = "id";
+    public static final String TITLE = "title";
+    public static final String CATEGORY = "category";
+    public static final String DATE = "date";
+    public static final String SUM = "sum";
+
+
+
     /**
      *      The Expense class is designed to hold the data
      *      for a single user expense.
      *
      */
 
-    private int expenseId;
-    private String expenseTitle;
-    private String expenseDescription;
+    private int id;
+    private String title;
     //private ExpenseCategory category;
-    private String expenseCategory;
-    private LocalDate expenseDate;
+    private String category;
+    private LocalDate date;
     private double sum;
 
 
     public Expense() {}
 
     public Expense(String title, double sum) {
-        this.expenseTitle = title;
+        this.title = title;
         this.sum = sum;
     }
 
-    public Expense(LocalDate date, String description, double sum) {
-        this.expenseDate = date;
-        this.expenseTitle = description;
+    public Expense(LocalDate date, String title, double sum) {
+        this.date = date;
+        this.title = title;
         this.sum = sum;
     }
 
 
-    public int getExpenseId() {
-        return expenseId;
-    }
-    public String getExpenseTitle() {
-        return expenseTitle;
-    }
-    public void setExpenseTitle(String expenseTitle) {
-        this.expenseTitle = expenseTitle;
+    public int getId() {
+        return id;
     }
 
-    public LocalDate getExpenseDate() {
-        return expenseDate;
+    public String getTitle() {
+        return title;
     }
-    public void setExpenseDate(LocalDate expenseDate) {
-        this.expenseDate = expenseDate;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getExpenseDescription() {
-        return expenseDescription;
+    public LocalDate getDate() {
+        return date;
     }
-    public void setExpenseDescription(String expenseDescription) {
-        this.expenseDescription = expenseDescription;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
-    public String getExpenseCategory() {
-        return expenseCategory;
+
+    public String getCategory() {
+        return category;
     }
-    public void setExpenseCategory(String expenseCategory) {
-        this.expenseCategory = expenseCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
+
     public double getSum() {
         return sum;
     }

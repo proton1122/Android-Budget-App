@@ -48,8 +48,9 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
         Expense expenseToDisplay = expenseList.get(position);
 
         // from youtube example
-        holder.expenseTitleTextView.setText(expenseToDisplay.getExpenseTitle());
+        holder.expenseTitleTextView.setText(expenseToDisplay.getTitle());
         holder.expenseSumTextView.setText(String.valueOf(expenseToDisplay.getSum()));
+        holder.expenseDateTextView.setText(expenseToDisplay.getDate().toString());
 
         // old from school example
         //holder.setExpense(expenseToDisplay);
@@ -79,13 +80,16 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
 
         private final TextView expenseTitleTextView;
         private final TextView expenseSumTextView;
+        private final TextView expenseDateTextView;
 
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
 
             expenseTitleTextView = itemView.findViewById(R.id.ExpenseCardView_Title);
             expenseSumTextView = itemView.findViewById(R.id.ExpenseCardView_Sum);
+            expenseDateTextView = itemView.findViewById(R.id.ExpenseCardView_Date);
 
+            // handle onclick for each card view
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -98,12 +102,16 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
             });
         }
 
-        public void setExpense(Expense expenseToDisplay) {
-            expenseTitleTextView.setText(expenseToDisplay.getExpenseTitle());
 
+        /*
+        public void setExpense(Expense expenseToDisplay) {
+            expenseTitleTextView.setText(expenseToDisplay.getTitle());
+            expenseDateTextView.setText(expenseToDisplay.getDate().toString());
             String sum = expenseToDisplay.getSum() + ",-";
             expenseSumTextView.setText(sum);
         }
+        */
+
     } // end ExpenseViewHolder class ---------------------------------------------------------------
 
 

@@ -61,7 +61,7 @@ public class BudgetDialog extends DialogFragment {
         try {
             listener = (IBudgetDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement blabla...");
+            throw new ClassCastException(context.toString() + " must implement IBudgetDialogListener.");
         }
     }
 
