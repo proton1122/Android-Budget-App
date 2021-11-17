@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.adapter.ExpenseRecyclerAdapter;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.databinding.FragmentSavingsOverviewBinding;
+import no.hiof.trondkw.budgetapp.interfaces.IOnItemClickListener;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
@@ -66,6 +68,14 @@ public class SavingsOverviewFragment extends Fragment {
 
         // set navigation to addExpenseFragment with FAB, move this to .xml later
         binding.addExpenseFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_savingsOverviewFragment_to_addExpenseFragment));
+
+
+        adapter.setOnItemClickListener(new IOnItemClickListener() {
+            @Override
+            public void onItemClick(Expense expense) {
+                Toast.makeText(requireActivity(), ("Clicked on: " + expense.getExpenseTitle()), Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }

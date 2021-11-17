@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import no.hiof.trondkw.budgetapp.R;
+import no.hiof.trondkw.budgetapp.interfaces.IOnItemClickListener;
 import no.hiof.trondkw.budgetapp.models.Expense;
 
 public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecyclerAdapter.ExpenseViewHolder> {
 
     private List<Expense> expenseList;
     private LayoutInflater inflater;
+    private IOnItemClickListener listener;
 
 
     public ExpenseRecyclerAdapter() {
@@ -66,13 +68,14 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
     }
 
 
-
-
+    public void setOnItemClickListener(IOnItemClickListener listener) {
+        this.listener = listener;
+    }
 
 
 
     // Inner class for Adapter ---------------------------------------------------------------------
-    public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
+    public class ExpenseViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView expenseTitleTextView;
         private final TextView expenseSumTextView;
@@ -82,6 +85,17 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
 
             expenseTitleTextView = itemView.findViewById(R.id.ExpenseCardView_Title);
             expenseSumTextView = itemView.findViewById(R.id.ExpenseCardView_Sum);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(expenseList.get(position));
+                    }
+                }
+            });
         }
 
         public void setExpense(Expense expenseToDisplay) {
