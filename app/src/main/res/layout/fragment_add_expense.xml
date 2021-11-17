@@ -70,7 +70,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="2dp"
                 android:ems="10"
-                android:inputType="textShortMessage" />
+                android:inputType="textShortMessage"
+                android:hint="Description"/>
 
             <!-- Category -->
             <TextView
@@ -108,7 +109,8 @@
                 android:layout_marginTop="2dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:hint="Sum"/>
 
 
             <!-- Add expense button -->
