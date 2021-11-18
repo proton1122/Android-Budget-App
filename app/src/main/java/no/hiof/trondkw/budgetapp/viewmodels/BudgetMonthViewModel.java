@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Random;
 
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Expense;
@@ -28,8 +29,13 @@ public class BudgetMonthViewModel extends ViewModel {
         //int monthId = generateMonthId();
 
         repository = new BudgetMonthRepository();
-        currentMonth = repository.getMonth(year, month);
-        //currentMonth.setValue(repository.getMonth(year, month));
+
+        // get current month
+        //currentMonth = repository.getMonth(year, month);
+
+        // get test data
+        currentMonth = repository.getTestMonth(year, month);
+
 
         expenseList = new MutableLiveData<>();
         expenseList.setValue(currentMonth.getMonthlyExpenses());
@@ -122,6 +128,7 @@ public class BudgetMonthViewModel extends ViewModel {
         System.out.println("VIEWMODEL.SETCURRENTMONTH AFTER: " + currentMonth);
         System.out.println(currentMonth.getYear() + " / " + currentMonth.getMonth() );
 
+        System.out.println(currentMonth.getBudget());
 
     }
 

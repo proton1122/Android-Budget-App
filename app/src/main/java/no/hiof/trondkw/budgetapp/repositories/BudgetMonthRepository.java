@@ -30,17 +30,10 @@ public class BudgetMonthRepository {
             return LocalDatabase.getMonth(monthId);
 
 
-        boolean testing = true;
-        if (testing)
-            return createTestData(year, month);
-
-
-
         // check firebase storage
 
 
         // if doesn't exist, create new
-
         return new BudgetMonth(year, month);
     }
 
@@ -59,6 +52,12 @@ public class BudgetMonthRepository {
 
 
     // other
+
+    public BudgetMonth getTestMonth(int year, int month) {
+        return createTestData(year, month);
+    }
+
+
 
     private BudgetMonth createTestData(int year, int month) {
 

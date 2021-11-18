@@ -62,14 +62,10 @@ public class MonthYearPickerDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        // TODO: set values
-
                         int year = yearPicker.getValue();
                         int month = monthPicker.getValue();
 
                         listener.loadMonth(year, month);
-
-
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
