@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
 
         DrawerLayout drawerLayout = binding.drawerLayout;
         Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.monthOverviewFragment,

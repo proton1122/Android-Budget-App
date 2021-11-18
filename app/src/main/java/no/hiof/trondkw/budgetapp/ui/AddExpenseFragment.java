@@ -83,7 +83,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
      *      Setup for creating a new expense
      */
     private void addExpenseFragment() {
-
+        requireActivity().setTitle("New Expense");
         mode = "NEW";
 
         LocalDate now = LocalDate.now();
@@ -100,6 +100,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
      *      Setup for editing an existing expense
      */
     private void editExpenseFragment() {
+        requireActivity().setTitle("Edit Expense");
 
         if (getArguments() != null) {
 

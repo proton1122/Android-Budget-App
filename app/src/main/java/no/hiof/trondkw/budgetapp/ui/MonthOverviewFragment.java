@@ -32,9 +32,9 @@ public class MonthOverviewFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
         binding.setCurrentMonth(budgetMonthViewModel);
+        requireActivity().setTitle("Monthly Overview");
 
         budgetMonthViewModel.getBudget().observe(requireActivity(), new Observer<Double>() {
             @Override

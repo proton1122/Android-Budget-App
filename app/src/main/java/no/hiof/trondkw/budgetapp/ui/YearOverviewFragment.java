@@ -28,8 +28,9 @@ public class YearOverviewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentYearOverviewBinding.inflate(inflater, container, false);
+
+        requireActivity().setTitle("Year Overview");
 
         // set this after adding <data> to xml
         // binding.setBudgetMonthViewModel(....)

@@ -36,13 +36,9 @@ public class MonthDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // which one is correct?
         binding = FragmentMonthDetailsBinding.inflate(inflater, container, false);
-        //binding = DataBindingUtil.inflate(inflater, R.layout.fragment_monthly_details, container, false);
-
-        // set view model in binding
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
+        requireActivity().setTitle("Monthly Details");
 
         // observer viewModel...
         // budgetMonthViewModel.get(...).observer.....
