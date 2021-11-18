@@ -39,9 +39,11 @@ public class MonthOverviewFragment extends Fragment {
         binding.currentYearMonth.setOnClickListener(view -> openDatePickerDialog());
         binding.currentBudget.setOnClickListener(view1 -> openEditBudgetDialog());
 
-        // observer viewModel
+        // observe viewModel
         budgetMonthViewModel.getBudget().observe(requireActivity(), aDouble -> binding.setCurrentMonth(budgetMonthViewModel));
         budgetMonthViewModel.getExpenseList().observe(requireActivity(), expenses -> binding.setCurrentMonth(budgetMonthViewModel));
+
+        //budgetMonthViewModel.getCurrentMonthId().observe(requireActivity(), integer -> binding.setCurrentMonth(budgetMonthViewModel));
 
         return binding.getRoot();
     }

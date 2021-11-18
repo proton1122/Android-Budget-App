@@ -26,7 +26,6 @@ public class BudgetMonthViewModel extends ViewModel {
     public BudgetMonthViewModel() {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonth().getValue();
-        //int monthId = generateMonthId();
 
         repository = new BudgetMonthRepository();
 
@@ -138,15 +137,11 @@ public class BudgetMonthViewModel extends ViewModel {
 
     // Set current month, get from Repository
     public void setCurrentMonth(int year, int month) {
-
-        System.out.println("VIEWMODEL.SETCURRENTMONTH BEFORE: " + currentMonth);
-        System.out.println(currentMonth.getYear() + " / " + currentMonth.getMonth() );
         currentMonth = repository.getMonth(year, month);
-        System.out.println("VIEWMODEL.SETCURRENTMONTH AFTER: " + currentMonth);
-        System.out.println(currentMonth.getYear() + " / " + currentMonth.getMonth() );
 
-        System.out.println(currentMonth.getBudget());
-
+        expenseList.setValue(currentMonth.getMonthlyExpenses());
+        budget.setValue(currentMonth.getBudget());
+        totalExpenses.setValue(calculateExpenses());
     }
 
 

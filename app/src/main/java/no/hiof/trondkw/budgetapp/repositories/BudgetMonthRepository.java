@@ -13,6 +13,7 @@ public class BudgetMonthRepository {
 
     public BudgetMonthRepository() {
 
+        // TODO: make singleton
         // initiate data?
         // singleton?
 
@@ -57,14 +58,9 @@ public class BudgetMonthRepository {
         return createTestData(year, month);
     }
 
-
-
     private BudgetMonth createTestData(int year, int month) {
-
         double budget = 100000;
-
         ArrayList<Expense> list = new ArrayList<>(getTestExpenseList());
-
         return new BudgetMonth(year, month, budget, list);
     }
 
@@ -83,13 +79,11 @@ public class BudgetMonthRepository {
         return list;
     }
 
-
     private int generateMonthId() {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonth().getValue();
-
         return Integer.parseInt("" + year + month);
     }
 
 
-}
+} // end BudgetMonthRepository class
