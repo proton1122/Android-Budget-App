@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
+
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
+import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.ui.dialogs.BudgetDialog;
 import no.hiof.trondkw.budgetapp.ui.dialogs.MonthYearPickerDialog;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
@@ -32,25 +35,14 @@ public class MonthOverviewFragment extends Fragment {
         binding.setCurrentMonth(budgetMonthViewModel);
         requireActivity().setTitle("Monthly Overview");
 
-
-        // test date picker for month/year
-
-        binding.currentYearMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDatePickerDialog();
-            }
-        });
-
+        // set onclick listeners
+        binding.currentYearMonth.setOnClickListener(view -> openDatePickerDialog());
         binding.currentBudget.setOnClickListener(view1 -> openEditBudgetDialog());
 
+        // observer viewModel
+        budgetMonthViewModel.getBudget().observe(requireActivity(), aDouble -> binding.setCurrentMonth(budgetMonthViewModel));
+        budgetMonthViewModel.getExpenseList().observe(requireActivity(), expenses -> binding.setCurrentMonth(budgetMonthViewModel));
 
-        budgetMonthViewModel.getBudget().observe(requireActivity(), new Observer<Double>() {
-            @Override
-            public void onChanged(Double aDouble) {
-                binding.setCurrentMonth(budgetMonthViewModel);
-            }
-        });
         return binding.getRoot();
     }
 

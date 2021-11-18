@@ -71,7 +71,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
                         saveNewExpense();
                     }
 
-                    Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_savingsOverviewFragment);
+                    Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_monthDetailsFragment);
                 }
             }
         });
@@ -206,20 +206,19 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     }
 
     /**
-     *      Create a new expense and save to viewModel.
+     *      Create a new expense.
      */
     private void saveNewExpense() {
 
-        LocalDate expenseDate = LocalDate.of(year, month, dayOfMonth);
-        String expenseDescription = binding.titleInput.getText().toString();
-        double expenseSum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
+        LocalDate date = LocalDate.of(year, month, dayOfMonth);
+        String title = binding.titleInput.getText().toString();
+        double sum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
 
-        Expense newExpense = new Expense(expenseDate, expenseDescription, expenseSum);
-        budgetMonthViewModel.addNewExpense(newExpense);
+        budgetMonthViewModel.addNewExpense(date, title, sum);
     }
 
     /**
-     *      Edit an expense and save to viewModel.
+     *      Edit an expense.
      */
     private void saveEditedExpense() {
 
@@ -233,10 +232,11 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
                 return;
             }
 
-            expense.setDate(LocalDate.of(year, month, dayOfMonth));
-            expense.setTitle(binding.titleInput.getText().toString());
-            //expense.setCategory();
-            expense.setSum(Double.parseDouble(binding.expenseSumInput.getText().toString()));
+            LocalDate date = LocalDate.of(year, month, dayOfMonth);
+            String title = binding.titleInput.getText().toString();
+            double sum = Double.parseDouble(binding.expenseSumInput.getText().toString());
+
+            budgetMonthViewModel.editExpense(id, date, title, sum);
         }
     }
 

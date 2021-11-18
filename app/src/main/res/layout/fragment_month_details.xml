@@ -13,85 +13,40 @@
     </data>
 
 
-    <!-- Layout for AppBar and FABs -->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
+    <!-- Main content layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MonthDetailsFragment">
+        tools:context=".ui.SavingsOverviewFragment">
 
 
-        <!-- Constraint layout for fixing BottomNavigationView overlapping.. -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <!-- Expense list recycler view -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
 
-
-            <!-- Expense list recycler view -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-
-
-                tools:listitem="@layout/expense_list_item" />
-
-            <!-- for use if there is a bottom navigation in this xml -->
-            <!-- app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view" -->
-
-
-            <!--
-            // stuff for RecyclerView and Data binding?
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:listData="@{monthViewModel.currentMonth.monthlyExpenses}"
-            tools:listitem="@layout/expense_list_item"
-            -->
+            tools:listitem="@layout/expense_list_item" />
 
 
-            <!-- Added BottomNavigationView here (again) to fix overlapping -->
-            <!--
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:background="?android:attr/windowBackground"
-
-                app:labelVisibilityMode="labeled"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-
-                app:menu="@menu/bottom_nav_menu" />
-            -->
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!-- Add FAB here... -->
         <!-- Floating Action Button -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/monthlyDetailsFragment_FloatingActionButton"
+            android:id="@+id/add_expense_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="16dp"
 
             android:contentDescription="Add new expense"
             app:srcCompat="@drawable/ic_add_icon" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
