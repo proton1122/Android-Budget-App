@@ -1,9 +1,11 @@
 package no.hiof.trondkw.budgetapp;
 
 import android.os.Bundle;
+import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -78,4 +80,16 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         budgetMonthViewModel.setBudget(budgetInput);
     }
 
-}
+
+    // Closes the navigation drawer instead of the application if the drawer is open
+    @Override
+    public void onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+} // end MainActivity class
