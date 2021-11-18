@@ -41,26 +41,64 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
 
-
+    // Get the viewModels expenseList
     public LiveData<ArrayList<Expense>> getExpenseList() {
         return expenseList;
     }
 
-    public void addExpense(Expense expense) {
+
+    // Get an expense from the viewModels expenseList
+    public Expense getExpense(String id) {
+
+        ArrayList<Expense> list = expenseList.getValue();
+
+        if (list != null) {
+            for (Expense expense: list) {
+
+                if (expense.getId().equalsIgnoreCase(id)) {
+                    return expense;
+                }
+
+            }
+        }
+
+        return null;
+    }
+
+
+    // Add new expense to the viewModels expenseList
+    public void addNewExpense(Expense expense) {
         expenseList.getValue().add(expense);
         totalExpenses.setValue(calculateExpenses());
+    }
 
+    // Remove one expense from the viewModels expenseList
+    public void removeExpense(Expense expense) {
+
+        ArrayList<Expense> list = expenseList.getValue();
+
+        if (list.contains(expense)) {
+            list.remove(expense);
+            expenseList.setValue(list);
+        }
+        else {
+            System.out.println("Could not remove expense..");
+        }
     }
 
 
-    public void setBudget(String b) {
-        budget.setValue(Double.parseDouble(b));
-    }
 
+    // Get the viewModels budget
     public LiveData<Double> getBudget() {
         return budget;
     }
 
+    // Set the viewModels budget
+    public void setBudget(String b) {
+        budget.setValue(Double.parseDouble(b));
+    }
+
+    // Get the viewModels total expenses
     public LiveData<Double> getTotalExpenses() {
         return totalExpenses;
     }

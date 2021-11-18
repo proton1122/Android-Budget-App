@@ -77,9 +77,7 @@ public class SavingsOverviewFragment extends Fragment {
 
                 Bundle args = new Bundle();
 
-                args.putBoolean(Expense.EDIT, true);
-
-                args.putString(Expense.ID, "");
+                args.putString(Expense.ID, expense.getId());
                 args.putString(Expense.TITLE, expense.getTitle());
                 args.putString(Expense.CATEGORY, "");
                 args.putString(Expense.DATE, expense.getDate().toString());

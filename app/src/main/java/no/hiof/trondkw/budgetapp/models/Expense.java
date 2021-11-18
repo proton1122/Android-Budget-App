@@ -1,6 +1,7 @@
 package no.hiof.trondkw.budgetapp.models;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Expense {
 
@@ -19,7 +20,7 @@ public class Expense {
      *
      */
 
-    private int id;
+    private String id;
     private String title;
     //private ExpenseCategory category;
     private String category;
@@ -35,13 +36,14 @@ public class Expense {
     }
 
     public Expense(LocalDate date, String title, double sum) {
+        this.id = UUID.randomUUID().toString();
         this.date = date;
         this.title = title;
         this.sum = sum;
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
