@@ -19,11 +19,11 @@ import android.widget.Spinner;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
+import no.hiof.trondkw.budgetapp.interfaces.IMonthYearPickerDialogListener;
 
 public class MonthYearPickerDialog extends DialogFragment {
 
-    // TODO: create new listener interface for this dialog
-    private IBudgetDialogListener listener;
+    private IMonthYearPickerDialogListener listener;
 
     private NumberPicker yearPicker;
     private NumberPicker monthPicker;
@@ -63,12 +63,11 @@ public class MonthYearPickerDialog extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         // TODO: set values
-                        /*
-                        String budget = budgetInput.getText().toString();
 
-                        if (budget.length() > 0)
-                            listener.setNewBudget(budget);
-                         */
+                        int year = yearPicker.getValue();
+                        int month = monthPicker.getValue();
+
+                        listener.loadMonth(year, month);
 
 
                     }
@@ -89,10 +88,9 @@ public class MonthYearPickerDialog extends DialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (IBudgetDialogListener) context;
+            listener = (IMonthYearPickerDialogListener) context;
         } catch (ClassCastException e) {
-            // TODO: fix error message after creating new listener interface
-            throw new ClassCastException(context.toString() + " must implement IBudgetDialogListener.");
+            throw new ClassCastException(context.toString() + " must implement IMonthYearPickerDialogListener.");
         }
     }
 

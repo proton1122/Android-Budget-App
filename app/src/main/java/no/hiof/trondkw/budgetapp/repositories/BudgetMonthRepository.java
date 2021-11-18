@@ -21,8 +21,7 @@ public class BudgetMonthRepository {
 
 
 
-
-    public BudgetMonth getCurrentMonth(int year, int month) {
+    public BudgetMonth getMonth(int year, int month) {
 
         int monthId = Integer.parseInt("" + year + month);
 
@@ -40,11 +39,12 @@ public class BudgetMonthRepository {
         // check firebase storage
 
 
-
         // if doesn't exist, create new
 
         return new BudgetMonth(year, month);
     }
+
+
 
     // FireBase data
         // get, send etc

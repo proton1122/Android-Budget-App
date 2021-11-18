@@ -16,6 +16,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
     private BudgetMonthRepository repository;
     private BudgetMonth currentMonth;
+    //private MutableLiveData<BudgetMonth> currentMonth;
 
     private MutableLiveData<ArrayList<Expense>> expenseList;
     private MutableLiveData<Double> budget;
@@ -27,7 +28,8 @@ public class BudgetMonthViewModel extends ViewModel {
         //int monthId = generateMonthId();
 
         repository = new BudgetMonthRepository();
-        currentMonth = repository.getCurrentMonth(year, month);
+        currentMonth = repository.getMonth(year, month);
+        //currentMonth.setValue(repository.getMonth(year, month));
 
         expenseList = new MutableLiveData<>();
         expenseList.setValue(currentMonth.getMonthlyExpenses());
@@ -109,6 +111,18 @@ public class BudgetMonthViewModel extends ViewModel {
     }
     public int getCurrentMonth() {
         return currentMonth.getMonth();
+    }
+
+    // Set current month, get from Repository
+    public void setCurrentMonth(int year, int month) {
+
+        System.out.println("VIEWMODEL.SETCURRENTMONTH BEFORE: " + currentMonth);
+        System.out.println(currentMonth.getYear() + " / " + currentMonth.getMonth() );
+        currentMonth = repository.getMonth(year, month);
+        System.out.println("VIEWMODEL.SETCURRENTMONTH AFTER: " + currentMonth);
+        System.out.println(currentMonth.getYear() + " / " + currentMonth.getMonth() );
+
+
     }
 
 

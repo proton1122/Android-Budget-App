@@ -18,11 +18,6 @@ public class BudgetMonth {
     private ArrayList<Expense> monthlyExpenses;
 
 
-    public BudgetMonth() {
-        this.budget = 0;
-        this.monthlyExpenses = new ArrayList<>();
-    }
-
     public BudgetMonth(int year, int month) {
         this.budget = 0;
         this.monthlyExpenses = new ArrayList<>();
@@ -37,6 +32,8 @@ public class BudgetMonth {
         this.month = month;
         this.budget = budget;
         this.monthlyExpenses = expenses;
+
+        this.id = Integer.parseInt("" + year + month);
     }
 
 

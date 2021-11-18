@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     @Override
     public void loadMonth(int year, int month) {
         // TODO: create method in viewModel
-        //budgetMonthViewModel.setCurrentMonth(year, month)
+        budgetMonthViewModel.setCurrentMonth(year, month);
     }
 
 
