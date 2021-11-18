@@ -26,6 +26,19 @@
             android:layout_height="match_parent"
             android:paddingTop="?attr/actionBarSize">
 
+
+            <TextView
+                android:id="@+id/date_picker_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DATE TEST"
+
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/textview_year_and_month"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
             <TextView
                 android:id="@+id/textview_year_and_month"
                 android:layout_width="wrap_content"

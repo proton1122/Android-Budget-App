@@ -1,6 +1,9 @@
 package no.hiof.trondkw.budgetapp.ui;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,15 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.Locale;
-
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
-import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MonthOverviewFragment extends Fragment {
@@ -35,6 +30,18 @@ public class MonthOverviewFragment extends Fragment {
         binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
         binding.setCurrentMonth(budgetMonthViewModel);
         requireActivity().setTitle("Monthly Overview");
+
+
+        // test date picker for month/year
+
+        binding.datePickerTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTestDatePicker();
+            }
+        });
+
+
 
         budgetMonthViewModel.getBudget().observe(requireActivity(), new Observer<Double>() {
             @Override
@@ -63,5 +70,16 @@ public class MonthOverviewFragment extends Fragment {
         budgetDialog.setArguments(args);
         budgetDialog.show(requireActivity().getSupportFragmentManager(), null);
     }
+
+
+    private void showTestDatePicker() {
+
+        // show new fragment with number pickers...
+        MonthYearPicker monthYearPicker = new MonthYearPicker();
+
+        monthYearPicker.show(requireActivity().getSupportFragmentManager(), null);
+
+    }
+
 
 } // end MonthOverviewFragment class
