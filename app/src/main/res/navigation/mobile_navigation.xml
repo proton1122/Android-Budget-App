@@ -11,11 +11,7 @@
         android:id="@+id/monthOverviewFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.MonthOverviewFragment"
         android:label="fragment_month_overview"
-        tools:layout="@layout/fragment_month_overview" >
-        <action
-            android:id="@+id/action_monthOverviewFragment_to_editBudgetDialogueFragment"
-            app:destination="@id/editBudgetDialogueFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_month_overview" />
     <fragment
         android:id="@+id/monthDetailsFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.MonthDetailsFragment"
@@ -44,10 +40,6 @@
             android:id="@+id/action_addExpenseFragment_to_savingsOverviewFragment"
             app:destination="@id/savingsOverviewFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/editBudgetDialogueFragment"
-        android:name="no.hiof.trondkw.budgetapp.ui.EditBudgetDialogFragment"
-        android:label="EditBudgetDialogueFragment" />
 
 
 </navigation>

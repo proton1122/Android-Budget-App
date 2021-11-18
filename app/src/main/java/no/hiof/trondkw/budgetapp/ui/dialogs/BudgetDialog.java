@@ -1,4 +1,4 @@
-package no.hiof.trondkw.budgetapp.ui;
+package no.hiof.trondkw.budgetapp.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;

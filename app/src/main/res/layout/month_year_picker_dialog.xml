@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_margin="16dp"
-        tools:context=".ui.MonthYearPickerDialog">
+        tools:context=".ui.dialogs.MonthYearPickerDialog">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"

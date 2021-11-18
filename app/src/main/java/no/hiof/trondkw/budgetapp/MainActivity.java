@@ -1,7 +1,6 @@
 package no.hiof.trondkw.budgetapp;
 
 import android.os.Bundle;
-import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 import no.hiof.trondkw.budgetapp.databinding.ActivityMainBinding;
 import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
 import no.hiof.trondkw.budgetapp.interfaces.IMonthYearPickerDialogListener;
-import no.hiof.trondkw.budgetapp.ui.BudgetDialog;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MainActivity extends AppCompatActivity implements IBudgetDialogListener, IMonthYearPickerDialogListener {
