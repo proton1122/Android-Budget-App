@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        // R.id.... get ID from NavHostFragment <fragment> in activity_main.xml
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
 
         DrawerLayout drawerLayout = binding.drawerLayout;
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -56,37 +52,21 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         NavigationUI.setupWithNavController(binding.navigationView, navController);
 
 
-
-        /*
-
-        -- REMOVED ALL NAVIGATION ELEMENTS FOR CLEAN START --
-
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
-        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-
-        */
-
-
     }
 
+
+    // send input from EditBudgetDialog to viewModel
     @Override
     public void setNewBudget(String budgetInput) {
         budgetMonthViewModel.setBudget(budgetInput);
     }
 
-
+    // send input from MonthYearPickerDialog to viewModel
     @Override
     public void loadMonth(int year, int month) {
         // TODO: create method in viewModel
         budgetMonthViewModel.setCurrentMonth(year, month);
     }
-
 
     // Closes the navigation drawer instead of the application if the drawer is open
     @Override
@@ -98,6 +78,5 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
             super.onBackPressed();
         }
     }
-
 
 } // end MainActivity class
