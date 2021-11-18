@@ -72,16 +72,15 @@ public class MonthOverviewFragment extends Fragment {
         MonthYearPickerDialog monthYearPicker = new MonthYearPickerDialog();
 
         // get current year / month
-        //int year = budgetMonthViewModel.getYear();
-        //int month = budgetMonthViewModel.getMonth();
-
+        int year = budgetMonthViewModel.getCurrentYear();
+        int month = budgetMonthViewModel.getCurrentMonth();
 
         // send current month to date picker
         Bundle args = new Bundle();
-        //args.putInt("YEAR", year);
-        //args.putInt("MONTH", month);
+        args.putInt("YEAR", year);
+        args.putInt("MONTH", month);
 
-
+        monthYearPicker.setArguments(args);
         monthYearPicker.show(requireActivity().getSupportFragmentManager(), null);
     }
 

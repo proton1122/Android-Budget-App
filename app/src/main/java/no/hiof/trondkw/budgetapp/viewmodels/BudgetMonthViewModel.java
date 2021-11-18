@@ -103,6 +103,13 @@ public class BudgetMonthViewModel extends ViewModel {
         return totalExpenses;
     }
 
+    // Get current month year / month value
+    public int getCurrentYear() {
+        return currentMonth.getYear();
+    }
+    public int getCurrentMonth() {
+        return currentMonth.getMonth();
+    }
 
 
     public String getDateString() {
