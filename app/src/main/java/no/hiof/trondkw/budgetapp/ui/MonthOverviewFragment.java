@@ -34,14 +34,14 @@ public class MonthOverviewFragment extends Fragment {
 
         // test date picker for month/year
 
-        binding.datePickerTest.setOnClickListener(new View.OnClickListener() {
+        binding.currentYearMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDatePickerDialog();
             }
         });
 
-        binding.editBudgetButton.setOnClickListener(view1 -> openEditBudgetDialog());
+        binding.currentBudget.setOnClickListener(view1 -> openEditBudgetDialog());
 
 
         budgetMonthViewModel.getBudget().observe(requireActivity(), new Observer<Double>() {
