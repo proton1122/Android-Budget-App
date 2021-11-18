@@ -18,6 +18,8 @@ import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
 
 public class BudgetDialog extends DialogFragment {
 
+    public static final String BUDGET = "budget";
+
     private EditText budgetInput;
     private IBudgetDialogListener listener;
 
@@ -30,8 +32,7 @@ public class BudgetDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.edit_budget, null);
 
         budgetInput = view.findViewById(R.id.edittext_edit_budget);
-
-
+        budgetInput.setText(getArguments().get(BUDGET).toString());
 
         builder.setView(view)
                 .setPositiveButton("Set", new DialogInterface.OnClickListener() {

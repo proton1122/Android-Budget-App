@@ -54,6 +54,13 @@ public class MonthOverviewFragment extends Fragment {
 
     public void openEditBudgetDialog() {
         BudgetDialog budgetDialog = new BudgetDialog();
+
+        String budget = budgetMonthViewModel.getBudget().getValue().toString();
+
+        Bundle args = new Bundle();
+        args.putString(BudgetDialog.BUDGET, budget);
+
+        budgetDialog.setArguments(args);
         budgetDialog.show(requireActivity().getSupportFragmentManager(), null);
     }
 
