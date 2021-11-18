@@ -14,12 +14,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import no.hiof.trondkw.budgetapp.R;
+import no.hiof.trondkw.budgetapp.databinding.EditBudgetBinding;
+import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
 
 public class BudgetDialog extends DialogFragment {
 
     public static final String BUDGET = "budget";
 
+    // TODO: how to use binding with alert dialog?
+    //EditBudgetBinding binding;
     private EditText budgetInput;
     private IBudgetDialogListener listener;
 
@@ -27,6 +31,8 @@ public class BudgetDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
+        // TODO: how to use binding with alert dialog?
+        //binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.edit_budget, null);

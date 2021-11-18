@@ -37,10 +37,11 @@ public class MonthOverviewFragment extends Fragment {
         binding.datePickerTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTestDatePicker();
+                openDatePickerDialog();
             }
         });
 
+        binding.editBudgetButton.setOnClickListener(view1 -> openEditBudgetDialog());
 
 
         budgetMonthViewModel.getBudget().observe(requireActivity(), new Observer<Double>() {
@@ -52,12 +53,7 @@ public class MonthOverviewFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-        binding.editBudgetButton.setOnClickListener(view1 -> openEditBudgetDialog());
-    }
 
     public void openEditBudgetDialog() {
         BudgetDialog budgetDialog = new BudgetDialog();
@@ -72,13 +68,21 @@ public class MonthOverviewFragment extends Fragment {
     }
 
 
-    private void showTestDatePicker() {
+    private void openDatePickerDialog() {
+        MonthYearPickerDialog monthYearPicker = new MonthYearPickerDialog();
 
-        // show new fragment with number pickers...
-        MonthYearPicker monthYearPicker = new MonthYearPicker();
+        // get current year / month
+        //int year = budgetMonthViewModel.getYear();
+        //int month = budgetMonthViewModel.getMonth();
+
+
+        // send current month to date picker
+        Bundle args = new Bundle();
+        //args.putInt("YEAR", year);
+        //args.putInt("MONTH", month);
+
 
         monthYearPicker.show(requireActivity().getSupportFragmentManager(), null);
-
     }
 
 

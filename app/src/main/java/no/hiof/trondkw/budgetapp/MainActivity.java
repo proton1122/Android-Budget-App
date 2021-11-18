@@ -15,10 +15,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import no.hiof.trondkw.budgetapp.databinding.ActivityMainBinding;
 import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
+import no.hiof.trondkw.budgetapp.interfaces.IMonthYearPickerDialogListener;
 import no.hiof.trondkw.budgetapp.ui.BudgetDialog;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
-public class MainActivity extends AppCompatActivity implements IBudgetDialogListener {
+public class MainActivity extends AppCompatActivity implements IBudgetDialogListener, IMonthYearPickerDialogListener {
 
     private ActivityMainBinding binding;
     private BudgetMonthViewModel budgetMonthViewModel;
@@ -82,6 +83,13 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     }
 
 
+    @Override
+    public void loadMonth(int year, int month) {
+        // TODO: create method in viewModel
+        //budgetMonthViewModel.setCurrentMonth(year, month)
+    }
+
+
     // Closes the navigation drawer instead of the application if the drawer is open
     @Override
     public void onBackPressed() {
@@ -92,5 +100,6 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
             super.onBackPressed();
         }
     }
+
 
 } // end MainActivity class
