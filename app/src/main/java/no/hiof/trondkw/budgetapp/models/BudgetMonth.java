@@ -11,7 +11,7 @@ public class BudgetMonth {
      *
      */
 
-    private int id;
+    private final int id;
     private int year;
     private int month;
     private double budget;

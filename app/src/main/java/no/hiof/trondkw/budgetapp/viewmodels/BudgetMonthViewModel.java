@@ -127,7 +127,7 @@ public class BudgetMonthViewModel extends ViewModel {
         return totalExpenses;
     }
 
-    // Get current month year / month value
+    // Get current month year / month value - Used to set the year / month text in the YearMonth TextInput
     public int getCurrentYear() {
         return currentMonth.getYear();
     }
@@ -155,6 +155,14 @@ public class BudgetMonthViewModel extends ViewModel {
 
     private void updateCurrentMonth() {
         currentMonth.setBudget(budget.getValue());
+
+
+        /*
+        currentMonth expenseList is never updated before being saved to database,
+        but it still shows correct after retrieving from database??
+
+        currentMonth.setMonthlyExpenses(getExpenseList().getValue());
+        */
     }
 
 
