@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentAddEditExpenseBinding;
@@ -46,6 +48,11 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAddEditExpenseBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
+
+        // set category dropdown list
+        String[] categories = new String[] {"Cat1", "Cat2", "Cat3", "Cat4", "Cat5"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.category_list_item, categories);
+        binding.categoryInput.setAdapter(adapter);
 
         // If NO bundle - ADD EXPENSE path
         // If bundle - EDIT EXPENSE path
@@ -182,8 +189,6 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
      *      Validate the textInput fields
      */
     private boolean validateInput() {
-        System.out.println("validateInput()");
-
         if(binding.titleInput.getText().toString().isEmpty()) {
             binding.titleLayout.setErrorEnabled(true);
             binding.titleLayout.setError(getResources().getString(R.string.required));
@@ -192,6 +197,16 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         }
         else {
             binding.titleLayout.setErrorEnabled(false);
+        }
+
+        if(binding.categoryInput.getText().toString().isEmpty()) {
+            binding.categoryLayout.setErrorEnabled(true);
+            binding.categoryLayout.setError(getResources().getString(R.string.required));
+            binding.categoryInput.requestFocus();
+            return false;
+        }
+        else {
+            binding.categoryLayout.setErrorEnabled(false);
         }
 
         if(binding.expenseSumInput.getText().toString().isEmpty()) {
@@ -214,6 +229,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         LocalDate date = LocalDate.of(year, month, dayOfMonth);
         String title = binding.titleInput.getText().toString();
         double sum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
+        String category = binding.categoryInput.getText().toString();
 
         budgetMonthViewModel.addNewExpense(date, title, sum);
     }
@@ -236,6 +252,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             LocalDate date = LocalDate.of(year, month, dayOfMonth);
             String title = binding.titleInput.getText().toString();
             double sum = Double.parseDouble(binding.expenseSumInput.getText().toString());
+            String category = binding.categoryInput.getText().toString();
 
             budgetMonthViewModel.editExpense(id, date, title, sum);
         }
