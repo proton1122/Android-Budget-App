@@ -50,7 +50,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
 
         // from youtube example
         holder.expenseTitleTextView.setText(expenseToDisplay.getTitle());
-        holder.expenseSumTextView.setText(String.valueOf(expenseToDisplay.getSum()));
+        holder.expenseSumTextView.setText(Utilities.getFormattedSum(expenseToDisplay.getSum()));
         holder.expenseDateTextView.setText(Utilities.getFormattedDate(expenseToDisplay.getDate()));
         holder.expenseCategoryTextView.setText(expenseToDisplay.getCategory());
 

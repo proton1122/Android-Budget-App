@@ -116,7 +116,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
 
             binding.titleInput.setText(getArguments().get(Expense.TITLE).toString());
 
-            String sum = Double.toString(getArguments().getDouble(Expense.SUM));
+            String sum = Utilities.decimalFormatter.format(getArguments().getDouble(Expense.SUM));
             binding.expenseSumInput.setText(sum);
 
             binding.addExpenseButton.setText(getResources().getString(R.string.save_edited_expense));

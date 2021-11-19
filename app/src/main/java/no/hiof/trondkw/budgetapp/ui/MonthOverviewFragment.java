@@ -17,6 +17,7 @@ import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.ui.dialogs.BudgetDialog;
 import no.hiof.trondkw.budgetapp.ui.dialogs.MonthYearPickerDialog;
+import no.hiof.trondkw.budgetapp.utils.Utilities;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MonthOverviewFragment extends Fragment {
@@ -54,7 +55,7 @@ public class MonthOverviewFragment extends Fragment {
     public void openEditBudgetDialog() {
         BudgetDialog budgetDialog = new BudgetDialog();
 
-        String budget = budgetMonthViewModel.getBudget().getValue().toString();
+        String budget = Utilities.decimalFormatter.format(budgetMonthViewModel.getBudget().getValue());
 
         Bundle args = new Bundle();
         args.putString(getResources().getString(R.string.BUDGET), budget);

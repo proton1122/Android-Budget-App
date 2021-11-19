@@ -10,6 +10,8 @@
         <variable
             name="budgetMonthViewModel"
             type="no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel" />
+
+        <import type="no.hiof.trondkw.budgetapp.utils.Utilities"/>
     </data>
 
 
@@ -60,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="@{Double.toString(budgetMonthViewModel.totalExpenses)}"
+                android:text="@{Utilities.getFormattedSum(budgetMonthViewModel.totalExpenses)}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/summary_title"
