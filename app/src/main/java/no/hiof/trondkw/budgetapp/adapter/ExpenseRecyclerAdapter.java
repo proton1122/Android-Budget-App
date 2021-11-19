@@ -14,6 +14,7 @@ import java.util.List;
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.interfaces.IOnItemClickListener;
 import no.hiof.trondkw.budgetapp.models.Expense;
+import no.hiof.trondkw.budgetapp.utils.Utilities;
 
 public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecyclerAdapter.ExpenseViewHolder> {
 
@@ -50,7 +51,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
         // from youtube example
         holder.expenseTitleTextView.setText(expenseToDisplay.getTitle());
         holder.expenseSumTextView.setText(String.valueOf(expenseToDisplay.getSum()));
-        holder.expenseDateTextView.setText(expenseToDisplay.getDate().toString());
+        holder.expenseDateTextView.setText(Utilities.getFormattedDate(expenseToDisplay.getDate()));
         holder.expenseCategoryTextView.setText(expenseToDisplay.getCategory());
 
         // old from school example

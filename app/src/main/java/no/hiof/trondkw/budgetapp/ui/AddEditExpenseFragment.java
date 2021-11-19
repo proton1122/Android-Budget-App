@@ -18,11 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentAddEditExpenseBinding;
 import no.hiof.trondkw.budgetapp.models.Expense;
+import no.hiof.trondkw.budgetapp.utils.Utilities;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class AddEditExpenseFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -92,7 +92,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         LocalDate now = LocalDate.now();
         setDate(now);
 
-        String dateString = getDateFormat(now.getDayOfMonth(), now.getMonthValue(), now.getYear());
+        String dateString = Utilities.getFormattedDate(now.getDayOfMonth(), now.getMonthValue(), now.getYear());
         binding.dateInput.setText(dateString);
 
         binding.addExpenseButton.setText(getResources().getString(R.string.add_new_expense));
@@ -111,7 +111,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             LocalDate date = LocalDate.parse(getArguments().get(Expense.DATE).toString());
             setDate(date);
 
-            String dateString = getDateFormat(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+            String dateString = Utilities.getFormattedDate(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
             binding.dateInput.setText(dateString);
 
             binding.titleInput.setText(getArguments().get(Expense.TITLE).toString());
@@ -140,7 +140,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         this.year = year;
         this.month = month + 1;
         this.dayOfMonth = dayOfMonth;
-        String date = getDateFormat(dayOfMonth, month + 1, year);
+        String date = Utilities.getFormattedDate(dayOfMonth, month + 1, year);
         binding.dateInput.setText(date);
     }
 
@@ -155,10 +155,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
 
 
     // TODO: move to utils
-    private String getDateFormat(int day, int month, int year) {
-        // DatePickerDialog.onDateSet() starts month at 0!
-        return day + " / " + month + " / " + year;
-    }
+
 
 
     @Override
