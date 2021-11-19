@@ -17,7 +17,6 @@ public class BudgetMonthViewModel extends ViewModel {
 
     private final BudgetMonthRepository repository;
     private BudgetMonth currentMonth;
-    //private MutableLiveData<BudgetMonth> currentMonth;
 
     private final MutableLiveData<ArrayList<Expense>> expenseList;
     private final MutableLiveData<Double> budget;
@@ -68,7 +67,6 @@ public class BudgetMonthViewModel extends ViewModel {
 
             }
         }
-
         return null;
     }
 
@@ -120,6 +118,7 @@ public class BudgetMonthViewModel extends ViewModel {
     // Set the viewModels budget
     public void setBudget(String b) {
         budget.setValue(Double.parseDouble(b));
+        currentMonth.setBudget(Double.parseDouble(b));
     }
 
     // Get the viewModels total expenses
@@ -138,40 +137,22 @@ public class BudgetMonthViewModel extends ViewModel {
     // Set current month, get from Repository
     public void setBudgetMonth(int year, int month) {
 
-        // TODO: SAVE OLD MONTH TO REPOSITORY BEFORE SETTING NEW ONE
-        // update data
-        updateCurrentMonth();
-        
-
+        // save current month to database
         repository.saveMonth(currentMonth);
 
+        // get new month from database
         currentMonth = repository.getMonth(year, month);
 
+        // update viewModel
         expenseList.setValue(currentMonth.getMonthlyExpenses());
         budget.setValue(currentMonth.getBudget());
         totalExpenses.setValue(calculateExpenses());
     }
 
 
-    private void updateCurrentMonth() {
-        currentMonth.setBudget(budget.getValue());
-
-
-        /*
-        currentMonth expenseList is never updated before being saved to database,
-        but it still shows correct after retrieving from database??
-
-        currentMonth.setMonthlyExpenses(getExpenseList().getValue());
-        */
-    }
-
-
     public String getDateString() {
         int year = currentMonth.getYear();
         int month = currentMonth.getMonth();
-
-        System.out.println("year: " + year);
-        System.out.println("month: " + month);
 
         String yearString = String.valueOf(year);
         String monthString = Month.of(month).toString();
