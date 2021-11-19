@@ -29,7 +29,8 @@
                 android:id="@+id/date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Date">
+                android:layout_marginBottom="16dp"
+                android:hint="@string/date">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/date_input"
@@ -48,10 +49,11 @@
                 android:id="@+id/title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title"
-                app:endIconMode="clear_text"
+                app:helperText="@string/required"
                 app:errorEnabled="true"
-                app:errorIconDrawable="@drawable/ic_baseline_error_24">
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                android:hint="@string/title"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/title_input"
@@ -68,7 +70,8 @@
                 android:id="@+id/category_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Category">
+                android:layout_marginBottom="16dp"
+                android:hint="@string/category">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/category_input"
@@ -83,10 +86,11 @@
                 android:id="@+id/expense_sum_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Sum"
-                app:endIconMode="clear_text"
                 app:errorEnabled="true"
-                app:errorIconDrawable="@drawable/ic_baseline_error_24">
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:helperText="@string/required"
+                android:hint="@string/sum"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/expense_sum_input"
@@ -102,8 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_gravity="end"
-                android:text="Add Expense" />
+                android:layout_gravity="end" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

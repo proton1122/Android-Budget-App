@@ -32,7 +32,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     private int month;
     private int year;
 
-    private String mode;
+    private boolean editExpense;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,24 +56,20 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
 
 
         binding.dateInput.setOnClickListener(view -> showDatePickerDialog());
-        
-        binding.addExpenseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.addExpenseButton.setOnClickListener(view -> {
 
-                boolean validInput = validateInput();
+            boolean validInput = validateInput();
 
-                if(validInput) {
+            if(validInput) {
 
-                    if (mode.equalsIgnoreCase("EDIT")) {
-                        saveEditedExpense();
-                    }
-                    else {
-                        saveNewExpense();
-                    }
-
-                    Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_monthDetailsFragment);
+                if (editExpense) {
+                    saveEditedExpense();
                 }
+                else {
+                    saveNewExpense();
+                }
+
+                Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_monthDetailsFragment);
             }
         });
         return binding.getRoot();
@@ -85,7 +81,6 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
      */
     private void addExpenseFragment() {
         requireActivity().setTitle("New Expense");
-        mode = "NEW";
 
         LocalDate now = LocalDate.now();
         setDate(now);
@@ -93,8 +88,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         String dateString = getDateFormat(now.getDayOfMonth(), now.getMonthValue(), now.getYear());
         binding.dateInput.setText(dateString);
 
-        // TODO: Set String variable
-        binding.addExpenseButton.setText("Add Expense");
+        binding.addExpenseButton.setText(getResources().getString(R.string.add_new_expense));
     }
 
     /**
@@ -105,7 +99,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
 
         if (getArguments() != null) {
 
-            mode = "EDIT";
+            editExpense = true;
 
             LocalDate date = LocalDate.parse(getArguments().get(Expense.DATE).toString());
             setDate(date);
@@ -118,8 +112,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
             String sum = Double.toString(getArguments().getDouble(Expense.SUM));
             binding.expenseSumInput.setText(sum);
 
-            // TODO: Set String variable
-            binding.addExpenseButton.setText("Save");
+            binding.addExpenseButton.setText(getResources().getString(R.string.save_edited_expense));
         }
     }
 
@@ -161,16 +154,19 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     }
 
 
-    // TODO: remove if not using toolbar menu
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.save_expense);
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        //MenuInflater menuInflater = requireActivity().getMenuInflater();
         inflater.inflate(R.menu.add_expense_menu, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    // TODO: remove if not using toolbar menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save_expense) {
@@ -186,9 +182,12 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
      *      Validate the textInput fields
      */
     private boolean validateInput() {
+        System.out.println("validateInput()");
+
         if(binding.titleInput.getText().toString().isEmpty()) {
             binding.titleLayout.setErrorEnabled(true);
-            binding.titleLayout.setError("Description required");
+            binding.titleLayout.setError(getResources().getString(R.string.required));
+            binding.titleInput.requestFocus();
             return false;
         }
         else {
@@ -197,7 +196,8 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
 
         if(binding.expenseSumInput.getText().toString().isEmpty()) {
             binding.expenseSumLayout.setErrorEnabled(true);
-            binding.expenseSumLayout.setError("Sum required");
+            binding.expenseSumLayout.setError(getResources().getString(R.string.required));
+            binding.expenseSumInput.requestFocus();
             return false;
         }
         else {

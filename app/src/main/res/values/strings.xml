@@ -15,7 +15,17 @@
     <string name="savings">Savings</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
+
+
+    <string name="required">*Required</string>
+    <string name="save_edited_expense">Save</string>
+    <string name="add_new_expense">Add Expense</string>
+
+
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="category">Category</string>
+    <string name="sum">Sum</string>
     
     
     <!-- Constants -->
@@ -24,6 +34,9 @@
     <string name="BUDGET">budget</string>
     <string name="YEAR">year</string>
     <string name="MONTH">month</string>
+
+
+
 
 
 </resources>
