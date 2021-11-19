@@ -35,7 +35,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
     @Override
     public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // from youtube example
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_list_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_list_item_2, parent, false);
 
         // old from school example
         //View itemView = inflater.inflate(R.layout.expense_list_item, parent, false);
@@ -59,6 +59,10 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
     @Override
     public int getItemCount() {
         return expenseList.size();
+    }
+
+    public Expense getExpenseAt(int position) {
+        return expenseList.get(position);
     }
 
     public void setExpenses(List<Expense> expenses) {

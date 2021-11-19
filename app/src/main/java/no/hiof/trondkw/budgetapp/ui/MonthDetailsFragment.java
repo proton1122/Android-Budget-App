@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.adapter.ExpenseRecyclerAdapter;
@@ -65,6 +68,23 @@ public class MonthDetailsFragment extends Fragment {
 
             Navigation.findNavController(view).navigate(R.id.action_monthDetailsFragment_to_addExpenseFragment, args);
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Expense expenseToDelete = adapter.getExpenseAt(viewHolder.getAdapterPosition());
+                budgetMonthViewModel.deleteExpense(expenseToDelete);
+                adapter.setExpenses(budgetMonthViewModel.getExpenseList().getValue());
+
+                Toast.makeText(requireActivity(), "Expense deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(binding.recyclerView);
+
     }
 
 } // end MonthDetailsFragment class

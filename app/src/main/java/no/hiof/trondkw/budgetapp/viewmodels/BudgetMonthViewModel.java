@@ -95,10 +95,16 @@ public class BudgetMonthViewModel extends ViewModel {
 
 
     // Remove one expense from the viewModels expenseList
-    public void removeExpense(Expense expense) {
+    public void deleteExpense(Expense expense) {
 
+        if (expenseList.getValue().contains(expense)) {
+            expenseList.getValue().remove(expense);
+        }
+
+        totalExpenses.setValue(calculateExpenses());
+
+        /*
         ArrayList<Expense> list = expenseList.getValue();
-
         if (list.contains(expense)) {
             list.remove(expense);
             expenseList.setValue(list);
@@ -106,6 +112,7 @@ public class BudgetMonthViewModel extends ViewModel {
         else {
             System.out.println("Could not remove expense..");
         }
+         */
     }
 
 
