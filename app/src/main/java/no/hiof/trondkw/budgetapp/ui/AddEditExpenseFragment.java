@@ -19,14 +19,14 @@ import androidx.navigation.Navigation;
 import java.time.LocalDate;
 
 import no.hiof.trondkw.budgetapp.R;
-import no.hiof.trondkw.budgetapp.databinding.FragmentAddExpenseBinding;
+import no.hiof.trondkw.budgetapp.databinding.FragmentAddEditExpenseBinding;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
-public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class AddEditExpenseFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private BudgetMonthViewModel budgetMonthViewModel;
-    private FragmentAddExpenseBinding binding;
+    private FragmentAddEditExpenseBinding binding;
 
     private int dayOfMonth;
     private int month;
@@ -44,7 +44,7 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentAddExpenseBinding.inflate(inflater, container, false);
+        binding = FragmentAddEditExpenseBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
         // If NO bundle - ADD EXPENSE path
