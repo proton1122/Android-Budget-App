@@ -38,6 +38,8 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
