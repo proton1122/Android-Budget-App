@@ -80,14 +80,20 @@ public class BudgetMonthRepository {
     // Generate dummy data
     public static List<Expense> getTestExpenseList() {
         List<Expense> list = new ArrayList<>();
+        String category;
         for (int i = 0; i < 5; i++) {
             String title = "Expense " + i;
             //int sum = 1000 + i;
             int sum = 1000;
 
             LocalDate date = LocalDate.now();
+            if (i%2 == 0) {
+                category = "cat1";
+            }else {
+                category = "cat2";
+            }
 
-            list.add(new Expense(date, title, sum));
+            list.add(new Expense(date, title, category , sum));
         }
         return list;
     }
