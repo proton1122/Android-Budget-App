@@ -29,9 +29,46 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/summary_layout"
 
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/expense_list_item" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/cardview_dark_background"
+            android:id="@+id/summary_layout"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/summary_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/white"
+
+                android:text="TOTAL EXPENSES"/>
+
+            <TextView
+                android:id="@+id/summary_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@{Double.toString(budgetMonthViewModel.totalExpenses)}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/summary_title"
+
+                app:layout_constraintStart_toStartOf="@id/summary_title"
+                app:layout_constraintTop_toBottomOf="@id/summary_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <!-- Floating Action Button -->

@@ -80,6 +80,7 @@ public class MonthDetailsFragment extends Fragment {
                 Expense expenseToDelete = adapter.getExpenseAt(viewHolder.getAdapterPosition());
                 budgetMonthViewModel.deleteExpense(expenseToDelete);
                 adapter.setExpenses(budgetMonthViewModel.getExpenseList().getValue());
+                binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
                 Toast.makeText(requireActivity(), "Expense deleted", Toast.LENGTH_SHORT).show();
             }
