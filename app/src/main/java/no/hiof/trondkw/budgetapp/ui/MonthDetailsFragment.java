@@ -63,20 +63,17 @@ public class MonthDetailsFragment extends Fragment {
         // set navigation to addExpenseFragment with FAB, move this to .xml later
         binding.addExpenseFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_monthDetailsFragment_to_addExpenseFragment));
 
-        // set the onclick for each card view
-        adapter.setOnItemClickListener(new IOnItemClickListener() {
-            @Override
-            public void onItemClick(Expense expense) {
-                Bundle args = new Bundle();
+        // set the onclick for each card view, send data as bundle to fill in the input fields
+        adapter.setOnItemClickListener(expense -> {
+            Bundle args = new Bundle();
 
-                args.putString(Expense.ID, expense.getId());
-                args.putString(Expense.TITLE, expense.getTitle());
-                args.putString(Expense.CATEGORY, "");
-                args.putString(Expense.DATE, expense.getDate().toString());
-                args.putDouble(Expense.SUM, expense.getSum());
+            args.putString(Expense.ID, expense.getId());
+            args.putString(Expense.TITLE, expense.getTitle());
+            args.putString(Expense.CATEGORY, "");
+            args.putString(Expense.DATE, expense.getDate().toString());
+            args.putDouble(Expense.SUM, expense.getSum());
 
-                Navigation.findNavController(view).navigate(R.id.action_monthDetailsFragment_to_addExpenseFragment, args);
-            }
+            Navigation.findNavController(view).navigate(R.id.action_monthDetailsFragment_to_addExpenseFragment, args);
         });
     }
 

@@ -45,9 +45,8 @@ public class AddExpenseFragment extends Fragment implements DatePickerDialog.OnD
         binding = FragmentAddExpenseBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
-        // 1. Check if there is bundle...
-        // 2. If NO bundle - ADD EXPENSE path
-        // 3. If bundle - EDIT EXPENSE path
+        // If NO bundle - ADD EXPENSE path
+        // If bundle - EDIT EXPENSE path
         if(getArguments() == null)
             addExpenseFragment();
         else

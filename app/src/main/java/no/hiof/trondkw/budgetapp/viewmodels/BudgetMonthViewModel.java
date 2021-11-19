@@ -15,13 +15,13 @@ import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
 
 public class BudgetMonthViewModel extends ViewModel {
 
-    private BudgetMonthRepository repository;
+    private final BudgetMonthRepository repository;
     private BudgetMonth currentMonth;
     //private MutableLiveData<BudgetMonth> currentMonth;
 
-    private MutableLiveData<ArrayList<Expense>> expenseList;
-    private MutableLiveData<Double> budget;
-    private MutableLiveData<Double> totalExpenses;
+    private final MutableLiveData<ArrayList<Expense>> expenseList;
+    private final MutableLiveData<Double> budget;
+    private final MutableLiveData<Double> totalExpenses;
 
     public BudgetMonthViewModel() {
         int year = LocalDate.now().getYear();
@@ -136,12 +136,25 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
     // Set current month, get from Repository
-    public void setCurrentMonth(int year, int month) {
+    public void setBudgetMonth(int year, int month) {
+
+        // TODO: SAVE OLD MONTH TO REPOSITORY BEFORE SETTING NEW ONE
+        // update data
+        updateCurrentMonth();
+        
+
+        repository.saveMonth(currentMonth);
+
         currentMonth = repository.getMonth(year, month);
 
         expenseList.setValue(currentMonth.getMonthlyExpenses());
         budget.setValue(currentMonth.getBudget());
         totalExpenses.setValue(calculateExpenses());
+    }
+
+
+    private void updateCurrentMonth() {
+        currentMonth.setBudget(budget.getValue());
     }
 
 

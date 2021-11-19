@@ -20,8 +20,6 @@ public class BudgetMonthRepository {
     }
 
 
-
-
     public BudgetMonth getMonth(int year, int month) {
 
         int monthId = Integer.parseInt("" + year + month);
@@ -37,6 +35,21 @@ public class BudgetMonthRepository {
         // if doesn't exist, create new
         return new BudgetMonth(year, month);
     }
+
+
+    public void saveMonth(BudgetMonth month) {
+
+
+
+
+        // save to local storage first
+        LocalDatabase.addMonth(month.getId(), month);
+
+
+        // save to firebase
+
+    }
+
 
 
 

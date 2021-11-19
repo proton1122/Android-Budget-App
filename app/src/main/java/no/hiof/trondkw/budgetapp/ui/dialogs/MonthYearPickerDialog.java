@@ -27,7 +27,6 @@ public class MonthYearPickerDialog extends DialogFragment {
 
     private NumberPicker yearPicker;
     private NumberPicker monthPicker;
-    private String[] months;
 
 
     @NonNull
@@ -38,7 +37,7 @@ public class MonthYearPickerDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.month_year_picker_dialog, null);
 
-        months = new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String[] months = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
         yearPicker = view.findViewById(R.id.year_number_picker);
         yearPicker.setMinValue(2010);

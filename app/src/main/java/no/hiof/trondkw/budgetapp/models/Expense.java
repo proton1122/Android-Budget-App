@@ -5,7 +5,6 @@ import java.util.UUID;
 
 public class Expense {
 
-    public static final String EDIT = "edit";
     public static final String ID = "id";
     public static final String TITLE = "title";
     public static final String CATEGORY = "category";

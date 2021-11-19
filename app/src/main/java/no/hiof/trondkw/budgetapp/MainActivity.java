@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     // send input from MonthYearPickerDialog to viewModel
     @Override
     public void loadMonth(int year, int month) {
-        // TODO: create method in viewModel
-        budgetMonthViewModel.setCurrentMonth(year, month);
+        budgetMonthViewModel.setBudgetMonth(year, month);
     }
 
     // Closes the navigation drawer instead of the application if the drawer is open
