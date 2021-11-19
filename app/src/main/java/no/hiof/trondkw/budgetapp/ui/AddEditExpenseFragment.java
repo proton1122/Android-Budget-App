@@ -231,7 +231,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         double sum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
         String category = binding.categoryInput.getText().toString();
 
-        budgetMonthViewModel.addNewExpense(date, title, sum);
+        budgetMonthViewModel.addNewExpense(date, title, category, sum);
     }
 
     /**
@@ -254,7 +254,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             double sum = Double.parseDouble(binding.expenseSumInput.getText().toString());
             String category = binding.categoryInput.getText().toString();
 
-            budgetMonthViewModel.editExpense(id, date, title, sum);
+            budgetMonthViewModel.editExpense(id, date, title, category, sum);
         }
     }
 

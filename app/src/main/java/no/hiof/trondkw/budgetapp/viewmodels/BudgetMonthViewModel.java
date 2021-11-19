@@ -72,21 +72,22 @@ public class BudgetMonthViewModel extends ViewModel {
 
 
     // Add new expense to the viewModels expenseList
-    public void addNewExpense(LocalDate date, String title, double sum) {
-        Expense newExpense = new Expense(date, title, sum);
+    public void addNewExpense(LocalDate date, String title, String category, double sum) {
+        Expense newExpense = new Expense(date, title, category, sum);
 
         expenseList.getValue().add(newExpense);
         totalExpenses.setValue(calculateExpenses());
     }
 
     // Edit an existing expense and update total expenses
-    public void editExpense(String id, LocalDate date, String title, double sum) {
+    public void editExpense(String id, LocalDate date, String title, String category, double sum) {
         Expense expenseToEdit = getExpense(id);
 
         if (expenseToEdit != null) {
 
             expenseToEdit.setDate(date);
             expenseToEdit.setTitle(title);
+            expenseToEdit.setCategory(category);
             expenseToEdit.setSum(sum);
 
             totalExpenses.setValue(calculateExpenses());

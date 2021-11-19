@@ -51,6 +51,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
         holder.expenseTitleTextView.setText(expenseToDisplay.getTitle());
         holder.expenseSumTextView.setText(String.valueOf(expenseToDisplay.getSum()));
         holder.expenseDateTextView.setText(expenseToDisplay.getDate().toString());
+        holder.expenseCategoryTextView.setText(expenseToDisplay.getCategory());
 
         // old from school example
         //holder.setExpense(expenseToDisplay);
@@ -85,6 +86,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
         private final TextView expenseTitleTextView;
         private final TextView expenseSumTextView;
         private final TextView expenseDateTextView;
+        private final TextView expenseCategoryTextView;
 
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +94,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
             expenseTitleTextView = itemView.findViewById(R.id.ExpenseCardView_Title);
             expenseSumTextView = itemView.findViewById(R.id.ExpenseCardView_Sum);
             expenseDateTextView = itemView.findViewById(R.id.ExpenseCardView_Date);
+            expenseCategoryTextView = itemView.findViewById(R.id.ExpenseCardView_Category);
 
             // handle onclick for each card view
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -106,17 +109,6 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
             });
         }
 
-
-        /*
-        public void setExpense(Expense expenseToDisplay) {
-            expenseTitleTextView.setText(expenseToDisplay.getTitle());
-            expenseDateTextView.setText(expenseToDisplay.getDate().toString());
-            String sum = expenseToDisplay.getSum() + ",-";
-            expenseSumTextView.setText(sum);
-        }
-        */
-
     } // end ExpenseViewHolder class ---------------------------------------------------------------
-
 
 } // end ExpenseRecyclerAdapter class
