@@ -46,7 +46,6 @@ public class MonthYearPickerDialog extends DialogFragment {
         monthPicker.setMinValue(1);
         monthPicker.setMaxValue(12);
 
-
         Bundle args = getArguments();
 
         if (args != null) {
@@ -57,7 +56,7 @@ public class MonthYearPickerDialog extends DialogFragment {
         monthPicker.setDisplayedValues(months);
 
         builder.setView(view)
-                .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.dialog_set), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -67,7 +66,7 @@ public class MonthYearPickerDialog extends DialogFragment {
                         listener.loadMonth(year, month);
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
@@ -75,8 +74,6 @@ public class MonthYearPickerDialog extends DialogFragment {
 
         return builder.create();
     }
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -88,6 +85,5 @@ public class MonthYearPickerDialog extends DialogFragment {
             throw new ClassCastException(context.toString() + " must implement IMonthYearPickerDialogListener.");
         }
     }
-
 
 } // end MonthYearPicker class

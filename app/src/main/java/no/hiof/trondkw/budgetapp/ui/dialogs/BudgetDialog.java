@@ -39,9 +39,10 @@ public class BudgetDialog extends DialogFragment {
         String budget = getArguments().get(getResources().getString(R.string.BUDGET)).toString();
         budgetInput = view.findViewById(R.id.edittext_edit_budget);
         budgetInput.setText(budget);
+        budgetInput.requestFocus();
 
         builder.setView(view)
-                .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.dialog_set), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String budget = budgetInput.getText().toString();
@@ -51,7 +52,7 @@ public class BudgetDialog extends DialogFragment {
 
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
@@ -59,7 +60,6 @@ public class BudgetDialog extends DialogFragment {
 
         return builder.create();
     }
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -72,4 +72,4 @@ public class BudgetDialog extends DialogFragment {
         }
     }
 
-}
+} // end BudgetDialog class

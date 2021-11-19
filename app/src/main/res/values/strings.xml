@@ -18,9 +18,13 @@
 
 
     <string name="required">*Required</string>
+
+
+    <!-- Buttons -->
     <string name="save_edited_expense">Save</string>
     <string name="add_new_expense">Add Expense</string>
-
+    <string name="dialog_set">Set</string>
+    <string name="dialog_cancel">Cancel</string>
 
     <string name="date">Date</string>
     <string name="title">Title</string>
