@@ -10,9 +10,17 @@
     <color name="white">#FFFFFFFF</color>+
 
 
+    <!-- Rally colors -->
     <color name="background_dark_grey">#27272f</color>
     <color name="background_medium_grey">#33333d</color>
     <color name="foreground_light_grey">#373740</color>
+
+    <color name="rally_primary_green">#1eb980</color>
+    <color name="rally_dark_green">#045d56</color>
+    <color name="rally_orange">#ff6859</color>
+    <color name="rally_yellow">#ffcf44</color>
+    <color name="rally_purple">#b15dff</color>
+    <color name="rally_blue">#72deff</color>
 
 
 </resources>
