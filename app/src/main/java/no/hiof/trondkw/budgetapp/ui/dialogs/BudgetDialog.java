@@ -20,8 +20,6 @@ import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
 
 public class BudgetDialog extends DialogFragment {
 
-    public static final String BUDGET = "budget";
-
     // TODO: how to use binding with alert dialog?
     //EditBudgetBinding binding;
     private EditText budgetInput;
@@ -37,8 +35,10 @@ public class BudgetDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.edit_budget, null);
 
+        // Set the budget in the TextInputEditText
+        String budget = getArguments().get(getResources().getString(R.string.BUDGET)).toString();
         budgetInput = view.findViewById(R.id.edittext_edit_budget);
-        budgetInput.setText(getArguments().get(BUDGET).toString());
+        budgetInput.setText(budget);
 
         builder.setView(view)
                 .setPositiveButton("Set", new DialogInterface.OnClickListener() {

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 
+import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.ui.dialogs.BudgetDialog;
@@ -56,7 +57,7 @@ public class MonthOverviewFragment extends Fragment {
         String budget = budgetMonthViewModel.getBudget().getValue().toString();
 
         Bundle args = new Bundle();
-        args.putString(BudgetDialog.BUDGET, budget);
+        args.putString(getResources().getString(R.string.BUDGET), budget);
 
         budgetDialog.setArguments(args);
         budgetDialog.show(requireActivity().getSupportFragmentManager(), null);
@@ -72,8 +73,8 @@ public class MonthOverviewFragment extends Fragment {
 
         // send current month to date picker
         Bundle args = new Bundle();
-        args.putInt("YEAR", year);
-        args.putInt("MONTH", month);
+        args.putInt(getResources().getString(R.string.YEAR), year);
+        args.putInt(getResources().getString(R.string.MONTH), month);
 
         monthYearPicker.setArguments(args);
         monthYearPicker.show(requireActivity().getSupportFragmentManager(), null);

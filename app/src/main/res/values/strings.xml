@@ -15,6 +15,15 @@
     <string name="savings">Savings</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    
+    
+    <!-- Constants -->
+
+    <!-- Budget / YearMonthPicker Dialogs -->
+    <string name="BUDGET">budget</string>
+    <string name="YEAR">year</string>
+    <string name="MONTH">month</string>
 
 
 </resources>

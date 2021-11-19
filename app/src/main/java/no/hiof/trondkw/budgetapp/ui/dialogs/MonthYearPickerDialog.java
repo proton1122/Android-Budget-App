@@ -50,8 +50,8 @@ public class MonthYearPickerDialog extends DialogFragment {
         Bundle args = getArguments();
 
         if (args != null) {
-            yearPicker.setValue(args.getInt("YEAR"));
-            monthPicker.setValue(args.getInt("MONTH"));
+            yearPicker.setValue(args.getInt(getResources().getString(R.string.YEAR)));
+            monthPicker.setValue(args.getInt(getResources().getString(R.string.MONTH)));
         }
 
         monthPicker.setDisplayedValues(months);
