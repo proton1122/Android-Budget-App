@@ -5,7 +5,7 @@
     <string name="title_notifications">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="placeholder">Placeholder text</string>
+
 
 
     <!-- BOTTOM NAV MENU -->
@@ -18,6 +18,15 @@
 
 
     <string name="required">*Required</string>
+
+
+
+    <!-- Text -->
+    <string name="placeholder">Placeholder text</string>
+    <string name="title_placeholder">Title Placeholder</string>
+    <string name="date_placeholder">Date Placeholder</string>
+    <string name="category_placeholder">Category Placeholder</string>
+    <string name="sum_placeholder">Sum Placeholder</string>
 
 
     <!-- Buttons -->
