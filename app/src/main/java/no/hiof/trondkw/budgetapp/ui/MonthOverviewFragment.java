@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -76,6 +77,9 @@ public class MonthOverviewFragment extends Fragment {
 
         budgetDialog.setArguments(args);
         budgetDialog.show(requireActivity().getSupportFragmentManager(), null);
+
+        // try to get the soft keyboard to open when opening the dialog, but getWindows gives nullRef error
+        //budgetDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
 

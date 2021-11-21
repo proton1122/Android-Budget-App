@@ -47,15 +47,15 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
-                android:id="@+id/summary_title"
+                android:id="@+id/summary_total_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="EXPENSES"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
 
-                android:text="TOTAL EXPENSES"/>
+                app:layout_constraintStart_toStartOf="@+id/summary_center_guide"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/summary_total"
@@ -65,10 +65,43 @@
                 android:text="@{Utilities.getFormattedSum(budgetMonthViewModel.totalExpenses)}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/summary_title"
+                app:layout_constraintEnd_toEndOf="@id/summary_total_title"
 
-                app:layout_constraintStart_toStartOf="@id/summary_title"
-                app:layout_constraintTop_toBottomOf="@id/summary_title" />
+                app:layout_constraintStart_toStartOf="@id/summary_total_title"
+                app:layout_constraintTop_toBottomOf="@id/summary_total_title" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/summary_center_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.50121653"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/summary_budget_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUDGET"
+                app:layout_constraintEnd_toStartOf="@+id/summary_center_guide"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@{Utilities.getFormattedSum(budgetMonthViewModel.budget)}"
+
+                app:layout_constraintTop_toBottomOf="@id/summary_budget_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/summary_budget_title"
+                app:layout_constraintEnd_toEndOf="@id/summary_budget_title"
+
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -14,8 +14,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import no.hiof.trondkw.budgetapp.R;
-import no.hiof.trondkw.budgetapp.databinding.EditBudgetBinding;
-import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
 
 public class BudgetDialog extends DialogFragment {
