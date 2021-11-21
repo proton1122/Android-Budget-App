@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -117,7 +116,7 @@ public class MonthOverviewFragment extends Fragment {
         budgetPaint.setStyle(Paint.Style.STROKE);
         budgetPaint.setStrokeWidth(25);
 
-        if (expenses > budget)
+        if (expenses >= budget)
             budgetPaint.setColor(getResources().getColor(R.color.rally_orange));
         else
             budgetPaint.setColor(getResources().getColor(R.color.rally_primary_green));

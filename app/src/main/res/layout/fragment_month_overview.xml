@@ -36,7 +36,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -70,6 +72,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date_layout" />
+
+            <!-- Budget / Remaining Textview -->
+            <TextView
+                android:id="@+id/budget_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/BUDGET"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/graph_image"
+                app:layout_constraintEnd_toEndOf="@+id/graph_image"
+                app:layout_constraintStart_toStartOf="@+id/graph_image"
+                app:layout_constraintTop_toTopOf="@+id/graph_image" />
+
+            <TextView
+                android:id="@+id/budget_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/budget_title"
+                app:layout_constraintStart_toStartOf="@id/graph_image"
+                app:layout_constraintEnd_toEndOf="@id/graph_image"
+                android:text="@{Utilities.getFormattedSum(currentMonth.budget)}"
+                android:textColor="@color/white"
+                />
 
 
             <!-- Budget Field -->
