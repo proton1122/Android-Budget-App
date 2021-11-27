@@ -68,7 +68,6 @@
 
 
             <!-- Graph ImageView -->
-
             <ImageView
                 android:id="@+id/graph_image"
 

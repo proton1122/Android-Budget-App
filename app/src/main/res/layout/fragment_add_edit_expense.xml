@@ -33,22 +33,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="@string/date">
+                android:hint="@string/date"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputEditTextDark"
+                    style="@style/TextInputNoClick"
 
                     android:id="@+id/date_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_dropdown_icon"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="date"
-
-                     />
+                    android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <!-- Description -->
             <com.google.android.material.textfield.TextInputLayout
@@ -65,28 +62,32 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextDark"
+
                     android:id="@+id/title_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="21"
                     android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:textColor="@color/white"
-                    android:background="@color/foreground_light_grey"/>
+                    android:imeOptions="actionDone" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <!-- Category -->
             <!-- TODO: Set as dropdown menu not edit text? -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                app:helperTextTextColor="@color/grey_text"
+
                 android:id="@+id/category_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="6dp"
+                android:hint="@string/category"
+
                 app:errorEnabled="true"
                 app:errorIconDrawable="@drawable/ic_baseline_error_24"
-                app:helperText="@string/required"
-                android:hint="@string/category">
+                app:helperText="@string/required">
 
                 <AutoCompleteTextView
                     android:id="@+id/category_input"
@@ -95,25 +96,31 @@
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <!-- Expense sum -->
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextInputLayoutDark"
+
                 android:id="@+id/expense_sum_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/sum"
+
                 app:errorEnabled="true"
                 app:errorIconDrawable="@drawable/ic_baseline_error_24"
                 app:helperText="@string/required"
-                android:hint="@string/sum"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextDark"
+
                     android:id="@+id/expense_sum_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"/>
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <!-- Add expense button -->
             <!-- TODO: Remove and use AppBar icon to save -->
