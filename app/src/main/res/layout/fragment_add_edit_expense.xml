@@ -15,17 +15,20 @@
 
         <!-- Main content layout -->
         <androidx.appcompat.widget.LinearLayoutCompat
+            tools:context=".ui.AddEditExpenseFragment"
+
             android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp"
-            tools:context=".ui.AddEditExpenseFragment">
+            android:background="@color/background_medium_grey">
 
 
             <!-- Date -->
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextInputLayoutDark"
+
                 android:id="@+id/date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,6 +36,8 @@
                 android:hint="@string/date">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextDark"
+
                     android:id="@+id/date_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,19 +45,23 @@
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:inputType="date"/>
+                    android:inputType="date"
+
+                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Description -->
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextInputLayoutDark"
+
                 android:id="@+id/title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/title"
+
                 app:helperText="@string/required"
                 app:errorEnabled="true"
                 app:errorIconDrawable="@drawable/ic_baseline_error_24"
-                android:hint="@string/title"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -61,11 +70,13 @@
                     android:layout_height="wrap_content"
                     android:maxLength="21"
                     android:inputType="text"
-                    android:imeOptions="actionDone"/>
+                    android:imeOptions="actionDone"
+                    android:textColor="@color/white"
+                    android:background="@color/foreground_light_grey"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Category -->
-            <!-- TODO: Set as dropdown menu not edit text -->
+            <!-- TODO: Set as dropdown menu not edit text? -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:id="@+id/category_layout"

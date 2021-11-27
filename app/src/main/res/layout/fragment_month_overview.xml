@@ -32,46 +32,55 @@
 
             <!-- Select Date field -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutDark"
+
                 android:id="@+id/date_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextDark"
+
                     android:id="@+id/current_year_month"
-                    android:background="@color/foreground_light_grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:drawableStart="@drawable/ic_empty_icon"
                     android:drawableEnd="@drawable/ic_dropdown_icon"
+
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+
                     android:inputType="date"
+
                     android:text="@{currentMonth.dateString}"
-                    android:textColor="@color/white"
                     android:textAlignment="center" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <!-- Graph ImageView -->
-            <!-- TODO: add graph.. -->
 
             <ImageView
                 android:id="@+id/graph_image"
+
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginTop="8dp"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date_layout" />
+                app:layout_constraintTop_toBottomOf="@id/date_layout"
+
+                android:contentDescription="Budget graph" />
 
             <!-- Budget / Remaining Textview -->
             <TextView
@@ -99,30 +108,30 @@
 
             <!-- Budget Field -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutDark"
+
                 android:id="@+id/textInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:hint="Budget"
-                android:textColorHint="@color/white"
+
                 app:layout_constraintBottom_toTopOf="@id/expenses_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputNoClick"
+
                     android:id="@+id/current_budget"
-                    android:background="@color/foreground_light_grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
+
                     android:drawableStart="@drawable/ic_empty_icon"
                     android:drawableEnd="@drawable/ic_edit_icon"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="numberDecimal"
-                    android:textColor="@color/white"
                     android:text="@{Utilities.getFormattedSum(currentMonth.budget)}"
                     android:textAlignment="center" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -130,38 +139,37 @@
 
             <!-- Expenses Field -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutDark"
+
                 android:id="@+id/expenses_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:hint="Expenses"
-                android:textColorHint="@color/white"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/remaining_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputNoClick"
+
                     android:id="@+id/current_expenses"
-                    android:background="@color/foreground_light_grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="numberDecimal"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
                     android:text="@{Utilities.getFormattedSum(currentMonth.totalExpenses)}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <!-- Remaining Field -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutDark"
+
                 android:id="@+id/remaining_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -169,23 +177,20 @@
                 android:layout_marginBottom="16dp"
                 android:layout_gravity="bottom"
                 android:hint="Remaining"
-                android:textColorHint="@color/white"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputNoClick"
+
                     android:id="@+id/current_remaining"
-                    android:background="@color/foreground_light_grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="numberDecimal"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
                     android:text="@{Utilities.getFormattedSum(currentMonth.budget - currentMonth.totalExpenses)}"/>
             </com.google.android.material.textfield.TextInputLayout>
 

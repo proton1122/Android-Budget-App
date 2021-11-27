@@ -22,5 +22,9 @@
     <color name="rally_purple">#b15dff</color>
     <color name="rally_blue">#72deff</color>
 
+    <!--
+    <color name="grey_text">#84848a</color>
+    -->
+    <color name="grey_text">#afafb2</color>
 
 </resources>

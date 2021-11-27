@@ -20,6 +20,8 @@
         android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:background="@color/background_medium_grey"
         tools:context=".ui.SavingsOverviewFragment">
 
 
@@ -38,10 +40,10 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@color/cardview_dark_background"
+            android:background="@color/background_dark_grey"
             android:id="@+id/summary_layout"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="54dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -50,10 +52,14 @@
                 android:id="@+id/summary_total_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EXPENSES"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="expenses"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="12sp"
 
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/summary_center_guide"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,6 +70,8 @@
 
                 android:text="@{Utilities.getFormattedSum(budgetMonthViewModel.totalExpenses)}"
                 android:textColor="@color/white"
+                android:fontFamily="@font/eczar_regular"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/summary_total_title"
 
@@ -83,16 +91,22 @@
                 android:id="@+id/summary_budget_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BUDGET"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="budget"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/summary_center_guide"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/white"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/eczar_regular"
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 android:text="@{Utilities.getFormattedSum(budgetMonthViewModel.budget)}"
 
@@ -114,7 +128,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"
+            android:layout_margin="27dp"
 
             android:contentDescription="Add new expense"
             app:srcCompat="@drawable/ic_add_icon" />

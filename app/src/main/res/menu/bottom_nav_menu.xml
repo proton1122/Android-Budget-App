@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/yearOverviewFragment"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/year_overview" />
-
-    <item
         android:id="@+id/monthOverviewFragment"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_month_pie"
         android:title="@string/month_overview" />
 
     <item
         android:id="@+id/monthDetailsFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_list_icon"
         android:title="@string/month_details" />
 
     <item
+        android:id="@+id/yearOverviewFragment"
+        android:icon="@drawable/ic_bar_chart_icon"
+        android:title="@string/year_overview" />
+
+    <item
         android:id="@+id/savingsOverviewFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_savings"
         android:title="@string/savings" />
 
 </menu>
