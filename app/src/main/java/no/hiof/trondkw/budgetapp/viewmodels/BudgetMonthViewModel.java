@@ -1,5 +1,7 @@
 package no.hiof.trondkw.budgetapp.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,6 +20,7 @@ public class BudgetMonthViewModel extends ViewModel {
     private final BudgetMonthRepository repository;
     private BudgetMonth currentMonth;
 
+    private final MutableLiveData<Integer> id;
     private final MutableLiveData<ArrayList<Expense>> expenseList;
     private final MutableLiveData<Double> budget;
     private final MutableLiveData<Double> totalExpenses;
@@ -34,6 +37,8 @@ public class BudgetMonthViewModel extends ViewModel {
         // get test data
         currentMonth = repository.getTestMonth(year, month);
 
+        id = new MutableLiveData<>();
+        id.setValue(currentMonth.getId());
 
         expenseList = new MutableLiveData<>();
         expenseList.setValue(currentMonth.getMonthlyExpenses());
@@ -46,6 +51,12 @@ public class BudgetMonthViewModel extends ViewModel {
 
     }
 
+
+
+    // Get ID
+    public LiveData<Integer> getCurrentMonthId() {
+        return id;
+    }
 
     // Get the viewModels expenseList
     public LiveData<ArrayList<Expense>> getExpenseList() {
@@ -154,7 +165,15 @@ public class BudgetMonthViewModel extends ViewModel {
         // update viewModel
         expenseList.setValue(currentMonth.getMonthlyExpenses());
         budget.setValue(currentMonth.getBudget());
+
+
+        System.out.println("Setting new BudgetMonth in ViewModel...");
+        double temp = calculateExpenses();
+        System.out.println("calculateExpenses() results: " + temp);
         totalExpenses.setValue(calculateExpenses());
+        System.out.println("totalExpenses has been set..");
+        System.out.println("totalExpenses = " + totalExpenses.getValue());
+        System.out.println("----------------------------------------------------");
     }
 
 

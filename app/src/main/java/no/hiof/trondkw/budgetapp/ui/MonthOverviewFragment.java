@@ -2,6 +2,7 @@ package no.hiof.trondkw.budgetapp.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -10,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
+import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.ui.dialogs.BudgetDialog;
 import no.hiof.trondkw.budgetapp.ui.dialogs.MonthYearPickerDialog;
 import no.hiof.trondkw.budgetapp.utils.Utilities;
@@ -22,9 +26,17 @@ import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MonthOverviewFragment extends Fragment {
 
+    // shared preference
+    // persistent login
+
     private BudgetMonthViewModel budgetMonthViewModel;
     private FragmentMonthOverviewBinding binding;
     private Canvas canvas;
+
+    // Time to do some hacky solution
+    private int currentMonthId;
+    private double budget;
+    private int expensesListSize;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,10 +50,19 @@ public class MonthOverviewFragment extends Fragment {
         binding.setCurrentMonth(budgetMonthViewModel);
         requireActivity().setTitle("Monthly Overview");
 
+        // Hacky solution
+        currentMonthId = budgetMonthViewModel.getCurrentMonthId().getValue();
+        budget = budgetMonthViewModel.getBudget().getValue();
+        expensesListSize = budgetMonthViewModel.getExpenseList().getValue().size();
+
         // test graph drawing on simple canvas
         Bitmap bitmap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
+
+        // TODO: fix too many calls after changing fragment
+        System.out.println("calling drawGraph() from onCreateView\n");
         drawGraph();
+
 
         binding.graphImage.setImageBitmap(bitmap);
 
@@ -49,15 +70,8 @@ public class MonthOverviewFragment extends Fragment {
         binding.currentYearMonth.setOnClickListener(view -> openDatePickerDialog());
         binding.currentBudget.setOnClickListener(view1 -> openEditBudgetDialog());
 
-        // observe viewModel
-        budgetMonthViewModel.getBudget().observe(requireActivity(), aDouble -> {
-            binding.setCurrentMonth(budgetMonthViewModel);
-            drawGraph();
-        });
-        budgetMonthViewModel.getExpenseList().observe(requireActivity(), expenses -> {
-            binding.setCurrentMonth(budgetMonthViewModel);
-            drawGraph();
-        });
+
+
 
         //budgetMonthViewModel.getCurrentMonthId().observe(requireActivity(), integer -> binding.setCurrentMonth(budgetMonthViewModel));
 
@@ -65,6 +79,62 @@ public class MonthOverviewFragment extends Fragment {
     }
 
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // observe viewModel
+        budgetMonthViewModel.getCurrentMonthId().observe(requireActivity(), integer -> {
+
+            if(currentMonthId != integer) {
+                System.out.println("monthId changed, calling drawGraph\n");
+                drawGraph();
+            }
+        });
+
+        budgetMonthViewModel.getBudget().observe(requireActivity(), aDouble -> {
+            // aDouble is the budget value -> TODO: change name?
+            binding.setCurrentMonth(budgetMonthViewModel);
+
+            System.out.println("----------------------------------------------------");
+            System.out.println("ViewModel.budget changed in the observer");
+            System.out.println("----------------------------------------------------");
+
+            // Hacky code :)
+            if(budget != aDouble) {
+                System.out.println("budget changed, calling drawGraph from budget observer");
+                System.out.println("Current budget in fragment: " + budget + " ---- " + "ViewModel.budget: " + aDouble);
+                budget = aDouble;
+                System.out.println("Calling drawGraph from budget observer");
+                drawGraph();
+                System.out.println("----------------------------------------------------");
+
+            }
+        });
+
+
+        budgetMonthViewModel.getExpenseList().observe(requireActivity(), expenses -> {
+            // expenses is the updated list of expenses
+            binding.setCurrentMonth(budgetMonthViewModel);
+
+            // Hacky code :)
+            if(expensesListSize != expenses.size()) {
+                System.out.println("expenseListSize changed, calling drawGraph from expenseList observer");
+                System.out.println("Current listSize in Fragment: " + expensesListSize + " --- " + "ViewModel.listSize: " + expenses.size());
+
+                expensesListSize = expenses.size();
+
+                System.out.println("Calling drawGraph from expenseList observer");
+                drawGraph();
+                System.out.println("----------------------------------------------------");
+
+            }
+        });
+
+
+
+
+    }
 
     public void openEditBudgetDialog() {
         BudgetDialog budgetDialog = new BudgetDialog();
@@ -106,8 +176,16 @@ public class MonthOverviewFragment extends Fragment {
         float budget = budgetMonthViewModel.getBudget().getValue().floatValue();
         float expenses = budgetMonthViewModel.getTotalExpenses().getValue().floatValue();
 
+
+        System.out.println("\nEntered drawGraph...");
+        System.out.println("viewModel budget: " + budget);
+        System.out.println("viewModel expenses: " + expenses);
+        System.out.println("----------------------------------------------------");
+
         Paint basePaint = new Paint();
-        basePaint.setColor(getResources().getColor(R.color.background_dark_grey));
+
+        basePaint.setColor(Color.parseColor("#27272f"));
+        //basePaint.setColor(getResources().getColor(R.color.background_dark_grey));
         basePaint.setStyle(Paint.Style.STROKE);
         basePaint.setStrokeWidth(30);
 
@@ -116,12 +194,21 @@ public class MonthOverviewFragment extends Fragment {
         budgetPaint.setStyle(Paint.Style.STROKE);
         budgetPaint.setStrokeWidth(25);
 
-        if (expenses >= budget)
-            budgetPaint.setColor(getResources().getColor(R.color.rally_orange));
-        else
-            budgetPaint.setColor(getResources().getColor(R.color.rally_primary_green));
+        if(budget == 0) {
+            budgetPaint.setColor(Color.parseColor("#27272f"));
+        }
+        else if (expenses >= budget) {
+            //budgetPaint.setColor(getResources().getColor(R.color.rally_orange));
+            budgetPaint.setColor(Color.parseColor("#ff6859"));
+
+        }
+        else {
+            //budgetPaint.setColor(getResources().getColor(R.color.rally_primary_green));
+            budgetPaint.setColor(Color.parseColor("#1eb980"));
+        }
 
 
+        System.out.println("drawGraph.budgetPaint.color: " + budgetPaint.getColor());
 
         int startPos = -90;
 
