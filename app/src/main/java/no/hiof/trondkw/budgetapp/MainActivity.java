@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     // send input from EditBudgetDialog to viewModel
     @Override
     public void setNewBudget(String budgetInput) {
-        budgetMonthViewModel.setBudget(budgetInput);
+        budgetMonthViewModel.setBudget_2(budgetInput);
     }
 
     // send input from MonthYearPickerDialog to viewModel

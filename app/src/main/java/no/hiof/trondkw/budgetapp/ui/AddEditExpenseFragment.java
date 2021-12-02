@@ -228,7 +228,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         double sum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
         String category = binding.categoryInput.getText().toString();
 
-        budgetMonthViewModel.addNewExpense(date, title, category, sum);
+        budgetMonthViewModel.addNewExpense_2(date, title, category, sum);
     }
 
     /**
@@ -238,7 +238,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
 
         if (getArguments() != null) {
             String id = getArguments().getString(Expense.ID);
-            Expense expense = budgetMonthViewModel.getExpense(id);
+            Expense expense = budgetMonthViewModel.getExpense_2(id);
 
             // Could not find expense
             if (expense == null) {
@@ -251,7 +251,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             double sum = Double.parseDouble(binding.expenseSumInput.getText().toString());
             String category = binding.categoryInput.getText().toString();
 
-            budgetMonthViewModel.editExpense(id, date, title, category, sum);
+            budgetMonthViewModel.editExpense_2(id, date, title, category, sum);
         }
     }
 

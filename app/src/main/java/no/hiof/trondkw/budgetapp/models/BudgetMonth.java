@@ -73,10 +73,10 @@ public class BudgetMonth {
     public double getTotalExpenses() {
         return totalExpenses;
     }
+
     public void updateTotalExpenses() {
         this.totalExpenses = calculateTotalExpenses();
     }
-
 
     private double calculateTotalExpenses() {
         ArrayList<Expense> expenseList = this.monthlyExpenses;

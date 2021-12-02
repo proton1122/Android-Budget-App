@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
-import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.ui.dialogs.BudgetDialog;
 import no.hiof.trondkw.budgetapp.ui.dialogs.MonthYearPickerDialog;
 import no.hiof.trondkw.budgetapp.utils.Utilities;
@@ -71,14 +70,14 @@ public class MonthOverviewFragment extends Fragment {
         requireActivity().setTitle("Monthly Overview");
 
         // ----------- NEW STUFF -------------------------
-        currentMonth = budgetMonthViewModel.getCurrentMonth_2().getValue();
+        currentMonth = budgetMonthViewModel.getCurrentBudgetMonth_2().getValue();
         // --------------------------------------------------------
 
 
         // Hacky solution
-        currentMonthId = budgetMonthViewModel.getCurrentMonthId().getValue();
-        budget = budgetMonthViewModel.getBudget().getValue();
-        expensesListSize = budgetMonthViewModel.getExpenseList().getValue().size();
+        //currentMonthId = budgetMonthViewModel.getCurrentMonthId().getValue();
+        //budget = budgetMonthViewModel.getBudget().getValue();
+        //expensesListSize = budgetMonthViewModel.getExpenseList().getValue().size();
         // --------------------------------------------------------
 
         return binding.getRoot();
@@ -90,7 +89,7 @@ public class MonthOverviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Observe viewModel
-        budgetMonthViewModel.getCurrentMonth_2().observe(requireActivity(), new Observer<BudgetMonth>() {
+        budgetMonthViewModel.getCurrentBudgetMonth_2().observe(requireActivity(), new Observer<BudgetMonth>() {
             @Override
             public void onChanged(BudgetMonth budgetMonth) {
                 System.out.println("Observer called on ViewModel.currentMonth in onViewCreated().");
@@ -171,7 +170,7 @@ public class MonthOverviewFragment extends Fragment {
     public void openEditBudgetDialog() {
         BudgetDialog budgetDialog = new BudgetDialog();
 
-        String budget = Utilities.decimalFormatter.format(budgetMonthViewModel.getBudget().getValue());
+        String budget = Utilities.decimalFormatter.format(budgetMonthViewModel.getBudget_2());
 
         Bundle args = new Bundle();
         args.putString(getResources().getString(R.string.BUDGET), budget);
@@ -188,8 +187,8 @@ public class MonthOverviewFragment extends Fragment {
         MonthYearPickerDialog monthYearPicker = new MonthYearPickerDialog();
 
         // get current year / month
-        int year = budgetMonthViewModel.getCurrentYear();
-        int month = budgetMonthViewModel.getCurrentMonth();
+        int year = budgetMonthViewModel.getBudgetMonthYearValue();
+        int month = budgetMonthViewModel.getBudgetMonthMonthValue();
 
         // send current month to date picker
         Bundle args = new Bundle();
@@ -205,8 +204,8 @@ public class MonthOverviewFragment extends Fragment {
         RectF rectangle = new RectF(100, 100, 900, 900);
 
 
-        float budget = budgetMonthViewModel.getBudget().getValue().floatValue();
-        float expenses = budgetMonthViewModel.getTotalExpenses().getValue().floatValue();
+        float budget = budgetMonthViewModel.getBudget_2().floatValue();
+        float expenses = budgetMonthViewModel.getTotalExpenses_2().floatValue();
 
 
         System.out.println("\nEntered drawGraph...");
