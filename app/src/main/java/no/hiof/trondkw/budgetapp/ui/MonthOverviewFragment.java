@@ -96,9 +96,9 @@ public class MonthOverviewFragment extends Fragment {
             // aDouble is the budget value -> TODO: change name?
             binding.setCurrentMonth(budgetMonthViewModel);
 
-            System.out.println("----------------------------------------------------");
-            System.out.println("ViewModel.budget changed in the observer");
-            System.out.println("----------------------------------------------------");
+            //System.out.println("----------------------------------------------------");
+            //System.out.println("ViewModel.budget changed in the observer");
+            //System.out.println("----------------------------------------------------");
 
             // Hacky code :)
             if(budget != aDouble) {
@@ -116,6 +116,11 @@ public class MonthOverviewFragment extends Fragment {
         budgetMonthViewModel.getExpenseList().observe(requireActivity(), expenses -> {
             // expenses is the updated list of expenses
             binding.setCurrentMonth(budgetMonthViewModel);
+
+            //System.out.println("----------------------------------------------------");
+            //System.out.println("ViewModel.expenseList changed in the observer");
+            //System.out.println("----------------------------------------------------");
+
 
             // Hacky code :)
             if(expensesListSize != expenses.size()) {
@@ -208,7 +213,20 @@ public class MonthOverviewFragment extends Fragment {
         }
 
 
+        // --test color numbers-----------------------------------------------
+        Paint base_grey = new Paint();
+        base_grey.setColor(Color.parseColor("#27272f"));
+        Paint rally_orange = new Paint();
+        rally_orange.setColor(Color.parseColor("#ff6859"));
+        Paint rally_p_green = new Paint();
+        rally_p_green.setColor(Color.parseColor("#1eb980"));
+        // -------------------------------------------------------------------
+        System.out.println("Base grey = " + base_grey.getColor() + " | " + "Rally orange = " + rally_orange.getColor() + " | " + "Rally green = " + rally_p_green.getColor());
         System.out.println("drawGraph.budgetPaint.color: " + budgetPaint.getColor());
+        System.out.println("----------------------------------------------------");
+        // -------------------------------------------------------------------
+
+
 
         int startPos = -90;
 
