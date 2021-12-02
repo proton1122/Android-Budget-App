@@ -52,18 +52,17 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
         NavigationUI.setupWithNavController(binding.navigationView, navController);
 
-
     }
 
 
-    // send input from EditBudgetDialog to viewModel
+    // Send input from EditBudgetDialog to viewModel
     @Override
     public void setNewBudget(String budgetInput) {
         System.out.println("MainActivity.setNewBudget()..");
-        budgetMonthViewModel.setBudget_2(budgetInput);
+        budgetMonthViewModel.setBudget(budgetInput);
     }
 
-    // send input from MonthYearPickerDialog to viewModel
+    // Send input from MonthYearPickerDialog to viewModel
     @Override
     public void loadMonth(int year, int month) {
         budgetMonthViewModel.setBudgetMonth(year, month);

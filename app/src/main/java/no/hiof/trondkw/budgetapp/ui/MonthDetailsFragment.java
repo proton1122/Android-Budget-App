@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.adapter.ExpenseRecyclerAdapter;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthDetailsBinding;
-import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
@@ -40,18 +38,8 @@ public class MonthDetailsFragment extends Fragment {
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
         requireActivity().setTitle("Monthly Details");
 
-
-        // observe viewModel
-        budgetMonthViewModel.getCurrentBudgetMonth_2().observe(requireActivity(), new Observer<BudgetMonth>() {
-            @Override
-            public void onChanged(BudgetMonth budgetMonth) {
-                binding.setBudgetMonthViewModel(budgetMonthViewModel);
-            }
-        });
-
-        // ------------ OLD STUFF --------------------
-        //budgetMonthViewModel.getExpenseList().observe(requireActivity(), expenses -> binding.setBudgetMonthViewModel(budgetMonthViewModel));
-        // --------------------------------------------------------
+        // Observe viewModel
+        budgetMonthViewModel.getCurrentBudgetMonth().observe(requireActivity(), budgetMonth -> binding.setBudgetMonthViewModel(budgetMonthViewModel));
 
         return binding.getRoot();
     }
@@ -63,12 +51,12 @@ public class MonthDetailsFragment extends Fragment {
         // set the adapter for recycler view and push list of expenses to be shown
         ExpenseRecyclerAdapter adapter = new ExpenseRecyclerAdapter();
         binding.recyclerView.setAdapter(adapter);
-        adapter.setExpenses(budgetMonthViewModel.getExpenseList_2());
+        adapter.setExpenses(budgetMonthViewModel.getExpenseList());
 
-        // set navigation to addExpenseFragment with FAB, move this to .xml later
+        // Set navigation to addExpenseFragment with FAB, move this to .xml later
         binding.addExpenseFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_monthDetailsFragment_to_addExpenseFragment));
 
-        // set the onclick for each card view, send data as bundle to fill in the input fields
+        // Set the onclick for each card view, send data as bundle to fill in the input fields
         adapter.setOnItemClickListener(expense -> {
             Bundle args = new Bundle();
 
@@ -81,6 +69,7 @@ public class MonthDetailsFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_monthDetailsFragment_to_addExpenseFragment, args);
         });
 
+        // Delete Expense on swipe
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -90,14 +79,13 @@ public class MonthDetailsFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 Expense expenseToDelete = adapter.getExpenseAt(viewHolder.getAdapterPosition());
-                budgetMonthViewModel.deleteExpense_2(expenseToDelete);
-                adapter.setExpenses(budgetMonthViewModel.getExpenseList_2());
+                budgetMonthViewModel.deleteExpense(expenseToDelete);
+                adapter.setExpenses(budgetMonthViewModel.getExpenseList());
                 binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
                 Toast.makeText(requireActivity(), "Expense deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(binding.recyclerView);
-
     }
 
 } // end MonthDetailsFragment class

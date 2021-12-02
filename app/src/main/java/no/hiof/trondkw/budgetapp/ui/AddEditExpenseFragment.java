@@ -153,35 +153,6 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         year = date.getYear();
     }
 
-
-    // TODO: move to utils
-
-
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.save_expense);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.add_expense_menu, menu);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.save_expense) {
-            saveNewExpense();
-            return true;
-        }
-        else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
     /**
      *      Validate the textInput fields
      */
@@ -228,7 +199,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         double sum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
         String category = binding.categoryInput.getText().toString();
 
-        budgetMonthViewModel.addNewExpense_2(date, title, category, sum);
+        budgetMonthViewModel.addNewExpense(date, title, category, sum);
     }
 
     /**
@@ -238,7 +209,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
 
         if (getArguments() != null) {
             String id = getArguments().getString(Expense.ID);
-            Expense expense = budgetMonthViewModel.getExpense_2(id);
+            Expense expense = budgetMonthViewModel.getExpense(id);
 
             // Could not find expense
             if (expense == null) {
@@ -251,8 +222,36 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             double sum = Double.parseDouble(binding.expenseSumInput.getText().toString());
             String category = binding.categoryInput.getText().toString();
 
-            budgetMonthViewModel.editExpense_2(id, date, title, category, sum);
+            budgetMonthViewModel.editExpense(id, date, title, category, sum);
         }
     }
+
+
+    // --------------------------------------------------------------------
+    // Stuff for using Action Bar for saving instead of button, but not implemented
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.save_expense);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.add_expense_menu, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.save_expense) {
+            saveNewExpense();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    // --------------------------------------------------------------------
 
 } // end AddExpenseFragment class
