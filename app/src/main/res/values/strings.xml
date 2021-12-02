@@ -7,7 +7,6 @@
     <!-- TODO: Remove or change this placeholder text -->
 
 
-
     <!-- BOTTOM NAV MENU -->
     <string name="year_overview">Year</string>
     <string name="month_overview">Month</string>
@@ -18,7 +17,6 @@
 
 
     <string name="required">*Required</string>
-
 
 
     <!-- Text -->
@@ -39,17 +37,14 @@
     <string name="title">Title</string>
     <string name="category">Category</string>
     <string name="sum">Sum</string>
-    
-    
+
+
     <!-- Constants -->
 
     <!-- Budget / YearMonthPicker Dialogs -->
     <string name="BUDGET">budget</string>
     <string name="YEAR">year</string>
     <string name="MONTH">month</string>
-
-
-
 
 
 </resources>
