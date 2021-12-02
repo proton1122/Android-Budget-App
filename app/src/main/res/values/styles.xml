@@ -52,6 +52,12 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <!-- Bottom Navigation Bar -->
+    <style name="BottomNavFontStyle"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+    </style>
+
 
 
 </resources>

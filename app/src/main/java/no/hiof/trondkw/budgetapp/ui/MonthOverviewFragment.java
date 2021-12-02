@@ -60,6 +60,7 @@ public class MonthOverviewFragment extends Fragment {
         // Set data bindings
         binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
         binding.setCurrentMonth(budgetMonthViewModel);
+        binding.setLifecycleOwner(requireActivity());
         binding.graphImage.setImageBitmap(bitmap);
 
         // set onclick listeners
@@ -71,6 +72,10 @@ public class MonthOverviewFragment extends Fragment {
 
         // ----------- NEW STUFF -------------------------
         currentMonth = budgetMonthViewModel.getCurrentBudgetMonth_2().getValue();
+
+
+
+
         // --------------------------------------------------------
 
 
@@ -102,10 +107,6 @@ public class MonthOverviewFragment extends Fragment {
                 drawGraph();
             }
         });
-
-
-
-
 
 
         // TODO: fix too many calls after changing fragment

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
 
         budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding.setLifecycleOwner(this);
         setContentView(binding.getRoot());
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     // send input from EditBudgetDialog to viewModel
     @Override
     public void setNewBudget(String budgetInput) {
+        System.out.println("MainActivity.setNewBudget()..");
         budgetMonthViewModel.setBudget_2(budgetInput);
     }
 
