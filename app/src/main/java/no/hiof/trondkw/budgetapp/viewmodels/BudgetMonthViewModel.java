@@ -1,7 +1,5 @@
 package no.hiof.trondkw.budgetapp.viewmodels;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Random;
 
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Expense;
@@ -18,8 +15,13 @@ import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
 public class BudgetMonthViewModel extends ViewModel {
 
     private final BudgetMonthRepository repository;
-    private BudgetMonth currentMonth;
 
+    // ----------- NEW STUFF -------------------------
+    private BudgetMonth defaultMonth;
+    private final MutableLiveData<BudgetMonth> currentMonth2;
+    // --------------------------------------------------------
+
+    private BudgetMonth currentMonth;
     private final MutableLiveData<Integer> id;
     private final MutableLiveData<ArrayList<Expense>> expenseList;
     private final MutableLiveData<Double> budget;
@@ -31,6 +33,15 @@ public class BudgetMonthViewModel extends ViewModel {
 
         repository = new BudgetMonthRepository();
 
+        // ----------- NEW STUFF -------------------------
+
+        defaultMonth = repository.getTestMonth(year, month);
+
+        currentMonth2 = new MutableLiveData<>();
+        currentMonth2.setValue(defaultMonth);
+
+        // ------------ OLD STUFF --------------------
+
         // get current month
         //currentMonth = repository.getMonth(year, month);
 
@@ -41,7 +52,7 @@ public class BudgetMonthViewModel extends ViewModel {
         id.setValue(currentMonth.getId());
 
         expenseList = new MutableLiveData<>();
-        expenseList.setValue(currentMonth.getMonthlyExpenses());
+        expenseList.setValue(currentMonth.getMonthlyExpensesList());
 
         budget = new MutableLiveData<>();
         budget.setValue(currentMonth.getBudget());
@@ -49,8 +60,74 @@ public class BudgetMonthViewModel extends ViewModel {
         totalExpenses = new MutableLiveData<>();
         totalExpenses.setValue(calculateExpenses());
 
+        // --------------------------------------------------------
     }
 
+
+    // ----------- NEW STUFF -------------------------
+
+    // Values needed in app:
+    // Budget, ExpenseList, Total Expenses(?)
+
+    // Get BudgetMonth -- Returns the LiveData for current month to be observed
+    public LiveData<BudgetMonth> getCurrentMonth_2() {
+        return currentMonth2;
+    }
+
+    // Get Budget -- Returns the budget for current month, but is this needed?
+    public double getBudget_2() {
+        return currentMonth2.getValue().getBudget();
+    }
+
+    public ArrayList<Expense> getExpenseList_2() {
+        return currentMonth2.getValue().getMonthlyExpensesList();
+    }
+
+    public double getTotalExpenses_2() {
+        return currentMonth2.getValue().getTotalExpenses();
+    }
+
+    public Expense getExpense_2(String id) {
+        ArrayList<Expense> list = currentMonth2.getValue().getMonthlyExpensesList();
+
+        if (list != null) {
+            for (Expense expense: list) {
+
+                if (expense.getId().equalsIgnoreCase(id)) {
+                    return expense;
+                }
+            }
+        }
+        // TODO: Fix this, shouldn't return null
+        return null;
+    }
+
+    public void addNewExpense_2(LocalDate date, String title, String category, double sum) {
+        Expense newExpense = new Expense(date, title, category, sum);
+
+        currentMonth2.getValue().getMonthlyExpensesList().add(newExpense);
+        currentMonth2.getValue().updateTotalExpenses();
+    }
+
+    public void editExpense_2(String id, LocalDate date, String title, String category, double sum) {
+        Expense expenseToEdit = getExpense(id);
+
+        if (expenseToEdit != null) {
+            expenseToEdit.setDate(date);
+            expenseToEdit.setTitle(title);
+            expenseToEdit.setCategory(category);
+            expenseToEdit.setSum(sum);
+
+            totalExpenses.setValue(calculateExpenses());
+        } else {
+            // throw error?
+            System.out.println("Error");
+        }
+
+    }
+
+
+    // --------------------------------------------------------
 
 
     // Get ID
@@ -156,6 +233,8 @@ public class BudgetMonthViewModel extends ViewModel {
     // Set current month, get from Repository
     public void setBudgetMonth(int year, int month) {
 
+
+
         // save current month to database
         repository.saveMonth(currentMonth);
 
@@ -163,7 +242,7 @@ public class BudgetMonthViewModel extends ViewModel {
         currentMonth = repository.getMonth(year, month);
 
         // update viewModel
-        expenseList.setValue(currentMonth.getMonthlyExpenses());
+        expenseList.setValue(currentMonth.getMonthlyExpensesList());
         budget.setValue(currentMonth.getBudget());
 
 
@@ -178,8 +257,12 @@ public class BudgetMonthViewModel extends ViewModel {
 
 
     public String getDateString() {
-        int year = currentMonth.getYear();
-        int month = currentMonth.getMonth();
+        // TODO: Remove old code
+        //int year = currentMonth.getYear();
+        //int month = currentMonth.getMonth();
+
+        int year = currentMonth2.getValue().getYear();
+        int month = currentMonth2.getValue().getMonth();
 
         String yearString = String.valueOf(year);
         String monthString = Month.of(month).toString();

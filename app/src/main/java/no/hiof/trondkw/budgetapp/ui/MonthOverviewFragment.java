@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
+import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.ui.dialogs.BudgetDialog;
 import no.hiof.trondkw.budgetapp.ui.dialogs.MonthYearPickerDialog;
@@ -38,6 +39,13 @@ public class MonthOverviewFragment extends Fragment {
     private double budget;
     private int expensesListSize;
 
+    // ----------- NEW STUFF -------------------------
+    private BudgetMonth currentMonth;
+    // --------------------------------------------------------
+
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,34 +54,32 @@ public class MonthOverviewFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
-        binding.setCurrentMonth(budgetMonthViewModel);
-        requireActivity().setTitle("Monthly Overview");
-
-        // Hacky solution
-        currentMonthId = budgetMonthViewModel.getCurrentMonthId().getValue();
-        budget = budgetMonthViewModel.getBudget().getValue();
-        expensesListSize = budgetMonthViewModel.getExpenseList().getValue().size();
-
         // test graph drawing on simple canvas
         Bitmap bitmap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
 
-        // TODO: fix too many calls after changing fragment
-        System.out.println("calling drawGraph() from onCreateView\n");
-        drawGraph();
-
-
+        // Set data bindings
+        binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
+        binding.setCurrentMonth(budgetMonthViewModel);
         binding.graphImage.setImageBitmap(bitmap);
 
         // set onclick listeners
         binding.currentYearMonth.setOnClickListener(view -> openDatePickerDialog());
         binding.currentBudget.setOnClickListener(view1 -> openEditBudgetDialog());
 
+        // Set fragment title
+        requireActivity().setTitle("Monthly Overview");
+
+        // ----------- NEW STUFF -------------------------
+        currentMonth = budgetMonthViewModel.getCurrentMonth_2().getValue();
+        // --------------------------------------------------------
 
 
-
-        //budgetMonthViewModel.getCurrentMonthId().observe(requireActivity(), integer -> binding.setCurrentMonth(budgetMonthViewModel));
+        // Hacky solution
+        currentMonthId = budgetMonthViewModel.getCurrentMonthId().getValue();
+        budget = budgetMonthViewModel.getBudget().getValue();
+        expensesListSize = budgetMonthViewModel.getExpenseList().getValue().size();
+        // --------------------------------------------------------
 
         return binding.getRoot();
     }
@@ -83,7 +89,32 @@ public class MonthOverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // observe viewModel
+        // Observe viewModel
+        budgetMonthViewModel.getCurrentMonth_2().observe(requireActivity(), new Observer<BudgetMonth>() {
+            @Override
+            public void onChanged(BudgetMonth budgetMonth) {
+                System.out.println("Observer called on ViewModel.currentMonth in onViewCreated().");
+
+                // ViewModel changed, update data binding
+                binding.setCurrentMonth(budgetMonthViewModel);
+
+                // TODO: Check if something has actually changed before drawing graph again?
+                // Draw new graph
+                drawGraph();
+            }
+        });
+
+
+
+
+
+
+        // TODO: fix too many calls after changing fragment
+        System.out.println("calling drawGraph() from onViewCreated\n");
+        drawGraph();
+
+        // ------------ OLD STUFF --------------------
+        /*
         budgetMonthViewModel.getCurrentMonthId().observe(requireActivity(), integer -> {
 
             if(currentMonthId != integer) {
@@ -91,7 +122,6 @@ public class MonthOverviewFragment extends Fragment {
                 drawGraph();
             }
         });
-
         budgetMonthViewModel.getBudget().observe(requireActivity(), aDouble -> {
             // aDouble is the budget value -> TODO: change name?
             binding.setCurrentMonth(budgetMonthViewModel);
@@ -111,8 +141,6 @@ public class MonthOverviewFragment extends Fragment {
 
             }
         });
-
-
         budgetMonthViewModel.getExpenseList().observe(requireActivity(), expenses -> {
             // expenses is the updated list of expenses
             binding.setCurrentMonth(budgetMonthViewModel);
@@ -135,11 +163,10 @@ public class MonthOverviewFragment extends Fragment {
 
             }
         });
+        */
+        // --------------------------------------------------------
 
-
-
-
-    }
+    } // end onViewCreated
 
     public void openEditBudgetDialog() {
         BudgetDialog budgetDialog = new BudgetDialog();

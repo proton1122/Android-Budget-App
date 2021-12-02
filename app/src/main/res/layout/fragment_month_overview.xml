@@ -100,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@id/budget_title"
                 app:layout_constraintStart_toStartOf="@id/graph_image"
                 app:layout_constraintEnd_toEndOf="@id/graph_image"
-                android:text="@{Utilities.getFormattedSum(currentMonth.budget)}"
+                android:text="@{Utilities.getFormattedSum(currentMonth.budget_2)}"
                 android:textColor="@color/white"
                 />
 
@@ -131,7 +131,7 @@
                     android:drawableEnd="@drawable/ic_edit_icon"
 
                     android:inputType="numberDecimal"
-                    android:text="@{Utilities.getFormattedSum(currentMonth.budget)}"
+                    android:text="@{Utilities.getFormattedSum(currentMonth.budget_2)}"
                     android:textAlignment="center" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +160,7 @@
 
                     android:inputType="numberDecimal"
                     android:textAlignment="center"
-                    android:text="@{Utilities.getFormattedSum(currentMonth.totalExpenses)}"/>
+                    android:text="@{Utilities.getFormattedSum(currentMonth.totalExpenses_2)}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -190,7 +190,7 @@
 
                     android:inputType="numberDecimal"
                     android:textAlignment="center"
-                    android:text="@{Utilities.getFormattedSum(currentMonth.budget - currentMonth.totalExpenses)}"/>
+                    android:text="@{Utilities.getFormattedSum(currentMonth.budget_2 - currentMonth.totalExpenses_2)}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

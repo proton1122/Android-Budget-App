@@ -1,6 +1,5 @@
 package no.hiof.trondkw.budgetapp.database;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
@@ -32,7 +31,7 @@ public class LocalDatabase {
     public static void printHashMap() {
         database.forEach((key, value) -> {
             System.out.println(key + " " + value);
-            System.out.println("\tID: " + value.getId() + " - BUDGET: " + value.getBudget() + " - List length: " + value.getMonthlyExpenses().size());
+            System.out.println("\tID: " + value.getId() + " - BUDGET: " + value.getBudget() + " - List length: " + value.getMonthlyExpensesList().size());
         });
     }
 

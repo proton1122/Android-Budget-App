@@ -14,13 +14,18 @@ public class BudgetMonth {
     private final int id;
     private int year;
     private int month;
-    private double budget;
+
     private ArrayList<Expense> monthlyExpenses;
+    private double budget;
+    private double totalExpenses;
 
 
+    // Only for testing..
     public BudgetMonth(int year, int month) {
-        this.budget = 0;
         this.monthlyExpenses = new ArrayList<>();
+        this.budget = 0;
+        this.totalExpenses = 0;
+
         this.year = year;
         this.month = month;
 
@@ -28,10 +33,12 @@ public class BudgetMonth {
     }
 
     public BudgetMonth(int year, int month, double budget, ArrayList<Expense> expenses) {
+        this.monthlyExpenses = expenses;
+        this.budget = budget;
+        this.totalExpenses = calculateTotalExpenses();
+
         this.year = year;
         this.month = month;
-        this.budget = budget;
-        this.monthlyExpenses = expenses;
 
         this.id = Integer.parseInt("" + year + month);
     }
@@ -60,11 +67,29 @@ public class BudgetMonth {
     public void setBudget(double budget) {
         this.budget = budget;
     }
-    public ArrayList<Expense> getMonthlyExpenses() {
+    public ArrayList<Expense> getMonthlyExpensesList() {
         return monthlyExpenses;
     }
-    public void setMonthlyExpenses(ArrayList<Expense> monthlyExpenses) {
-        this.monthlyExpenses = monthlyExpenses;
+    public double getTotalExpenses() {
+        return totalExpenses;
+    }
+    public void updateTotalExpenses() {
+        this.totalExpenses = calculateTotalExpenses();
+    }
+
+
+    private double calculateTotalExpenses() {
+        ArrayList<Expense> expenseList = this.monthlyExpenses;
+
+        double totalExpenses = 0;
+
+        if (expenseList.size() <= 0)
+            return totalExpenses;
+
+        for (Expense expense : expenseList)
+            totalExpenses += expense.getSum();
+
+        return totalExpenses;
     }
 
 
