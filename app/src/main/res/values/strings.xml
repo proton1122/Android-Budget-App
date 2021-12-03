@@ -1,10 +1,6 @@
 <resources>
-    <string name="app_name">BudgetApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">BudgetApp</string>
 
 
     <!-- BOTTOM NAV MENU -->
@@ -12,8 +8,6 @@
     <string name="month_overview">Month</string>
     <string name="month_details">Details</string>
     <string name="savings">Savings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!-- TextInputLayout -->
@@ -43,10 +37,14 @@
     <string name="dialog_cancel">Cancel</string>
 
 
+    <!-- Hints -->
     <string name="date">Date</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
+    <string name="budget">Budget</string>
+    <string name="expenses">Expenses</string>
     <string name="sum">Sum</string>
+    <string name="remaining">Remaining</string>
 
 
     <!-- ImageView ContentDescriptions -->
