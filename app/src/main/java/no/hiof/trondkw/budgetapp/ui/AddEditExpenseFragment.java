@@ -57,22 +57,26 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.category_list_item, categories);
         binding.categoryInput.setAdapter(adapter);
 
-        // If NO bundle - ADD EXPENSE path
-        // If bundle - EDIT EXPENSE path
+
+        // Change values in form depending on if the user wants to create a
+        // new expense or edit an existing expense.
+        // If user wants to edit an expense, all values will be received as a Bundle
+        // from MonthlyDetailsFragment, otherwise all fields are blank except date.
         if(getArguments() == null) {
+            // No bundle, fields are empty, set date to today
             addExpenseFragment();
         }
         else {
+            // Set form values from Bundle
             editExpenseFragment(adapter);
         }
 
-
+        // Set click listeners for date picker and add new expense button
         binding.dateInput.setOnClickListener(view -> showDatePickerDialog());
         binding.addExpenseButton.setOnClickListener(view -> {
 
-            boolean validInput = validateInput();
-
-            if(validInput) {
+            // Validate input before saving new or edited expense, then redirect to overview
+            if(validateInput()) {
 
                 if (editExpense) {
                     saveEditedExpense();
