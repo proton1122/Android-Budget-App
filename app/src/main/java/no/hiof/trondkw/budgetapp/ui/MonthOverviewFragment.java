@@ -119,9 +119,10 @@ public class MonthOverviewFragment extends Fragment {
     private void drawGraph() {
         RectF rectangle = new RectF(100, 100, 900, 900);
 
-
         float budget = budgetMonthViewModel.getBudget().floatValue();
         float expenses = budgetMonthViewModel.getTotalExpenses().floatValue();
+
+
 
 
         System.out.println("\nEntered drawGraph...");
