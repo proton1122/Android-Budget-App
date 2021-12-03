@@ -28,6 +28,9 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:fontFamily">@font/roboto_condensed_regular</item>
         <item name="helperTextTextColor">@color/grey_text</item>
+        <!-- not working, something to do with theme.. -->
+        <item name="boxStrokeColor">@color/white</item>
+        <item name="boxStrokeErrorColor">@color/red</item>
     </style>
 
     <!-- TextInputEditText -->
@@ -53,10 +56,12 @@
     </style>
 
     <!-- Bottom Navigation Bar -->
-    <style name="BottomNavFontStyle"
-        parent="Widget.Design.BottomNavigationView">
+    <style name="BottomNavFontStyle" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/roboto_condensed_regular</item>
     </style>
+
+
+
 
 
 

@@ -21,7 +21,7 @@
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="password_confirm">Confirm password</string>
-    <string name="email_not_valid">Please provide a valid email address</string>
+    <string name="email_not_valid">Not a valid email address</string>
     <string name="password_not_confirmed">Passwords are not equal</string>
 
     <!-- Login -->

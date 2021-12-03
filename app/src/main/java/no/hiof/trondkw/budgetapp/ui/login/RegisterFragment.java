@@ -10,6 +10,14 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.firebase.ui.auth.data.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Locale;
 
@@ -19,6 +27,7 @@ import no.hiof.trondkw.budgetapp.databinding.FragmentRegisterBinding;
 
 public class RegisterFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
     private FragmentRegisterBinding binding;
 
     @Override
@@ -30,12 +39,9 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(getLayoutInflater());
 
+        mAuth = FirebaseAuth.getInstance();
 
-        binding.registerButton.setOnClickListener(view -> {
-            if(validateInput()) {
-                registerUser();
-            }
-        });
+        binding.registerButton.setOnClickListener(view -> { registerUser(); });
 
         return binding.getRoot();
     }
@@ -44,17 +50,32 @@ public class RegisterFragment extends Fragment {
 
     private void registerUser() {
 
-
-
-    }
-
-    private boolean validateInput() {
-        System.out.println("validateInput() called.......................");
-        System.out.println("-------------------------------------------------------");
-
         String email = binding.emailInput.getText().toString().trim();
         String password = binding.passwordInput.getText().toString().trim();
         String passwordConfirm = binding.passwordConfirmInput.getText().toString().trim();
+
+        if(validateInput(email, password, passwordConfirm)) {
+
+            binding.progressBar.setVisibility(View.VISIBLE);
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if(task.isSuccessful()) {
+                            binding.progressBar.setVisibility(View.GONE);
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            // TODO: After creating user, navigate to MainActivity or LoginFragment so user can login?
+                        }
+                        else {
+                            binding.progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+        }
+    }
+
+    private boolean validateInput(String email, String password, String passwordConfirm) {
 
         if (email.isEmpty()) {
             binding.emailLayout.setErrorEnabled(true);
