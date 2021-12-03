@@ -18,9 +18,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentAddEditExpenseBinding;
+import no.hiof.trondkw.budgetapp.models.Category;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.utils.Utilities;
 import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
@@ -49,17 +56,20 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         binding = FragmentAddEditExpenseBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
-        // set category dropdown list
-        String[] categories = new String[] {"Cat1", "Cat2", "Cat3", "Cat4", "Cat5"};
+
+        // Set category dropdown list TODO: clean up category stuff...
+        String[] categories = getCategoriesForSpinner();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.category_list_item, categories);
         binding.categoryInput.setAdapter(adapter);
 
         // If NO bundle - ADD EXPENSE path
         // If bundle - EDIT EXPENSE path
-        if(getArguments() == null)
+        if(getArguments() == null) {
             addExpenseFragment();
-        else
-            editExpenseFragment();
+        }
+        else {
+            editExpenseFragment(adapter);
+        }
 
 
         binding.dateInput.setOnClickListener(view -> showDatePickerDialog());
@@ -99,13 +109,13 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
     }
 
     /**
-     *      Setup for editing an existing expense
+     *      Populate form with values from existing Expense to be edited
+     *      Values are received as Arguments from MonthDetailsFragment
      */
-    private void editExpenseFragment() {
+    private void editExpenseFragment(ArrayAdapter<String> adapter) {
         requireActivity().setTitle("Edit Expense");
 
         if (getArguments() != null) {
-
             editExpense = true;
 
             LocalDate date = LocalDate.parse(getArguments().get(Expense.DATE).toString());
@@ -115,6 +125,10 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             binding.dateInput.setText(dateString);
 
             binding.titleInput.setText(getArguments().get(Expense.TITLE).toString());
+
+            // TODO: set category - will this work? - testing
+            String categoryTitle = getArguments().get(Expense.CATEGORY).toString();
+            binding.categoryInput.setText(categoryTitle, false);
 
             String sum = Utilities.decimalFormatter.format(getArguments().getDouble(Expense.SUM));
             binding.expenseSumInput.setText(sum);
@@ -197,13 +211,15 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         LocalDate date = LocalDate.of(year, month, dayOfMonth);
         String title = binding.titleInput.getText().toString();
         double sum =  Double.parseDouble(binding.expenseSumInput.getText().toString());
-        String category = binding.categoryInput.getText().toString();
+
+        String categoryString = binding.categoryInput.getText().toString();
+        Category category = Category.getCategory(categoryString);
 
         budgetMonthViewModel.addNewExpense(date, title, category, sum);
     }
 
     /**
-     *      Edit an expense.
+     *      Save an edited expense.
      */
     private void saveEditedExpense() {
 
@@ -221,11 +237,32 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             LocalDate date = LocalDate.of(year, month, dayOfMonth);
             String title = binding.titleInput.getText().toString();
             double sum = Double.parseDouble(binding.expenseSumInput.getText().toString());
-            String category = binding.categoryInput.getText().toString();
+
+
+            // TODO: fix category
+            String categoryString = binding.categoryInput.getText().toString();
+            Category category = Category.getCategory(categoryString);
 
             budgetMonthViewModel.editExpense(id, date, title, category, sum);
         }
     }
+
+    /**
+     *  Convert Category to String[] for the spinner adapter
+     */
+    private String[] getCategoriesForSpinner() {
+
+        ArrayList<String> categoryTitles = Category.getDefaultCategoryTitles();
+
+        String[] categories = new String[categoryTitles.size()];
+
+        for(int i = 0; i < categoryTitles.size(); i++) {
+            categories[i] = categoryTitles.get(i);
+        }
+
+        return categories;
+    }
+
 
 
     // --------------------------------------------------------------------

@@ -24,13 +24,11 @@
     <string name="email_not_valid">Not a valid email address</string>
     <string name="password_not_confirmed">Passwords are not equal</string>
 
-    <!-- Login -->
+    <!-- Login Fragment -->
     <string name="forgot_password">Forgot password</string>
     <string name="register">Register</string>
 
-
-
-    <!-- Text -->
+    <!-- Text Placeholders -->
     <string name="placeholder">Placeholder text</string>
     <string name="title_placeholder">Title Placeholder</string>
     <string name="date_placeholder">Date Placeholder</string>
@@ -44,13 +42,16 @@
     <string name="dialog_set">Set</string>
     <string name="dialog_cancel">Cancel</string>
 
+
     <string name="date">Date</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
     <string name="sum">Sum</string>
 
 
-    <!-- Constants -->
+    <!-- ImageView ContentDescriptions -->
+    <string name="category_color">Category color</string>
+
 
     <!-- Budget / YearMonthPicker Dialogs -->
     <string name="BUDGET">budget</string>

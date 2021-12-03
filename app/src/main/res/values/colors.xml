@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="red">#FF0000</color>
-    <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
@@ -26,5 +25,32 @@
     <color name="grey_text">#84848a</color>
     -->
     <color name="grey_text">#afafb2</color>
+
+
+
+
+    <!-- Category colors -->
+    <color name="green_300">#1eb980</color>
+    <color name="green_500">#37efba</color>
+    <color name="green_700">#007d51</color>
+
+    <color name="red_50">#ffd7d0</color>
+    <color name="red_200">#ff857c</color>
+    <color name="red_300">#ff6859</color>
+
+    <color name="orange_200">#ffdc78</color>
+    <color name="orange_300">#ffcf44</color>
+    <color name="orange_500">#ffac12</color>
+
+    <color name="purple_50">#decaf7</color>
+    <color name="purple_200">#b15dff</color>
+    <color name="purple_300">#a932ff</color>
+
+    <color name="blue_100">#b2f2ff</color>
+    <color name="blue_200">#72deff</color>
+    <color name="blue_700">#0082fb</color>
+
+
+
 
 </resources>

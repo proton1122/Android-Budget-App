@@ -58,8 +58,10 @@ public class RegisterFragment extends Fragment {
 
             binding.progressBar.setVisibility(View.VISIBLE);
 
+            // Create new user
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
+
                         if(task.isSuccessful()) {
                             binding.progressBar.setVisibility(View.GONE);
                             FirebaseUser user = mAuth.getCurrentUser();

@@ -1,12 +1,15 @@
 package no.hiof.trondkw.budgetapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -24,7 +27,6 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
 
 
     public ExpenseRecyclerAdapter() {
-
     }
 
     public ExpenseRecyclerAdapter(Context context, List<Expense> expenseList) {
@@ -48,11 +50,17 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         Expense expenseToDisplay = expenseList.get(position);
 
+        // TODO: fix category
         // from youtube example
         holder.expenseTitleTextView.setText(expenseToDisplay.getTitle());
         holder.expenseSumTextView.setText(Utilities.getFormattedSum(expenseToDisplay.getSum()));
         holder.expenseDateTextView.setText(Utilities.getFormattedDate(expenseToDisplay.getDate()));
-        holder.expenseCategoryTextView.setText(expenseToDisplay.getCategory());
+        holder.expenseCategoryTextView.setText(expenseToDisplay.getCategory().getTitle());
+
+        int categoryColor = expenseToDisplay.getCategory().getColor();
+        holder.expenseCategoryColorBlobImageView.setColorFilter(categoryColor);
+        //holder.expenseCategoryColorBlobImageView.setColorFilter();
+
 
         // old from school example
         //holder.setExpense(expenseToDisplay);
@@ -88,6 +96,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
         private final TextView expenseSumTextView;
         private final TextView expenseDateTextView;
         private final TextView expenseCategoryTextView;
+        private final ImageView expenseCategoryColorBlobImageView;
 
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +105,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
             expenseSumTextView = itemView.findViewById(R.id.ExpenseCardView_Sum);
             expenseDateTextView = itemView.findViewById(R.id.ExpenseCardView_Date);
             expenseCategoryTextView = itemView.findViewById(R.id.ExpenseCardView_Category);
+            expenseCategoryColorBlobImageView = itemView.findViewById(R.id.category_color_image);
 
             // handle onclick for each card view
             itemView.setOnClickListener(new View.OnClickListener() {

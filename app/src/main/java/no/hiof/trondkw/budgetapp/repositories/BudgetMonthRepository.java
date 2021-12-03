@@ -6,6 +6,7 @@ import java.util.List;
 
 import no.hiof.trondkw.budgetapp.database.LocalDatabase;
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
+import no.hiof.trondkw.budgetapp.models.Category;
 import no.hiof.trondkw.budgetapp.models.Expense;
 
 public class BudgetMonthRepository {
@@ -79,19 +80,28 @@ public class BudgetMonthRepository {
 
     // Generate dummy data
     public static List<Expense> getTestExpenseList() {
+        ArrayList<Category> defaultCategories = Category.getDefaultCategories();
         List<Expense> list = new ArrayList<>();
-        String category;
+        Category category = defaultCategories.get(4);
+
         for (int i = 0; i < 5; i++) {
             String title = "Expense " + i;
             //int sum = 1000 + i;
             int sum = 1000;
 
             LocalDate date = LocalDate.now();
-            if (i%2 == 0) {
-                category = "cat1";
-            }else {
-                category = "cat2";
+
+            if(i<5) {
+                category = defaultCategories.get(i);
             }
+            // TODO: fix category
+            /*
+            if (i%2 == 0) {
+                category = defaultCategories.get(i);
+            }else {
+                category = new Category("cat2");
+            }
+            */
 
             list.add(new Expense(date, title, category , sum));
         }

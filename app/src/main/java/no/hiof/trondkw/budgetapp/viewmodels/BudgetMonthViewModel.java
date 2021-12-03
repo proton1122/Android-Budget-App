@@ -9,6 +9,7 @@ import java.time.Month;
 import java.util.ArrayList;
 
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
+import no.hiof.trondkw.budgetapp.models.Category;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
 
@@ -78,7 +79,7 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
     // Add new expense to the viewModels expenseList
-    public void addNewExpense(LocalDate date, String title, String category, double sum) {
+    public void addNewExpense(LocalDate date, String title, Category category, double sum) {
         BudgetMonth test = currentMonth.getValue();
 
         Expense newExpense = new Expense(date, title, category, sum);
@@ -93,7 +94,7 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
     // Edit an existing expense and update total expenses
-    public void editExpense(String id, LocalDate date, String title, String category, double sum) {
+    public void editExpense(String id, LocalDate date, String title, Category category, double sum) {
         BudgetMonth test = currentMonth.getValue();
 
         Expense expenseToEdit = getExpense(id);

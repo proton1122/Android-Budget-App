@@ -21,7 +21,7 @@ public class Expense {
 
     private String id;
     private String title;
-    private String category;
+    private Category category;
     private LocalDate date;
     private double sum;
 
@@ -40,7 +40,7 @@ public class Expense {
         this.sum = sum;
     }
 
-    public Expense(LocalDate date, String title, String category, double sum) {
+    public Expense(LocalDate date, String title, Category category, double sum) {
         this.id = UUID.randomUUID().toString();
         this.date = date;
         this.title = title;
@@ -67,10 +67,10 @@ public class Expense {
         this.date = date;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

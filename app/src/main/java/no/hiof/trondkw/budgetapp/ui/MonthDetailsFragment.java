@@ -62,7 +62,7 @@ public class MonthDetailsFragment extends Fragment {
 
             args.putString(Expense.ID, expense.getId());
             args.putString(Expense.TITLE, expense.getTitle());
-            args.putString(Expense.CATEGORY, "");
+            args.putString(Expense.CATEGORY, expense.getCategory().getTitle());
             args.putString(Expense.DATE, expense.getDate().toString());
             args.putDouble(Expense.SUM, expense.getSum());
 
