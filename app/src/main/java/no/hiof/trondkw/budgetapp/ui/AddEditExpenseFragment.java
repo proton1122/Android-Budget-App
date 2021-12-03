@@ -211,6 +211,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             String id = getArguments().getString(Expense.ID);
             Expense expense = budgetMonthViewModel.getExpense(id);
 
+            // TODO: handle error
             // Could not find expense
             if (expense == null) {
                 Toast.makeText(requireActivity(), "Something went wrong.", Toast.LENGTH_SHORT).show();

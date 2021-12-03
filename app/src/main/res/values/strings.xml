@@ -16,7 +16,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <!-- TextInputLayout -->
     <string name="required">*Required</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm password</string>
+    <string name="email_not_valid">Please provide a valid email address</string>
+    <string name="password_not_confirmed">Passwords are not equal</string>
+
+    <!-- Login -->
+    <string name="forgot_password">Forgot password</string>
+    <string name="register">Register</string>
+
 
 
     <!-- Text -->

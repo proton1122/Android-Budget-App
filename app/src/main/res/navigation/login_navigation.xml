@@ -10,7 +10,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.login.RegisterFragment"
-        android:label="fragment_register"
+        android:label="Register new user"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
