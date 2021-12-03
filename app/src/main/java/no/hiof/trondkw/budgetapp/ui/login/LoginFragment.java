@@ -21,7 +21,8 @@ import no.hiof.trondkw.budgetapp.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
 
-    FragmentLoginBinding binding;
+
+    private FragmentLoginBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

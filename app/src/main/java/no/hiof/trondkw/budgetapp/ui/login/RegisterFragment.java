@@ -16,7 +16,7 @@ import no.hiof.trondkw.budgetapp.databinding.FragmentRegisterBinding;
 
 public class RegisterFragment extends Fragment {
 
-    FragmentRegisterBinding binding;
+    private FragmentRegisterBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
