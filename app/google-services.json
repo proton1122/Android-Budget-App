@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "553026057432",
+    "project_id": "eksamen-budgetapp",
+    "storage_bucket": "eksamen-budgetapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553026057432:android:0199f570d3cc47315f13ad",
+        "android_client_info": {
+          "package_name": "no.hiof.trondkw.budgetapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553026057432-em5mhbqfgiiq81rh6fpkltdef1i8o74e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "no.hiof.trondkw.budgetapp",
+            "certificate_hash": "e421a4d61311d27f8bd93013a301cd9d74ba80ce"
+          }
+        },
+        {
+          "client_id": "553026057432-6brckdtahv5ih04l7bma2daaa6oshf7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKS7MYG0rHYiIfa_aLiiyGsps4j9I6Fds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553026057432-6brckdtahv5ih04l7bma2daaa6oshf7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
