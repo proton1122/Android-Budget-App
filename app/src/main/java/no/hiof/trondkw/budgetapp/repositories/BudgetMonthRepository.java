@@ -80,7 +80,7 @@ public class BudgetMonthRepository {
 
     // Generate dummy data
     public static List<Expense> getTestExpenseList() {
-        ArrayList<Category> defaultCategories = Category.getDefaultCategories();
+        ArrayList<Category> defaultCategories = Category.getDefaultCategoriesArray();
         List<Expense> list = new ArrayList<>();
         Category category = defaultCategories.get(4);
 

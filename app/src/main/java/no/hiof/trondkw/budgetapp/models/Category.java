@@ -47,7 +47,7 @@ public class Category {
 
 
 
-    public static ArrayList<Category> getDefaultCategories() {
+    public static ArrayList<Category> getDefaultCategoriesArray() {
 
         Category housing = new Category(HOUSING, Color.parseColor("#ff857c"));
         Category transport = new Category(TRANSPORT, Color.parseColor("#ffdc78"));
@@ -63,12 +63,12 @@ public class Category {
 
     public static Category getCategory(String category) {
 
-        HashMap<String, Category> defaultCategories = getDefaultCategories2();
+        HashMap<String, Category> defaultCategories = getDefaultCategoriesMap();
 
         return defaultCategories.get(category);
     }
 
-    public static HashMap<String, Category> getDefaultCategories2() {
+    public static HashMap<String, Category> getDefaultCategoriesMap() {
 
         HashMap<String, Category> defaultCategories = new HashMap<>();
 
