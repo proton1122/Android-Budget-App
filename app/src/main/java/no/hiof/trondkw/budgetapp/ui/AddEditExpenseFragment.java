@@ -19,11 +19,6 @@ import androidx.navigation.Navigation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentAddEditExpenseBinding;
@@ -57,8 +52,8 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
 
 
-        // Set category dropdown list TODO: clean up category stuff...
-        String[] categories = getCategoriesForSpinner();
+        // Set category dropdown list TODO: check implementation of ArrayAdapter with categories array stuff
+        String[] categories = getCategoriesForCategoryDropdownList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.category_list_item, categories);
         binding.categoryInput.setAdapter(adapter);
 
@@ -126,7 +121,6 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
 
             binding.titleInput.setText(getArguments().get(Expense.TITLE).toString());
 
-            // TODO: set category - will this work? - testing
             String categoryTitle = getArguments().get(Expense.CATEGORY).toString();
             binding.categoryInput.setText(categoryTitle, false);
 
@@ -238,8 +232,6 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
             String title = binding.titleInput.getText().toString();
             double sum = Double.parseDouble(binding.expenseSumInput.getText().toString());
 
-
-            // TODO: fix category
             String categoryString = binding.categoryInput.getText().toString();
             Category category = Category.getCategory(categoryString);
 
@@ -248,10 +240,11 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
     }
 
     /**
-     *  Convert Category to String[] for the spinner adapter
+     *  Convert Category (HashMap->)ArrayList to String[] for the spinner adapter
      */
-    private String[] getCategoriesForSpinner() {
+    private String[] getCategoriesForCategoryDropdownList() {
 
+        // TODO: move default categories elsewhere? needs change if going to implement user-defined categories
         ArrayList<String> categoryTitles = Category.getDefaultCategoryTitles();
 
         String[] categories = new String[categoryTitles.size()];
