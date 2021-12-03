@@ -11,7 +11,7 @@ public class Category {
     public static final String HOUSING = "Housing";
     public static final String TRANSPORT = "Transport";
     public static final String FOOD = "Food";
-    public static final String TRAVEL = "Travel";
+    public static final String SHOPPING = "Shopping";
     public static final String OTHER = "Other";
 
 
@@ -49,11 +49,11 @@ public class Category {
 
     public static ArrayList<Category> getDefaultCategories() {
 
-        Category housing = new Category("Housing", Color.parseColor("#ff857c"));
-        Category transport = new Category("Transport", Color.parseColor("#ffdc78"));
-        Category food = new Category("Food", Color.parseColor("#b15dff"));
-        Category travel = new Category("Travel", Color.parseColor("#72deff"));
-        Category other = new Category("Other");
+        Category housing = new Category(HOUSING, Color.parseColor("#ff857c"));
+        Category transport = new Category(TRANSPORT, Color.parseColor("#ffdc78"));
+        Category food = new Category(FOOD, Color.parseColor("#b15dff"));
+        Category travel = new Category(SHOPPING, Color.parseColor("#72deff"));
+        Category other = new Category(OTHER);
 
         ArrayList< Category> categories;
         categories = new ArrayList<>(Arrays.asList(housing, transport, food, travel, other));
@@ -75,13 +75,13 @@ public class Category {
         Category housing = new Category(HOUSING, Color.parseColor("#ff857c"));
         Category transport = new Category(TRANSPORT, Color.parseColor("#ffdc78"));
         Category food = new Category(FOOD, Color.parseColor("#b15dff"));
-        Category travel = new Category(TRAVEL, Color.parseColor("#72deff"));
+        Category travel = new Category(SHOPPING, Color.parseColor("#72deff"));
         Category other = new Category(OTHER);
 
         defaultCategories.put(HOUSING, housing);
         defaultCategories.put(TRANSPORT, transport);
         defaultCategories.put(FOOD, food);
-        defaultCategories.put(TRAVEL, travel);
+        defaultCategories.put(SHOPPING, travel);
         defaultCategories.put(OTHER, other);
 
         return defaultCategories;
@@ -90,7 +90,7 @@ public class Category {
     public static ArrayList<String> getDefaultCategoryTitles() {
 
         ArrayList<String> categoryTitles;
-        categoryTitles = new ArrayList<>(Arrays.asList(HOUSING, TRANSPORT, FOOD, TRAVEL, OTHER));
+        categoryTitles = new ArrayList<>(Arrays.asList(HOUSING, TRANSPORT, FOOD, SHOPPING, OTHER));
 
         return categoryTitles;
     }
