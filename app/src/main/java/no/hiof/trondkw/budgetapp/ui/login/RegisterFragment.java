@@ -121,6 +121,15 @@ public class RegisterFragment extends Fragment {
             binding.passwordLayout.setErrorEnabled(false);
         }
 
+        if(password.length() < 6) {
+            binding.passwordLayout.setErrorEnabled(true);
+            binding.passwordLayout.setError(getResources().getString(R.string.password_too_short));
+            binding.passwordLayout.requestFocus();
+            return false;
+        } else {
+            binding.passwordLayout.setErrorEnabled(false);
+        }
+
         if(passwordConfirm.isEmpty()) {
             binding.passwordConfirmLayout.setErrorEnabled(true);
             binding.passwordConfirmLayout.setError(getResources().getString(R.string.required));

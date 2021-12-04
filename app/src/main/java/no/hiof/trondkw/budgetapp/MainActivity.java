@@ -1,8 +1,10 @@
 package no.hiof.trondkw.budgetapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+
 import no.hiof.trondkw.budgetapp.databinding.ActivityMainBinding;
 import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
 import no.hiof.trondkw.budgetapp.interfaces.IMonthYearPickerDialogListener;
@@ -25,9 +32,13 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     private ActivityMainBinding binding;
     private BudgetMonthViewModel budgetMonthViewModel;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
 
         budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -90,7 +101,35 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        // Handle item selection
+
+        if(item.getItemId() == R.id.overflow_settings) {
+            // TODO: Navigate to settings fragment
+            System.out.println("Overflow settings button clicked");
+            return true;
+        }
+
+        else if(item.getItemId() == R.id.overflow_logout) {
+            // TODO: Log out firebase user
+            System.out.println("Overflow logout button clicked");
+            logOutUser();
+            return true;
+        }
+
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    private void logOutUser() {
+        AuthUI.getInstance().signOut(getApplicationContext()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(getApplicationContext(), "Signed out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
     }
 
 

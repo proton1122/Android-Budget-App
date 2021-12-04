@@ -17,6 +17,7 @@
     <string name="password_confirm">Confirm password</string>
     <string name="email_not_valid">Not a valid email address</string>
     <string name="password_not_confirmed">Passwords are not equal</string>
+    <string name="password_too_short">Password must be longer than 6 characters</string>
 
     <!-- Login Fragment -->
     <string name="forgot_password">Forgot password</string>

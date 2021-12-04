@@ -5,12 +5,12 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/overflow_settings"
         android:title="Settings"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/logout_button"
+        android:id="@+id/overflow_logout"
         android:title="Log out"
         app:showAsAction="never" />
 
