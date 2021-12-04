@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">BudgetApp</string>
+    <string name="app_name">Budget App</string>
+    <string name="app_name_caps">BUDGET APP</string>
 
 
     <!-- BOTTOM NAV MENU -->
@@ -36,6 +37,8 @@
     <string name="add_new_expense">Add Expense</string>
     <string name="dialog_set">Set</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="login">LOGIN</string>
+    <string name="no_user_login">Continue without user</string>
 
 
     <!-- Hints -->
