@@ -97,7 +97,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputNoClick"
+                    style="@style/TextInputNoClickEczarFont"
 
                     android:id="@+id/current_budget"
                     android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                 app:layout_constraintBottom_toTopOf="@id/remaining_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputNoClick"
+                    style="@style/TextInputNoClickEczarFont"
 
                     android:id="@+id/current_expenses"
                     android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputNoClick"
+                    style="@style/TextInputNoClickEczarFont"
 
                     android:id="@+id/current_remaining"
                     android:layout_width="match_parent"

@@ -17,8 +17,8 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/white</item>
 
-        <item name="colorOnError">@color/red</item>
-        <item name="colorError">@color/red</item>
+        <item name="colorOnError">@color/rally_orange</item>
+        <item name="colorError">@color/rally_orange</item>
 
 
         <!-- Status bar color. -->
@@ -69,12 +69,16 @@
 
     </style>
 
-    <!-- Non-clickable TextInputEditText -->
+    <!-- TextInputEditText Non-clickable -->
     <style name="TextInputNoClick" parent="@style/TextInputEditTextDark">
         <item name="android:clickable">false</item>
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:fontFamily">@font/roboto_condensed_regular</item>
+    </style>
+
+    <style name="TextInputNoClickEczarFont" parent="@style/TextInputNoClick">
+        <item name="android:fontFamily">@font/eczar_regular</item>
     </style>
 
     <!-- Appbar Hamburger menu -->
