@@ -60,6 +60,7 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:fontFamily">@font/roboto_condensed_regular</item>
         <item name="helperTextTextColor">@color/grey_text</item>
+        <item name="endIconTint">@color/white</item>
         <!-- not working, something to do with theme.. -->
         <item name="boxStrokeColor">@color/white</item>
         <item name="boxStrokeErrorColor">@color/red</item>
