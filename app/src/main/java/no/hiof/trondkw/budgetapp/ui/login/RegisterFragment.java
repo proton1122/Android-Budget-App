@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ public class RegisterFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FragmentRegisterBinding binding;
+    private boolean userRegistered = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,17 @@ public class RegisterFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
-        binding.registerButton.setOnClickListener(view -> { registerUser(); });
+        binding.registerButton.setOnClickListener(view -> {
+            registerUser();
+
+            // TODO: fix redirect to loginFragment or main activity
+            System.out.println("New user registered, try to navigate...");
+
+            if (userRegistered) {
+                System.out.println("Try to navigate to loginFragment..");
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
+            }
+        });
 
         return binding.getRoot();
     }
@@ -66,14 +79,16 @@ public class RegisterFragment extends Fragment {
                             binding.progressBar.setVisibility(View.GONE);
                             FirebaseUser user = mAuth.getCurrentUser();
                             // TODO: After creating user, navigate to MainActivity or LoginFragment so user can login?
+
+                            Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
+                            userRegistered = true;
+
                         }
                         else {
                             binding.progressBar.setVisibility(View.GONE);
                             Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
-
                         }
                     });
-
         }
     }
 
