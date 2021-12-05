@@ -1,5 +1,16 @@
 package no.hiof.trondkw.budgetapp.repositories;
 
+import android.provider.ContactsContract;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +22,12 @@ import no.hiof.trondkw.budgetapp.models.Expense;
 
 public class BudgetMonthRepository {
 
+    FirebaseDatabase database;
+
 
     public BudgetMonthRepository() {
+
+        database = FirebaseDatabase.getInstance("https://eksamen-budgetapp-default-rtdb.europe-west1.firebasedatabase.app");
 
         // TODO: make singleton
         // initiate data?
@@ -48,6 +63,12 @@ public class BudgetMonthRepository {
 
 
         // save to firebase
+
+        testSaveToDatabase(month);
+
+
+
+
 
     }
 
@@ -113,6 +134,47 @@ public class BudgetMonthRepository {
         int month = LocalDate.now().getMonth().getValue();
         return Integer.parseInt("" + year + month);
     }
+
+
+
+    private void testSaveToDatabase(BudgetMonth month) {
+        DatabaseReference monthsRef = database.getReference("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("months");
+
+        Long id = (long) month.getId();
+        Double budget = month.getBudget();
+        List<Expense> expenseList = month.getMonthlyExpensesList();
+
+        DatabaseReference userRef = monthsRef.child(String.valueOf(id));
+        DatabaseReference budgetRef = userRef.child("budget");
+        DatabaseReference expensesRef = userRef.child("expenses");
+
+
+        userRef.setValue(id);
+        budgetRef.setValue(budget);
+
+        expensesRef.setValue(expenseList);
+
+
+        /*
+        for (Expense expense: expenseList) {
+            expensesRef.child(expense.getId()).child("title").setValue(expense.getTitle());
+            expensesRef.child(expense.getId()).child("sum").setValue((long)expense.getSum());
+        }
+        */
+
+
+
+
+
+
+
+        //database.getReference("users").child("months").setValue(month);
+    }
+
+
+
 
 
 } // end BudgetMonthRepository class

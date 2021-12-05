@@ -11,7 +11,7 @@ public class BudgetMonth {
      *
      */
 
-    private final int id;
+    private int id;
     private int year;
     private int month;
 
@@ -19,6 +19,11 @@ public class BudgetMonth {
     private double budget;
     private double totalExpenses;
 
+
+    // Required empty constructor for Firebase Database
+    public BudgetMonth() {
+
+    }
 
     // Only for testing..
     public BudgetMonth(int year, int month) {

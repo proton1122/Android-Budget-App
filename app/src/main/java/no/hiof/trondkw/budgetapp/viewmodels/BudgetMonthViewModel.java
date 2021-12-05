@@ -168,4 +168,12 @@ public class BudgetMonthViewModel extends ViewModel {
         return yearString + " - " + monthString;
     }
 
+
+    // TEST DATABASE STUFF
+    public void testSaveToDatabase() {
+        repository.saveMonth(currentMonth.getValue());
+    }
+
+
+
 } // end BudgetMonthViewModel class

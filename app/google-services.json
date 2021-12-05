@@ -1,7 +1,8 @@
 {
   "project_info": {
     "project_number": "553026057432",
-    "project_id": "eksamen-budgetapp",
+    "firebase_url": "https://eksamen-budgetapp-default-rtdb.europe-west1.firebasedatabase.app/",
+    "project_id",: "eksamen-budgetapp",
     "storage_bucket": "eksamen-budgetapp.appspot.com"
   },
   "client": [

@@ -1,5 +1,6 @@
 package no.hiof.trondkw.budgetapp.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
@@ -50,10 +52,12 @@ public class RegisterFragment extends Fragment {
             // TODO: fix redirect to loginFragment or main activity
             System.out.println("New user registered, try to navigate...");
 
+            /* Not working
             if (userRegistered) {
                 System.out.println("Try to navigate to loginFragment..");
                 Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             }
+            */
         });
 
         return binding.getRoot();
@@ -77,10 +81,27 @@ public class RegisterFragment extends Fragment {
 
                         if(task.isSuccessful()) {
                             binding.progressBar.setVisibility(View.GONE);
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            // TODO: After creating user, navigate to MainActivity or LoginFragment so user can login?
 
-                            Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
+                            FirebaseDatabase.getInstance("https://eksamen-budgetapp-default-rtdb.europe-west1.firebasedatabase.app").getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue("Test")
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            if(task.isSuccessful()) {
+                                                Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
+
+                                                // TODO: After creating user, navigate to MainActivity or LoginFragment so user can login?
+
+                                            }
+                                            else {
+                                                Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                            });
+
+                            // Doesn't work
                             userRegistered = true;
 
                         }
