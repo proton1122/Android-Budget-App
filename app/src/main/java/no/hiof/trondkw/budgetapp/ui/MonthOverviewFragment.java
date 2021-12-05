@@ -117,55 +117,62 @@ public class MonthOverviewFragment extends Fragment {
 
 
     private void drawGraph() {
-        RectF rectangle = new RectF(100, 100, 900, 900);
 
-        float budget = budgetMonthViewModel.getBudget().floatValue();
-        float expenses = budgetMonthViewModel.getTotalExpenses().floatValue();
+        Thread t = new Thread(() -> {
 
+            RectF rectangle = new RectF(100, 100, 900, 900);
 
-
-
-        System.out.println("\nEntered drawGraph...");
-        System.out.println("viewModel budget: " + budget);
-        System.out.println("viewModel expenses: " + expenses);
-        System.out.println("----------------------------------------------------");
-
-        Paint basePaint = new Paint();
-
-        basePaint.setColor(Color.parseColor("#27272f"));
-        //basePaint.setColor(getResources().getColor(R.color.background_dark_grey));
-        basePaint.setStyle(Paint.Style.STROKE);
-        basePaint.setStrokeWidth(30);
+            float budget = budgetMonthViewModel.getBudget().floatValue();
+            float expenses = budgetMonthViewModel.getTotalExpenses().floatValue();
 
 
-        Paint budgetPaint = new Paint();
-        budgetPaint.setStyle(Paint.Style.STROKE);
-        budgetPaint.setStrokeWidth(25);
-
-        if(budget == 0) {
-            budgetPaint.setColor(Color.parseColor("#27272f"));
-        }
-        else if (expenses >= budget) {
-            //budgetPaint.setColor(getResources().getColor(R.color.rally_orange));
-            budgetPaint.setColor(Color.parseColor("#ff6859"));
-
-        }
-        else {
-            //budgetPaint.setColor(getResources().getColor(R.color.rally_primary_green));
-            budgetPaint.setColor(Color.parseColor("#1eb980"));
-        }
 
 
-        int startPos = -90;
+            System.out.println("\nEntered drawGraph...");
+            System.out.println("viewModel budget: " + budget);
+            System.out.println("viewModel expenses: " + expenses);
+            System.out.println("----------------------------------------------------");
 
-        float percent = (expenses / budget) * 100;
+            Paint basePaint = new Paint();
 
-        float circle = (float)360;
-        float angle = (circle / 100) * percent;
+            basePaint.setColor(Color.parseColor("#27272f"));
+            //basePaint.setColor(getResources().getColor(R.color.background_dark_grey));
+            basePaint.setStyle(Paint.Style.STROKE);
+            basePaint.setStrokeWidth(30);
 
 
-        canvas.drawArc(rectangle, -90, 360, false, basePaint);
-        canvas.drawArc(rectangle, -90, angle, false, budgetPaint);
+            Paint budgetPaint = new Paint();
+            budgetPaint.setStyle(Paint.Style.STROKE);
+            budgetPaint.setStrokeWidth(25);
+
+            if(budget == 0) {
+                budgetPaint.setColor(Color.parseColor("#27272f"));
+            }
+            else if (expenses >= budget) {
+                //budgetPaint.setColor(getResources().getColor(R.color.rally_orange));
+                budgetPaint.setColor(Color.parseColor("#ff6859"));
+
+            }
+            else {
+                //budgetPaint.setColor(getResources().getColor(R.color.rally_primary_green));
+                budgetPaint.setColor(Color.parseColor("#1eb980"));
+            }
+
+
+            int startPos = -90;
+
+            float percent = (expenses / budget) * 100;
+
+            float circle = (float)360;
+            float angle = (circle / 100) * percent;
+
+
+            canvas.drawArc(rectangle, -90, 360, false, basePaint);
+            canvas.drawArc(rectangle, -90, angle, false, budgetPaint);
+
+        });
+
+        t.start();
 
     } // end drawGraph()
 
