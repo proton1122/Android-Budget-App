@@ -2,6 +2,7 @@ package no.hiof.trondkw.budgetapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -38,13 +39,22 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
+        StrictMode.enableDefaults();
 
-        budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
+        // Get firebase instance and view model
+        Thread t = new Thread(() -> {
+            mAuth = FirebaseAuth.getInstance();
+            budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
+        });
+        t.start();
+
+        // Set up data binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         binding.setLifecycleOwner(this);
         setContentView(binding.getRoot());
 
+
+        // Set up navigation with appbar / bottom navigation / drawer
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
 
         DrawerLayout drawerLayout = binding.drawerLayout;
@@ -60,13 +70,10 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
                 .build();
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
         NavigationUI.setupWithNavController(binding.navigationView, navController);
 
-    }
+    } // end onCreate
 
 
     // Send input from EditBudgetDialog to viewModel
@@ -94,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         }
     }
 
+    // Set up overflow menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -113,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         else if(item.getItemId() == R.id.overflow_logout) {
             // TODO: Log out firebase user
             System.out.println("Overflow logout button clicked");
-            logOutUser();
+            Thread t = new Thread(this::logOutUser);
+            t.start();
             return true;
         }
 
@@ -122,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         }
     }
 
-
+    // Log out user
     private void logOutUser() {
         AuthUI.getInstance().signOut(getApplicationContext()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -132,8 +141,6 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
             }
         });
     }
-
-
 
 
 } // end MainActivity class

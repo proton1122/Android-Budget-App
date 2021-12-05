@@ -2,6 +2,7 @@ package no.hiof.trondkw.budgetapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,19 +24,26 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
+        StrictMode.enableDefaults();
 
+        // Get firebase instance
+        Thread t = new Thread(() -> mAuth = FirebaseAuth.getInstance());
+        t.start();
+
+        // Set data binding
         ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
         binding.setLifecycleOwner(this);
         setContentView(binding.getRoot());
 
+        // Set up navigation and toolbar
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_login);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         Toolbar toolbar = binding.toolbar;
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
-    }
+    } // end onCreate
+
 
     @Override
     protected void onStart() {
@@ -46,8 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser != null) {
             startActivity(new Intent(this, MainActivity.class));
         }
-
     }
-
 
 } // end LoginActivity

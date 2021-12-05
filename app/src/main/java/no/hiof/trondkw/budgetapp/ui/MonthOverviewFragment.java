@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,11 +36,17 @@ public class MonthOverviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
-    }
+
+        // Get viewm model
+        Thread t = new Thread(() -> budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class));
+        t.start();
+
+    } // end onCreate
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        StrictMode.enableDefaults();
+
         // test graph drawing on simple canvas
         Bitmap bitmap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
@@ -58,7 +65,8 @@ public class MonthOverviewFragment extends Fragment {
         requireActivity().setTitle("Monthly Overview");
 
         return binding.getRoot();
-    }
+
+    } // end onCreateView
 
 
     @Override
@@ -74,7 +82,9 @@ public class MonthOverviewFragment extends Fragment {
 
             // TODO: Check if something has actually changed before drawing graph again?
             // Draw new graph
-            drawGraph();
+            Thread thread = new Thread(this::drawGraph);
+            thread.start();
+
         });
 
         // TODO: fix too many calls after changing fragment
@@ -118,14 +128,11 @@ public class MonthOverviewFragment extends Fragment {
 
     private void drawGraph() {
 
-        Thread t = new Thread(() -> {
 
             RectF rectangle = new RectF(100, 100, 900, 900);
 
             float budget = budgetMonthViewModel.getBudget().floatValue();
             float expenses = budgetMonthViewModel.getTotalExpenses().floatValue();
-
-
 
 
             System.out.println("\nEntered drawGraph...");
@@ -170,9 +177,7 @@ public class MonthOverviewFragment extends Fragment {
             canvas.drawArc(rectangle, -90, 360, false, basePaint);
             canvas.drawArc(rectangle, -90, angle, false, budgetPaint);
 
-        });
 
-        t.start();
 
     } // end drawGraph()
 
