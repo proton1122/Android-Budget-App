@@ -13,8 +13,12 @@ public class Utilities {
         return day + " / " + month + " / " + year;
     }
 
-    public static String getFormattedDate(LocalDate date) {
-        return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+    // TODO: test this
+    public static String getFormattedDate(String date) {
+        LocalDate d = LocalDate.parse(date);
+
+        //return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+        return d.getDayOfMonth() + "/" + d.getMonthValue() + "/" + d.getYear();
     }
 
     public static String getFormattedSum(double sum) {

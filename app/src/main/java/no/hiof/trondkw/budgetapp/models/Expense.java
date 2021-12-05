@@ -22,7 +22,12 @@ public class Expense {
     private String id;
     private String title;
     private Category category;
-    private LocalDate date;
+
+    // TODO: test this
+    //private LocalDate date;
+    private String date;
+
+
     private double sum;
 
 
@@ -35,14 +40,22 @@ public class Expense {
 
     public Expense(LocalDate date, String title, double sum) {
         this.id = UUID.randomUUID().toString();
-        this.date = date;
+
+        // TODO: test this
+        //this.date = date;
+        this.date = date.toString();
+
         this.title = title;
         this.sum = sum;
     }
 
     public Expense(LocalDate date, String title, Category category, double sum) {
         this.id = UUID.randomUUID().toString();
-        this.date = date;
+
+        // TODO: test this
+        //this.date = date;
+        this.date = date.toString();
+
         this.title = title;
         this.category = category;
         this.sum = sum;
@@ -60,12 +73,16 @@ public class Expense {
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    // TODO: test this
+    public String getDate() {
+
         return date;
     }
+    // TODO: test this
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.date = date.toString();
     }
+
 
     public Category getCategory() {
         return category;
