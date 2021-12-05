@@ -37,7 +37,7 @@ public class MonthOverviewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get viewm model
+        // Get view model
         Thread t = new Thread(() -> budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class));
         t.start();
 
@@ -60,9 +60,6 @@ public class MonthOverviewFragment extends Fragment {
         // set onclick listeners
         binding.currentYearMonth.setOnClickListener(view -> openDatePickerDialog());
         binding.currentBudget.setOnClickListener(view1 -> openEditBudgetDialog());
-
-        // Set fragment title
-        requireActivity().setTitle("Monthly Overview");
 
         return binding.getRoot();
 

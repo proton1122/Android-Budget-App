@@ -29,11 +29,16 @@ public class MonthDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
-    }
+        // Get view model
+        Thread t = new Thread(() -> budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class));
+        t.start();
+
+    } // end onCreate
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Set up data binding
         binding = FragmentMonthDetailsBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
         requireActivity().setTitle("Monthly Details");
@@ -42,7 +47,8 @@ public class MonthDetailsFragment extends Fragment {
         budgetMonthViewModel.getCurrentBudgetMonth().observe(requireActivity(), budgetMonth -> binding.setBudgetMonthViewModel(budgetMonthViewModel));
 
         return binding.getRoot();
-    }
+
+    } // end onCreateView
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -86,6 +92,7 @@ public class MonthDetailsFragment extends Fragment {
                 Toast.makeText(requireActivity(), "Expense deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(binding.recyclerView);
-    }
+
+    } // end OnViewCreated
 
 } // end MonthDetailsFragment class

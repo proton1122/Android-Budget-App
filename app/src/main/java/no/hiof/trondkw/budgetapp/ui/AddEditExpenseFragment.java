@@ -41,22 +41,24 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
 
-        setHasOptionsMenu(true);
-    }
+        // Get view model
+        Thread t = new Thread(() -> budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class));
+        t.start();
+
+    } // end onCreate
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Set up data binding
         binding = FragmentAddEditExpenseBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
-
 
         // Set category dropdown list TODO: check implementation of ArrayAdapter with categories array stuff
         String[] categories = getCategoriesForCategoryDropdownList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.category_list_item, categories);
         binding.categoryInput.setAdapter(adapter);
-
 
         // Change values in form depending on if the user wants to create a
         // new expense or edit an existing expense.
@@ -75,25 +77,31 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         binding.dateInput.setOnClickListener(view -> showDatePickerDialog());
         binding.addExpenseButton.setOnClickListener(view -> {
 
-            // Validate input before saving new or edited expense, then redirect to overview
-            if(validateInput()) {
+            Thread t = new Thread(() -> {
 
-                if (editExpense) {
-                    saveEditedExpense();
-                }
-                else {
-                    saveNewExpense();
-                }
+                // Validate input before saving new or edited expense, then redirect to overview
+                if(validateInput()) {
 
-                Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_monthDetailsFragment);
-            }
+                    if (editExpense) {
+                        saveEditedExpense();
+                    }
+                    else {
+                        saveNewExpense();
+                    }
+
+                    Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_monthDetailsFragment);
+                }
+            });
+            t.start();
         });
+
         return binding.getRoot();
-    }
+
+    } // end onCreateView
 
 
     /**
-     *      Setup for creating a new expense
+     *      Set up form for creating a new expense
      */
     private void addExpenseFragment() {
         requireActivity().setTitle("New Expense");

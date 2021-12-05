@@ -10,12 +10,12 @@
     <fragment
         android:id="@+id/monthOverviewFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.MonthOverviewFragment"
-        android:label="fragment_month_overview"
+        android:label="Overview"
         tools:layout="@layout/fragment_month_overview" />
     <fragment
         android:id="@+id/monthDetailsFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.MonthDetailsFragment"
-        android:label="fragment_month_details"
+        android:label="Details"
         tools:layout="@layout/fragment_month_details" >
         <action
             android:id="@+id/action_monthDetailsFragment_to_addExpenseFragment"
@@ -24,17 +24,17 @@
     <fragment
         android:id="@+id/yearOverviewFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.YearOverviewFragment"
-        android:label="fragment_year_overview"
+        android:label="Year"
         tools:layout="@layout/fragment_year_overview" />
     <fragment
         android:id="@+id/savingsOverviewFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.SavingsOverviewFragment"
-        android:label="fragment_savings_overview"
+        android:label="Savings"
         tools:layout="@layout/fragment_savings_overview" />
     <fragment
         android:id="@+id/addExpenseFragment"
         android:name="no.hiof.trondkw.budgetapp.ui.AddEditExpenseFragment"
-        android:label="fragment_add_expense"
+        android:label=""
         tools:layout="@layout/fragment_add_edit_expense" >
         <action
             android:id="@+id/action_addExpenseFragment_to_monthDetailsFragment"
