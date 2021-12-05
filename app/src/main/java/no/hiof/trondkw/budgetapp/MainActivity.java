@@ -72,14 +72,15 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     // Send input from EditBudgetDialog to viewModel
     @Override
     public void setNewBudget(String budgetInput) {
-        System.out.println("MainActivity.setNewBudget()..");
-        budgetMonthViewModel.setBudget(budgetInput);
+        Thread t = new Thread(() -> budgetMonthViewModel.setBudget(budgetInput));
+        t.start();
     }
 
     // Send input from MonthYearPickerDialog to viewModel
     @Override
     public void loadMonth(int year, int month) {
-        budgetMonthViewModel.setBudgetMonth(year, month);
+        Thread t = new Thread(() -> budgetMonthViewModel.setBudgetMonth(year, month));
+        t.start();
     }
 
     // Closes the navigation drawer instead of the application if the drawer is open

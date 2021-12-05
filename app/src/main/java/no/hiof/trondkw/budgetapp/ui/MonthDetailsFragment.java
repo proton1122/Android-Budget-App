@@ -63,7 +63,7 @@ public class MonthDetailsFragment extends Fragment {
             args.putString(Expense.ID, expense.getId());
             args.putString(Expense.TITLE, expense.getTitle());
             args.putString(Expense.CATEGORY, expense.getCategory().getTitle());
-            args.putString(Expense.DATE, expense.getDate().toString());
+            args.putString(Expense.DATE, expense.getDate());
             args.putDouble(Expense.SUM, expense.getSum());
 
             Navigation.findNavController(view).navigate(R.id.action_monthDetailsFragment_to_addExpenseFragment, args);
