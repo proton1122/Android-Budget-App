@@ -33,8 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="@string/date"
-                >
+                android:hint="@string/date">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputNoClick"
@@ -47,7 +46,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!-- Description -->
+            <!-- Title -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutDark"
 
@@ -74,7 +73,6 @@
 
 
             <!-- Category -->
-            <!-- TODO: Set as dropdown menu not edit text? -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 app:helperTextTextColor="@color/grey_text"
@@ -93,7 +91,8 @@
                     android:id="@+id/category_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -123,7 +122,7 @@
 
 
             <!-- Add expense button -->
-            <!-- TODO: Remove and use AppBar icon to save -->
+            <!-- TODO: Remove and use AppBar icon to save (if time) -->
             <Button
                 android:id="@+id/add_expense_button"
                 android:layout_width="wrap_content"
