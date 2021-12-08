@@ -33,25 +33,24 @@ import no.hiof.trondkw.budgetapp.LoginActivity;
 import no.hiof.trondkw.budgetapp.MainActivity;
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentRegisterBinding;
+import no.hiof.trondkw.budgetapp.utils.Utilities;
 
 
 public class RegisterFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
     private FragmentRegisterBinding binding;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(getLayoutInflater());
 
-        mAuth = FirebaseAuth.getInstance();
-
-        binding.registerButton.setOnClickListener(view -> registerUser());
+        binding.registerButton.setOnClickListener(view -> {
+            if(!Utilities.checkNetworkStatus(requireActivity())) {
+                Toast.makeText(requireActivity(), "Can not register, no internet access", Toast.LENGTH_SHORT).show();
+            } else {
+                registerUser();
+            }
+        });
 
         return binding.getRoot();
     }
@@ -67,10 +66,11 @@ public class RegisterFragment extends Fragment {
 
             binding.progressBar.setVisibility(View.VISIBLE);
 
-            // Create new user
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            // Try to create new user
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
                 if(task.isSuccessful()) {
+                    // User successfully registered
                     binding.progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
 
@@ -78,6 +78,7 @@ public class RegisterFragment extends Fragment {
 
                 }
                 else {
+                    // Registration failed
                     binding.progressBar.setVisibility(View.GONE);
 
                     if(task.getException() != null) {
@@ -90,10 +91,10 @@ public class RegisterFragment extends Fragment {
                         } catch (FirebaseAuthInvalidCredentialsException e) {
                             Toast.makeText(requireActivity(), "Invalid email address", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
+                            Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
-                    }
-                    else {
+                    } else {
                         Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
                     }
                 }

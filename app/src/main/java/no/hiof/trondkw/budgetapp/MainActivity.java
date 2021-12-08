@@ -33,26 +33,17 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     private ActivityMainBinding binding;
     private BudgetMonthViewModel budgetMonthViewModel;
 
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        StrictMode.enableDefaults();
-
-        // Get firebase instance and view model
-        // TODO: Use new thread here?
-        Thread t = new Thread(() -> mAuth = FirebaseAuth.getInstance());
-        t.start();
+        // Set view model
         budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
-
 
         // Set up data binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         binding.setLifecycleOwner(this);
         setContentView(binding.getRoot());
-
 
         // Set up navigation with appbar / bottom navigation / drawer
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
@@ -114,13 +105,10 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
 
         if(item.getItemId() == R.id.overflow_settings) {
             // TODO: Navigate to settings fragment
-            System.out.println("Overflow settings button clicked");
             return true;
         }
 
         else if(item.getItemId() == R.id.overflow_logout) {
-            // TODO: Log out firebase user
-            System.out.println("Overflow logout button clicked");
             Thread t = new Thread(this::logOutUser);
             t.start();
             return true;
@@ -133,12 +121,9 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
 
     // Log out user
     private void logOutUser() {
-        AuthUI.getInstance().signOut(getApplicationContext()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(getApplicationContext(), "Signed out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
+        AuthUI.getInstance().signOut(getApplicationContext()).addOnCompleteListener(task -> {
+            Toast.makeText(getApplicationContext(), "Signed out", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         });
     }
 

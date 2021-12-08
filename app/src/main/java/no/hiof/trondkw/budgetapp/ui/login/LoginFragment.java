@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 import no.hiof.trondkw.budgetapp.LoginActivity;
 import no.hiof.trondkw.budgetapp.MainActivity;
@@ -51,8 +53,14 @@ public class LoginFragment extends Fragment {
         binding.forgotPasswordTextview.setOnClickListener(view -> { });
         binding.registerUserTextview.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment));
 
-        binding.loginButton.setOnClickListener(view -> userLogin());
         binding.noUserButton.setOnClickListener(view -> startActivity(new Intent(getContext(), MainActivity.class)));
+        binding.loginButton.setOnClickListener(view -> {
+            if(!Utilities.checkNetworkStatus(requireActivity())) {
+                Toast.makeText(getContext(), "Cannot log in, no internet access", Toast.LENGTH_LONG).show();
+            } else {
+                userLogin();
+            }
+        });
 
         return binding.getRoot();
     }
@@ -63,25 +71,31 @@ public class LoginFragment extends Fragment {
         String email = binding.emailInput.getText().toString().trim();
         String password = binding.passwordInput.getText().toString().trim();
 
-
         if (validateInput(email, password)) {
 
             binding.progressBar.setVisibility(View.VISIBLE);
 
+            //FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
                 if(task.isSuccessful()) {
-                    // User registered successfully, redirect to main activity
+                    // User logged in successfully, redirect to main activity
                     startActivity(new Intent(getContext(), MainActivity.class));
 
                 } else {
-                    // Check what went wrong
+                    // Log in failed
                     binding.progressBar.setVisibility(View.GONE);
 
-                    if(!Utilities.checkNetworkStatus(requireActivity())) {
-                        Toast.makeText(getContext(), "Cannot log in, no internet access", Toast.LENGTH_LONG).show();
-                    }
-                    else {
+                    if(task.getException() != null) {
+                        try {
+                            throw task.getException();
+                        } catch (FirebaseAuthInvalidUserException | FirebaseAuthInvalidCredentialsException e) {
+                            Toast.makeText(requireActivity(), "Email or password is wrong", Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(), "Failed to log in", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    } else {
                         Toast.makeText(getContext(), "Failed to log in", Toast.LENGTH_LONG).show();
                     }
                 }
