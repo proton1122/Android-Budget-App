@@ -1,6 +1,9 @@
 package no.hiof.trondkw.budgetapp.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +28,7 @@ import no.hiof.trondkw.budgetapp.LoginActivity;
 import no.hiof.trondkw.budgetapp.MainActivity;
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentLoginBinding;
+import no.hiof.trondkw.budgetapp.utils.Utilities;
 
 
 public class LoginFragment extends Fragment {
@@ -70,9 +75,15 @@ public class LoginFragment extends Fragment {
                     startActivity(new Intent(getContext(), MainActivity.class));
 
                 } else {
-                    // Failed to register user
+                    // Check what went wrong
                     binding.progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Failed to log in", Toast.LENGTH_LONG).show();
+
+                    if(!Utilities.checkNetworkStatus(requireActivity())) {
+                        Toast.makeText(getContext(), "Cannot connect, no internet access", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(), "Failed to log in", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
@@ -110,6 +121,9 @@ public class LoginFragment extends Fragment {
 
         return true;
     }
+
+
+
 
 
 

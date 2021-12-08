@@ -24,8 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        StrictMode.enableDefaults();
-
         // Get firebase instance
         Thread t = new Thread(() -> mAuth = FirebaseAuth.getInstance());
         t.start();
@@ -45,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     } // end onCreate
 
 
+
+    // Check if user is logged in
     @Override
     protected void onStart() {
         super.onStart();

@@ -1,5 +1,9 @@
 package no.hiof.trondkw.budgetapp.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -29,6 +33,16 @@ public class Utilities {
 
         return numberFormat.format(sum);
     }
+
+
+    public static boolean checkNetworkStatus(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
+
 
 
 

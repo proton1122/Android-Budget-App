@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -75,7 +78,23 @@ public class RegisterFragment extends Fragment {
                 }
                 else {
                     binding.progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
+
+                    if(task.getException() != null) {
+                        try {
+                            throw task.getException();
+                        } catch(FirebaseAuthUserCollisionException e) {
+                            Toast.makeText(requireActivity(), "Email address already in use", Toast.LENGTH_LONG).show();
+
+                        } catch (FirebaseAuthWeakPasswordException e) {
+                            Toast.makeText(requireActivity(), "Password is too weak", Toast.LENGTH_LONG).show();
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else {
+                        Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
