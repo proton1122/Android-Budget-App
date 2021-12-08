@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         StrictMode.enableDefaults();
 
         // Get firebase instance and view model
-        Thread t = new Thread(() -> {
-            mAuth = FirebaseAuth.getInstance();
-            budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
-        });
+        // TODO: Use new thread here?
+        Thread t = new Thread(() -> mAuth = FirebaseAuth.getInstance());
         t.start();
+        budgetMonthViewModel = new ViewModelProvider(this).get(BudgetMonthViewModel.class);
+
 
         // Set up data binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -79,15 +79,15 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     // Send input from EditBudgetDialog to viewModel
     @Override
     public void setNewBudget(String budgetInput) {
-        Thread t = new Thread(() -> budgetMonthViewModel.setBudget(budgetInput));
-        t.start();
+        // TODO: fix thread issues
+        budgetMonthViewModel.setBudget(budgetInput);
     }
 
     // Send input from MonthYearPickerDialog to viewModel
     @Override
     public void loadMonth(int year, int month) {
-        Thread t = new Thread(() -> budgetMonthViewModel.setBudgetMonth(year, month));
-        t.start();
+        // TODO: fix thread issues
+        budgetMonthViewModel.setBudgetMonth(year, month);
     }
 
     // Closes the navigation drawer instead of the application if the drawer is open

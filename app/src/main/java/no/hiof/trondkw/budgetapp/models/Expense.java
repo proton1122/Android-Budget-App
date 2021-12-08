@@ -83,12 +83,6 @@ public class Expense {
         this.date = date.toString();
     }
 
-    public void setDate(String date) {
-        LocalDate localdate = LocalDate.parse(date);
-        setDate(localdate);
-    }
-
-
     public Category getCategory() {
         return category;
     }

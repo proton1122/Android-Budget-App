@@ -41,9 +41,9 @@ public class BudgetMonthRepository {
         int monthId = Integer.parseInt("" + year + month);
 
         // check local storage
-        if(LocalDatabase.contains(monthId))
+        if(LocalDatabase.contains(monthId)) {
             return LocalDatabase.getMonth(monthId);
-
+        }
 
         // check firebase storage
 

@@ -43,10 +43,10 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         super.onCreate(savedInstanceState);
 
         // Get view model
-        Thread t = new Thread(() -> budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class));
-        t.start();
+       budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
 
     } // end onCreate
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,22 +77,19 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         binding.dateInput.setOnClickListener(view -> showDatePickerDialog());
         binding.addExpenseButton.setOnClickListener(view -> {
 
-            Thread t = new Thread(() -> {
+            // TODO: thread?
+            // Validate input before saving new or edited expense, then redirect to overview
+            if(validateInput()) {
 
-                // Validate input before saving new or edited expense, then redirect to overview
-                if(validateInput()) {
-
-                    if (editExpense) {
-                        saveEditedExpense();
-                    }
-                    else {
-                        saveNewExpense();
-                    }
-
-                    Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_monthDetailsFragment);
+                if (editExpense) {
+                    saveEditedExpense();
                 }
-            });
-            t.start();
+                else {
+                    saveNewExpense();
+                }
+
+                Navigation.findNavController(view).navigate(R.id.action_addExpenseFragment_to_monthDetailsFragment);
+            }
         });
 
         return binding.getRoot();

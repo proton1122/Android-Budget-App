@@ -52,12 +52,14 @@ public class RegisterFragment extends Fragment {
             // TODO: fix redirect to loginFragment or main activity
             System.out.println("New user registered, try to navigate...");
 
-            /* Not working
+            /*
             if (userRegistered) {
                 System.out.println("Try to navigate to loginFragment..");
                 Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             }
             */
+
+
         });
 
         return binding.getRoot();
@@ -92,6 +94,7 @@ public class RegisterFragment extends Fragment {
                                             if(task.isSuccessful()) {
                                                 Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
 
+
                                                 // TODO: After creating user, navigate to MainActivity or LoginFragment so user can login?
 
                                             }
@@ -100,6 +103,8 @@ public class RegisterFragment extends Fragment {
                                             }
                                         }
                             });
+
+                            // navigate here
 
                             // Doesn't work
                             userRegistered = true;

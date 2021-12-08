@@ -24,9 +24,13 @@ public class BudgetMonthViewModel extends ViewModel {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonth().getValue();
 
+        // Test
+
         repository = new BudgetMonthRepository();
 
-        BudgetMonth defaultMonth = repository.getTestMonth(year, month);
+        BudgetMonth defaultMonth = getDefaultMonth(year, month);
+
+        //BudgetMonth defaultMonth = repository.getTestMonth(year, month);
 
         currentMonth = new MutableLiveData<>();
         currentMonth.setValue(defaultMonth);
@@ -147,6 +151,9 @@ public class BudgetMonthViewModel extends ViewModel {
 
     // Set new current month
     public void setBudgetMonth(int year, int month) {
+
+        // TODO: fix thread issues..
+
         // save current month to database
         repository.saveMonth(currentMonth.getValue());
 
@@ -174,6 +181,12 @@ public class BudgetMonthViewModel extends ViewModel {
         repository.saveMonth(currentMonth.getValue());
     }
 
+
+
+    private BudgetMonth getDefaultMonth(int year, int month) {
+
+        return repository.getTestMonth(year, month);
+    }
 
 
 } // end BudgetMonthViewModel class

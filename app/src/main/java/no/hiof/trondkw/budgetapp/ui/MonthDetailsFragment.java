@@ -30,8 +30,8 @@ public class MonthDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Get view model
-        Thread t = new Thread(() -> budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class));
-        t.start();
+        budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
+
 
     } // end onCreate
 
@@ -49,6 +49,7 @@ public class MonthDetailsFragment extends Fragment {
         return binding.getRoot();
 
     } // end onCreateView
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
