@@ -46,18 +46,17 @@ public class RegisterFragment extends Fragment {
 
         binding.registerButton.setOnClickListener(view -> {
             if(!Utilities.checkNetworkStatus(requireActivity())) {
-                Toast.makeText(requireActivity(), "Can not register, no internet access", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), "Can not register without internet access", Toast.LENGTH_SHORT).show();
             } else {
                 registerUser();
             }
         });
 
         return binding.getRoot();
-    }
+    } // end onCreateView()
 
 
     private void registerUser() {
-
         String email = binding.emailInput.getText().toString().trim();
         String password = binding.passwordInput.getText().toString().trim();
         String passwordConfirm = binding.passwordConfirmInput.getText().toString().trim();
@@ -73,9 +72,7 @@ public class RegisterFragment extends Fragment {
                     // User successfully registered
                     binding.progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
-
                     startActivity(new Intent(requireActivity(), MainActivity.class));
-
                 }
                 else {
                     // Registration failed
@@ -100,10 +97,9 @@ public class RegisterFragment extends Fragment {
                 }
             });
         }
-    }
+    } // end registerUser()
 
     private boolean validateInput(String email, String password, String passwordConfirm) {
-
         if (email.isEmpty()) {
             binding.emailLayout.setErrorEnabled(true);
             binding.emailLayout.setError(getResources().getString(R.string.required));
@@ -159,8 +155,6 @@ public class RegisterFragment extends Fragment {
         }
 
         return true;
-    }
-
-
+    } // end validateInput()
 
 } // end RegisterFragment

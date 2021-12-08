@@ -50,24 +50,31 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         // Set onclick listeners
-        binding.forgotPasswordTextview.setOnClickListener(view -> { });
+        binding.forgotPasswordTextview.setOnClickListener(view -> Toast.makeText(requireActivity(), "Not implemented yet", Toast.LENGTH_LONG).show());
         binding.registerUserTextview.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment));
 
-        binding.noUserButton.setOnClickListener(view -> startActivity(new Intent(getContext(), MainActivity.class)));
+        binding.noUserButton.setOnClickListener(view -> {
+            if(!Utilities.checkNetworkStatus(requireActivity())) {
+                Toast.makeText(getContext(), "Can not log in without internet access", Toast.LENGTH_LONG).show();
+            } else {
+                anonymousLogin();
+            }
+
+        });
+        
         binding.loginButton.setOnClickListener(view -> {
             if(!Utilities.checkNetworkStatus(requireActivity())) {
-                Toast.makeText(getContext(), "Cannot log in, no internet access", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Can not log in without internet access", Toast.LENGTH_LONG).show();
             } else {
                 userLogin();
             }
         });
 
         return binding.getRoot();
-    }
+    } // end onCreateView()
 
 
     private void userLogin() {
-
         String email = binding.emailInput.getText().toString().trim();
         String password = binding.passwordInput.getText().toString().trim();
 
@@ -101,11 +108,24 @@ public class LoginFragment extends Fragment {
                 }
             });
         }
-    }
+    } // end userLogin()
 
+    private void anonymousLogin() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+
+        mAuth.signInAnonymously().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                binding.progressBar.setVisibility(View.VISIBLE);
+                Toast.makeText(requireActivity(), "Logged in anonymously", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(requireActivity(), MainActivity.class));
+            } else {
+                binding.progressBar.setVisibility(View.VISIBLE);
+                Toast.makeText(requireActivity(), "Failed to log in without user", Toast.LENGTH_LONG).show();
+            }
+        });
+    } // end anonymousLogin()
 
     private boolean validateInput(String email, String password) {
-
         if (email.isEmpty()) {
             binding.emailLayout.setErrorEnabled(true);
             binding.emailLayout.setError(getResources().getString(R.string.required));
@@ -134,12 +154,6 @@ public class LoginFragment extends Fragment {
         }
 
         return true;
-    }
-
-
-
-
-
-
+    } // end validateInput()
 
 } // end LoginFragment
