@@ -70,14 +70,12 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     // Send input from EditBudgetDialog to viewModel
     @Override
     public void setNewBudget(String budgetInput) {
-        // TODO: fix thread issues
         budgetMonthViewModel.setBudget(budgetInput);
     }
 
     // Send input from MonthYearPickerDialog to viewModel
     @Override
     public void loadMonth(int year, int month) {
-        // TODO: fix thread issues
         budgetMonthViewModel.setBudgetMonth(year, month);
     }
 
@@ -99,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         return true;
     }
 
+    // Handle overflow menu option selection
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // Handle item selection
 
         if(item.getItemId() == R.id.overflow_settings) {
             // TODO: Navigate to settings fragment
