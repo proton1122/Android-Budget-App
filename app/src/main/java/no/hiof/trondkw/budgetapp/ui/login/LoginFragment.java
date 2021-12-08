@@ -79,7 +79,7 @@ public class LoginFragment extends Fragment {
                     binding.progressBar.setVisibility(View.GONE);
 
                     if(!Utilities.checkNetworkStatus(requireActivity())) {
-                        Toast.makeText(getContext(), "Cannot connect, no internet access", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Cannot log in, no internet access", Toast.LENGTH_LONG).show();
                     }
                     else {
                         Toast.makeText(getContext(), "Failed to log in", Toast.LENGTH_LONG).show();

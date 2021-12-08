@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
@@ -84,11 +85,11 @@ public class RegisterFragment extends Fragment {
                             throw task.getException();
                         } catch(FirebaseAuthUserCollisionException e) {
                             Toast.makeText(requireActivity(), "Email address already in use", Toast.LENGTH_LONG).show();
-
                         } catch (FirebaseAuthWeakPasswordException e) {
                             Toast.makeText(requireActivity(), "Password is too weak", Toast.LENGTH_LONG).show();
-                        }
-                        catch (Exception e) {
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                            Toast.makeText(requireActivity(), "Invalid email address", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
