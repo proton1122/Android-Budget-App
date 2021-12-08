@@ -109,7 +109,7 @@ public class AddEditExpenseFragment extends Fragment implements DatePickerDialog
         String dateString = Utilities.getFormattedDate(now.getDayOfMonth(), now.getMonthValue(), now.getYear());
         binding.dateInput.setText(dateString);
 
-        binding.addExpenseButton.setText(getResources().getString(R.string.add_new_expense));
+        binding.addExpenseButton.setText(getResources().getString(R.string.add_expense));
     }
 
     /**

@@ -34,7 +34,7 @@
 
     <!-- Buttons -->
     <string name="save_edited_expense">Save</string>
-    <string name="add_new_expense">Add Expense</string>
+    <string name="add_expense">Add Expense</string>
     <string name="dialog_set">Set</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="login">LOGIN</string>
@@ -49,6 +49,8 @@
     <string name="expenses">Expenses</string>
     <string name="sum">Sum</string>
     <string name="remaining">Remaining</string>
+    <string name="add_new_expense">Add new expense</string>
+
 
 
     <!-- ContentDescriptions -->
