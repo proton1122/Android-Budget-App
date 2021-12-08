@@ -51,9 +51,11 @@
     <string name="remaining">Remaining</string>
 
 
-    <!-- ImageView ContentDescriptions -->
+    <!-- ContentDescriptions -->
     <string name="category_color">Category color</string>
-
+    <string name="budget_graph">Budget circle graph</string>
+    <string name="select_month">Select Month</string>
+    
 
     <!-- Budget / YearMonthPicker Dialogs -->
     <string name="BUDGET">budget</string>

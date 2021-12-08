@@ -60,7 +60,6 @@
                     android:focusableInTouchMode="false"
 
                     android:inputType="date"
-                    android:hint="@string/select_month"
 
                     android:text="@{currentMonth.dateString}"
                     android:textAlignment="center" />
@@ -80,7 +79,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date_layout"
 
-                android:contentDescription="@string/budget_graph" />
+                android:contentDescription="Budget graph" />
 
             <!-- Budget Field -->
             <com.google.android.material.textfield.TextInputLayout
