@@ -20,7 +20,7 @@
             android:textAlignment="center"
             android:textSize="50sp"
             android:textColor="@color/white"
-            android:text="BUDGET APP"
+            android:text="@string/app_name_caps"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -41,7 +41,9 @@
             app:errorIconDrawable="@drawable/ic_baseline_error_24"
             app:endIconMode="clear_text"
 
-            app:layout_constraintTop_toBottomOf="@+id/app_title">
+            app:layout_constraintTop_toBottomOf="@+id/app_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditTextDark"
@@ -49,8 +51,8 @@
                 android:id="@+id/email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionDone" />
+                android:inputType="textEmailAddress"/>
+                <!--android:imeOptions="actionDone"-->
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,8 +77,8 @@
                 android:id="@+id/password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:imeOptions="actionDone" />
+                android:inputType="textPassword" />
+                <!-- android:imeOptions="actionDone"  -->
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -111,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginBottom="16dp"
-            android:text="REGISTER"
+            android:text="@string/register"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

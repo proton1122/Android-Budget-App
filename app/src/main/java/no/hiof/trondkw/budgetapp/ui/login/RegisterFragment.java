@@ -68,7 +68,7 @@ public class RegisterFragment extends Fragment {
 
                 if(task.isSuccessful()) {
                     binding.progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "New account created", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
 
                     startActivity(new Intent(requireActivity(), MainActivity.class));
 

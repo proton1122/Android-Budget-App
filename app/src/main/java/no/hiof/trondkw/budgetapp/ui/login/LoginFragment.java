@@ -58,19 +58,21 @@ public class LoginFragment extends Fragment {
         String email = binding.emailInput.getText().toString().trim();
         String password = binding.passwordInput.getText().toString().trim();
 
+
         if (validateInput(email, password)) {
 
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+            binding.progressBar.setVisibility(View.VISIBLE);
 
-                    if(task.isSuccessful()) {
-                        //redirect to main activity
-                        startActivity(new Intent(getContext(), MainActivity.class));
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
-                    } else {
-                        Toast.makeText(getContext(), "Failed to log in", Toast.LENGTH_LONG).show();
-                    }
+                if(task.isSuccessful()) {
+                    // User registered successfully, redirect to main activity
+                    startActivity(new Intent(getContext(), MainActivity.class));
+
+                } else {
+                    // Failed to register user
+                    binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Failed to log in", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -105,8 +107,6 @@ public class LoginFragment extends Fragment {
         } else {
             binding.passwordLayout.setErrorEnabled(false);
         }
-
-        binding.progressBar.setVisibility(View.VISIBLE);
 
         return true;
     }

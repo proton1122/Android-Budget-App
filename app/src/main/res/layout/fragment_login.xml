@@ -25,6 +25,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <!--
+            helperText="  " fixes layout changing on button click
+            because there is no helper text..
+        -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayoutDark"
 
@@ -34,11 +38,14 @@
             android:layout_marginTop="50dp"
             android:hint="@string/email"
 
+            app:helperText="  "
             app:errorEnabled="true"
             app:errorIconDrawable="@drawable/ic_baseline_error_24"
             app:endIconMode="clear_text"
 
-            app:layout_constraintTop_toBottomOf="@+id/app_title">
+            app:layout_constraintTop_toBottomOf="@+id/app_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditTextDark"
@@ -46,8 +53,8 @@
                 android:id="@+id/email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionDone" />
+                android:inputType="textEmailAddress" />
+                <!-- android:imeOptions="actionDone" -->
                 <!-- android:maxLength="21" -->
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,6 +66,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
 
+            app:helperText="  "
             app:errorEnabled="true"
             app:errorIconDrawable="@drawable/ic_baseline_error_24"
             app:endIconMode="clear_text"
@@ -135,6 +143,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:translationZ="2dp"
             android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
