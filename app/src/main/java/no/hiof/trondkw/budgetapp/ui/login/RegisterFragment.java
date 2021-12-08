@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
+import no.hiof.trondkw.budgetapp.LoginActivity;
+import no.hiof.trondkw.budgetapp.MainActivity;
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentRegisterBinding;
 
@@ -33,7 +35,6 @@ public class RegisterFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FragmentRegisterBinding binding;
-    private boolean userRegistered = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,30 +42,15 @@ public class RegisterFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(getLayoutInflater());
 
         mAuth = FirebaseAuth.getInstance();
 
-        binding.registerButton.setOnClickListener(view -> {
-            registerUser();
-
-            // TODO: fix redirect to loginFragment or main activity
-            System.out.println("New user registered, try to navigate...");
-
-            /*
-            if (userRegistered) {
-                System.out.println("Try to navigate to loginFragment..");
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
-            }
-            */
-
-
-        });
+        binding.registerButton.setOnClickListener(view -> registerUser());
 
         return binding.getRoot();
     }
-
 
 
     private void registerUser() {
@@ -78,43 +64,20 @@ public class RegisterFragment extends Fragment {
             binding.progressBar.setVisibility(View.VISIBLE);
 
             // Create new user
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
-                        if(task.isSuccessful()) {
-                            binding.progressBar.setVisibility(View.GONE);
+                if(task.isSuccessful()) {
+                    binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "New account created", Toast.LENGTH_SHORT).show();
 
-                            FirebaseDatabase.getInstance("https://eksamen-budgetapp-default-rtdb.europe-west1.firebasedatabase.app").getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue("Test")
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                    startActivity(new Intent(requireActivity(), MainActivity.class));
 
-                                            if(task.isSuccessful()) {
-                                                Toast.makeText(getContext(), "New account created", Toast.LENGTH_LONG).show();
-
-
-                                                // TODO: After creating user, navigate to MainActivity or LoginFragment so user can login?
-
-                                            }
-                                            else {
-                                                Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                            });
-
-                            // navigate here
-
-                            // Doesn't work
-                            userRegistered = true;
-
-                        }
-                        else {
-                            binding.progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                }
+                else {
+                    binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Failed to create new account", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 

@@ -50,30 +50,7 @@ public class YearOverviewFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-
                 budgetMonthViewModel.testSaveToDatabase();
-
-
-                /*
-                FirebaseDatabase.getInstance("https://eksamen-budgetapp-default-rtdb.europe-west1.firebasedatabase.app").getReference("users")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue("Test")
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-                                if(task.isSuccessful()) {
-                                    Toast.makeText(getContext(), "onComplete success", Toast.LENGTH_LONG).show();
-
-                                    // TODO: After creating user, navigate to MainActivity or LoginFragment so user can login?
-
-                                }
-                                else {
-                                    Toast.makeText(getContext(), "onComplete failed", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-                */
 
             }
         });
