@@ -31,7 +31,7 @@
 
             <!-- Guideline for landscape mode -->
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
+                android:id="@+id/vertical_guide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -50,7 +50,7 @@
 
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline">
+                app:layout_constraintEnd_toStartOf="@id/vertical_guide">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextDark"
@@ -85,7 +85,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintStart_toEndOf="@id/vertical_guide"
 
                 android:contentDescription="@string/budget_graph" />
 
@@ -102,7 +102,7 @@
 
                 app:layout_constraintBottom_toTopOf="@id/expenses_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline">
+                app:layout_constraintEnd_toStartOf="@id/vertical_guide">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputNoClickEczarFont"
@@ -132,7 +132,7 @@
                 android:hint="@string/expenses"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
+                app:layout_constraintEnd_toStartOf="@id/vertical_guide"
                 app:layout_constraintBottom_toTopOf="@id/remaining_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -162,7 +162,7 @@
                 android:hint="@string/remaining"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
+                app:layout_constraintEnd_toStartOf="@id/vertical_guide"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText

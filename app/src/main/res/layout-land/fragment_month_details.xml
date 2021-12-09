@@ -27,7 +27,7 @@
 
         <!-- Guideline -->
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/vertical_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/vertical_guide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/summary_layout" />
 
@@ -58,7 +58,7 @@
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/vertical_guide"
             app:layout_constraintBottom_toBottomOf="parent" >
 
             <!-- Expense title -->
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/vertical_guide"
             android:layout_margin="16dp"
 
             android:contentDescription="@string/add_new_expense"
