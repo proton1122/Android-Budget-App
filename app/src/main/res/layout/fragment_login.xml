@@ -7,12 +7,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.login.LoginFragment">
 
+    <!-- Main content layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- App Logo / title -->
         <TextView
             android:id="@+id/app_title"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -20,19 +23,16 @@
             android:textSize="50sp"
             android:textColor="@color/white"
             android:text="@string/app_name_caps"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <!--
-            helperText="  " fixes layout changing on button click
-            because there is no helper text..
-        -->
+        <!-- Email address -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayoutDark"
-
             android:id="@+id/email_layout"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -46,11 +46,12 @@
             app:layout_constraintTop_toBottomOf="@+id/app_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
+            <!-- helperText="  " fixes layout changing on button click because there is no helper text.. -->
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditTextDark"
-
                 android:id="@+id/email_input"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
@@ -58,10 +59,11 @@
                 <!-- android:maxLength="21" -->
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Password -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayoutDark"
-
             android:id="@+id/password_layout"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -75,8 +77,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditTextDark"
-
                 android:id="@+id/password_input"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -84,67 +86,84 @@
                 <!-- android:maxLength="21"  -->
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Login button -->
         <Button
             android:id="@+id/login_button"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/login"
             android:textSize="28sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_layout" />
 
+        <!-- Forgot password -->
         <TextView
             android:id="@+id/forgot_password_textview"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/forgot_password"
             android:textColor="@color/grey_text"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
+        <!-- Register new user -->
         <TextView
             android:id="@+id/register_user_textview"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/register"
             android:textColor="@color/grey_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
+
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
+        <!-- Guideline -->
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
+            android:id="@+id/guideline"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="184dp" />
+            app:layout_constraintGuide_percent="0.5" />
 
+        <!-- Anonymous login button -->
         <Button
             android:id="@+id/no_user_button"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_user_login"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- Progress bar -->
         <ProgressBar
-            android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyleLarge"
+            android:id="@+id/progress_bar"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:translationZ="2dp"
+            android:visibility="gone"
+
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:translationZ="2dp"
-            android:visibility="gone" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
