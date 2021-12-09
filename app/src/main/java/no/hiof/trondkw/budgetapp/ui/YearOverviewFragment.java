@@ -56,6 +56,14 @@ public class YearOverviewFragment extends Fragment {
         });
 
 
+        binding.testButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                budgetMonthViewModel.testGetData();
+            }
+        });
+
+
         return binding.getRoot();
     }
 

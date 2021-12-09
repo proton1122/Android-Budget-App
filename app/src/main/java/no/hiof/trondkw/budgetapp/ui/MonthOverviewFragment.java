@@ -45,7 +45,6 @@ public class MonthOverviewFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        StrictMode.enableDefaults();
 
         // test graph drawing on simple canvas
         Bitmap bitmap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);

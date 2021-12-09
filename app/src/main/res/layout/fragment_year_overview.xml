@@ -20,17 +20,7 @@
             android:layout_height="match_parent"
             android:paddingTop="?attr/actionBarSize">
 
-
-            <!-- Placeholder -->
-            <TextView
-                android:id="@+id/placeholder_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Year Overview Fragment"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            <!-- Test button 1 -->
             <Button
                 android:id="@+id/test_button"
                 android:layout_width="wrap_content"
@@ -40,6 +30,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Test button 2 -->
+            <Button
+                android:id="@+id/test_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Database test 2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/test_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

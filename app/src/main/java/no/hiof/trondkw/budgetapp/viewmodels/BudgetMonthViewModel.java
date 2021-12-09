@@ -21,7 +21,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
 
     public BudgetMonthViewModel() {
-        repository = new BudgetMonthRepository();
+        repository = BudgetMonthRepository.getInstance();
 
         // Set the default displaying month to current month
         int year = LocalDate.now().getYear();
@@ -39,6 +39,19 @@ public class BudgetMonthViewModel extends ViewModel {
         return currentMonth;
     }
 
+    // Set new current month based on month/year picker input
+    public void setBudgetMonth(int year, int month) {
+
+        // save current month to database
+        repository.saveMonth(currentMonth.getValue());
+
+        // get new month from database
+        currentMonth.setValue(repository.getMonth(year, month));
+
+        // update viewModel
+        currentMonth.getValue().updateTotalExpenses();
+    }
+
     // Get Budget -- Returns the budget for current month
     public Double getBudget() {
         return currentMonth.getValue().getBudget();
@@ -53,7 +66,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
     // Get the list of expenses from current month
     public ArrayList<Expense> getExpenseList() {
-        return currentMonth.getValue().getMonthlyExpensesList();
+        return currentMonth.getValue().getMonthlyExpenses();
     }
 
     // Get current month total expenses
@@ -63,7 +76,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
     // Get a specific Expense, used for the recycleView
     public Expense getExpense(String id) {
-        ArrayList<Expense> list = currentMonth.getValue().getMonthlyExpensesList();
+        ArrayList<Expense> list = currentMonth.getValue().getMonthlyExpenses();
 
         if (list != null) {
             for (Expense expense: list) {
@@ -83,7 +96,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
         Expense newExpense = new Expense(date, title, category, sum);
 
-        current.getMonthlyExpensesList().add(newExpense);
+        current.getMonthlyExpenses().add(newExpense);
         current.updateTotalExpenses();
 
         currentMonth.setValue(current);
@@ -97,7 +110,7 @@ public class BudgetMonthViewModel extends ViewModel {
         Expense expenseToEdit = getExpense(id);
 
         if (expenseToEdit != null) {
-            expenseToEdit.setDate(date);
+            expenseToEdit.setDate(date.toString());
             expenseToEdit.setTitle(title);
             expenseToEdit.setCategory(category);
             expenseToEdit.setSum(sum);
@@ -117,7 +130,7 @@ public class BudgetMonthViewModel extends ViewModel {
         BudgetMonth current = currentMonth.getValue();
 
         //ArrayList<Expense> expenseList = currentMonth2.getValue().getMonthlyExpensesList();
-        ArrayList<Expense> expenseList = current.getMonthlyExpensesList();
+        ArrayList<Expense> expenseList = current.getMonthlyExpenses();
 
         if(expenseList.contains(expense)) {
             expenseList.remove(expense);
@@ -140,22 +153,6 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
 
-    // Set new current month
-    public void setBudgetMonth(int year, int month) {
-
-        // TODO: fix thread issues..
-
-        // save current month to database
-        repository.saveMonth(currentMonth.getValue());
-
-        // get new month from database
-        currentMonth.setValue(repository.getMonth(year, month));
-
-        // update viewModel
-        currentMonth.getValue().updateTotalExpenses();
-    }
-
-
     public String getDateString() {
         int year = currentMonth.getValue().getYear();
         int month = currentMonth.getValue().getMonth();
@@ -171,6 +168,7 @@ public class BudgetMonthViewModel extends ViewModel {
     public void testSaveToDatabase() {
         repository.saveMonth(currentMonth.getValue());
     }
+    public void testGetData() { repository.testGetAllDataFromDatabase();}
 
 
 

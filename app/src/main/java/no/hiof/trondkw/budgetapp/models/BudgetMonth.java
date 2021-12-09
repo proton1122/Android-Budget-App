@@ -22,18 +22,14 @@ public class BudgetMonth {
 
     // Required empty constructor for Firebase Database
     public BudgetMonth() {
-
     }
 
-    // Only for testing..
     public BudgetMonth(int year, int month) {
         this.monthlyExpenses = new ArrayList<>();
         this.budget = 0;
         this.totalExpenses = 0;
-
         this.year = year;
         this.month = month;
-
         this.id = Integer.parseInt("" + year + month);
     }
 
@@ -41,10 +37,8 @@ public class BudgetMonth {
         this.monthlyExpenses = expenses;
         this.budget = budget;
         this.totalExpenses = calculateTotalExpenses();
-
         this.year = year;
         this.month = month;
-
         this.id = Integer.parseInt("" + year + month);
     }
 
@@ -72,13 +66,17 @@ public class BudgetMonth {
     public void setBudget(double budget) {
         this.budget = budget;
     }
-    public ArrayList<Expense> getMonthlyExpensesList() {
+
+    public ArrayList<Expense> getMonthlyExpenses() {
         return monthlyExpenses;
     }
+    public void setMonthlyExpenses(ArrayList<Expense> expenses) {
+        this.monthlyExpenses = expenses;
+    }
+
     public double getTotalExpenses() {
         return totalExpenses;
     }
-
     public void updateTotalExpenses() {
         this.totalExpenses = calculateTotalExpenses();
     }
@@ -96,7 +94,5 @@ public class BudgetMonth {
 
         return totalExpenses;
     }
-
-
 
 } // end BudgetMonth class

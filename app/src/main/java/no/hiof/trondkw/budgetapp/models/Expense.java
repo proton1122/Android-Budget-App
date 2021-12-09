@@ -11,8 +11,6 @@ public class Expense {
     public static final String DATE = "date";
     public static final String SUM = "sum";
 
-
-
     /**
      *      The Expense class is designed to hold the data
      *      for a single user expense.
@@ -22,14 +20,8 @@ public class Expense {
     private String id;
     private String title;
     private Category category;
-
-    // TODO: test this
-    //private LocalDate date;
     private String date;
-
-
     private double sum;
-
 
     public Expense() {}
 
@@ -40,27 +32,18 @@ public class Expense {
 
     public Expense(LocalDate date, String title, double sum) {
         this.id = UUID.randomUUID().toString();
-
-        // TODO: test this
-        //this.date = date;
         this.date = date.toString();
-
         this.title = title;
         this.sum = sum;
     }
 
     public Expense(LocalDate date, String title, Category category, double sum) {
         this.id = UUID.randomUUID().toString();
-
-        // TODO: test this
-        //this.date = date;
         this.date = date.toString();
-
         this.title = title;
         this.category = category;
         this.sum = sum;
     }
-
 
     public String getId() {
         return id;
@@ -73,14 +56,11 @@ public class Expense {
         this.title = title;
     }
 
-    // TODO: test this
     public String getDate() {
-
         return date;
     }
-    // TODO: test this
-    public void setDate(LocalDate date) {
-        this.date = date.toString();
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Category getCategory() {
@@ -96,7 +76,5 @@ public class Expense {
     public void setSum(double sum) {
         this.sum = sum;
     }
-
-
 
 } // end Expense class
