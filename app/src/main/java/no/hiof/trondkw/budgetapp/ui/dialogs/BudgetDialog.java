@@ -29,13 +29,13 @@ public class BudgetDialog extends DialogFragment {
 
         // TODO: how to use binding with alert dialog?
         //binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.DialogDarkStyle);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.edit_budget, null);
 
         // Set the budget in the TextInputEditText
         String budget = getArguments().get(getResources().getString(R.string.BUDGET)).toString();
-        budgetInput = view.findViewById(R.id.edittext_edit_budget);
+        budgetInput = view.findViewById(R.id.budget_input);
         budgetInput.setText(budget);
         budgetInput.requestFocus();
 

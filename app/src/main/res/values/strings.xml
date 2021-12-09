@@ -51,6 +51,8 @@
     <string name="remaining">Remaining</string>
     <string name="add_new_expense">Add new expense</string>
 
+    <!-- Labels -->
+    <string name="edit_budget">Edit Budget</string>
 
 
     <!-- ContentDescriptions -->
