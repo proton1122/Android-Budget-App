@@ -16,89 +16,90 @@
         <TextView
             android:id="@+id/app_title"
 
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:textAlignment="center"
-            android:textSize="50sp"
-            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+
             android:text="@string/app_name_caps"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="40sp"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/center_guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Email address -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayoutDark"
             android:id="@+id/email_layout"
+            style="@style/TextInputLayoutDark"
 
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:hint="@string/email"
 
-            app:helperText="  "
+            android:hint="@string/email"
+            app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:errorIconDrawable="@drawable/ic_baseline_error_24"
-            app:endIconMode="clear_text"
+            app:helperText="  "
 
-            app:layout_constraintTop_toBottomOf="@+id/app_title"
+            app:layout_constraintEnd_toStartOf="@id/center_guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
             <!-- helperText="  " fixes layout changing on button click because there is no helper text.. -->
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/TextInputEditTextDark"
                 android:id="@+id/email_input"
+                style="@style/TextInputEditTextDark"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-                <!-- android:imeOptions="actionDone" -->
-                <!-- android:maxLength="21" -->
+                android:inputType="textEmailAddress"
+                android:imeOptions="flagNoExtractUi"/>
+            <!-- android:imeOptions="actionDone" -->
+            <!-- android:maxLength="21" -->
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayoutDark"
             android:id="@+id/password_layout"
+            style="@style/TextInputLayoutDark"
 
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
 
-            app:helperText="  "
+            android:hint="@string/password"
+            app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:errorIconDrawable="@drawable/ic_baseline_error_24"
-            app:endIconMode="clear_text"
+            app:helperText="  "
 
-            app:layout_constraintTop_toBottomOf="@id/email_layout">
+            app:layout_constraintEnd_toStartOf="@id/center_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/TextInputEditTextDark"
                 android:id="@+id/password_input"
+                style="@style/TextInputEditTextDark"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:imeOptions="actionDone" />
-                <!-- android:maxLength="21"  -->
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Login button -->
         <Button
             android:id="@+id/login_button"
 
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="@string/login"
             android:textSize="28sp"
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_layout" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/center_guideline"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Forgot password -->
         <TextView
@@ -110,9 +111,9 @@
             android:text="@string/forgot_password"
             android:textColor="@color/grey_text"
 
-            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintTop_toBottomOf="@id/password_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
+            app:layout_constraintEnd_toStartOf="@id/quarter_guideline"/>
 
         <!-- Register new user -->
         <TextView
@@ -123,19 +124,10 @@
             android:layout_marginTop="16dp"
             android:text="@string/register"
             android:textColor="@color/grey_text"
-            app:layout_constraintEnd_toEndOf="parent"
 
-            app:layout_constraintStart_toStartOf="@+id/center_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
-
-        <!-- Guideline -->
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/center_guideline"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintTop_toBottomOf="@id/password_layout"
+            app:layout_constraintStart_toEndOf="@id/quarter_guideline"
+            app:layout_constraintEnd_toStartOf="@id/center_guideline"/>
 
         <!-- Anonymous login button -->
         <Button
@@ -147,12 +139,12 @@
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/center_guideline" />
 
         <!-- Progress bar -->
         <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
             android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -160,10 +152,27 @@
             android:translationZ="2dp"
             android:visibility="gone"
 
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Center guideline -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/center_guideline"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <!-- 25% guideline for forgot password / register views -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/quarter_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
