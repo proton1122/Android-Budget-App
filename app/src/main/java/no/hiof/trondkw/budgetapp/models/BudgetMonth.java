@@ -82,7 +82,14 @@ public class BudgetMonth {
     }
 
     private double calculateTotalExpenses() {
-        ArrayList<Expense> expenseList = this.monthlyExpenses;
+        ArrayList<Expense> expenseList;
+
+        // TODO: Fix issue when saving to database with an empty arraylist causes issues here when retrieving from database
+        if (this.monthlyExpenses == null) {
+            expenseList = new ArrayList<>();
+        } else {
+            expenseList = this.monthlyExpenses;
+        }
 
         double totalExpenses = 0;
 

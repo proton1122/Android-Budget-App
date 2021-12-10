@@ -17,11 +17,9 @@ public class Utilities {
         return day + " / " + month + " / " + year;
     }
 
-    // TODO: test this
     public static String getFormattedDate(String date) {
         LocalDate d = LocalDate.parse(date);
 
-        //return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
         return d.getDayOfMonth() + "/" + d.getMonthValue() + "/" + d.getYear();
     }
 
@@ -34,7 +32,6 @@ public class Utilities {
         return numberFormat.format(sum);
     }
 
-
     public static boolean checkNetworkStatus(Context context) {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -43,7 +40,4 @@ public class Utilities {
         return activeNetwork != null && activeNetwork.isConnected();
     }
 
-
-
-
-}
+} // end Utilities class

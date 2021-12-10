@@ -28,6 +28,7 @@ public class BudgetMonthViewModel extends ViewModel {
         int month = LocalDate.now().getMonth().getValue();
 
         BudgetMonth defaultMonth = getDefaultMonth(year, month);
+        //BudgetMonth defaultMonth = repository.getMonth(year, month);
         currentMonth = new MutableLiveData<>();
         currentMonth.setValue(defaultMonth);
 
@@ -46,7 +47,18 @@ public class BudgetMonthViewModel extends ViewModel {
         repository.saveMonth(currentMonth.getValue());
 
         // get new month from database
-        currentMonth.setValue(repository.getMonth(year, month));
+
+        BudgetMonth test = repository.getMonth(year, month);
+
+        System.out.println("ViewModel.setBudgetMonth(): ");
+        System.out.println(test);
+        System.out.println("-------------------------------");
+
+
+        currentMonth.setValue(test);
+        //currentMonth.setValue(repository.getMonth(year, month));
+
+
 
         // update viewModel
         currentMonth.getValue().updateTotalExpenses();
@@ -100,8 +112,7 @@ public class BudgetMonthViewModel extends ViewModel {
         current.updateTotalExpenses();
 
         currentMonth.setValue(current);
-
-    }
+    } // end addNewExpense()
 
     // Edit an existing expense and update total expenses
     public void editExpense(String id, LocalDate date, String title, Category category, double sum) {
@@ -123,13 +134,12 @@ public class BudgetMonthViewModel extends ViewModel {
             // throw error?
             System.out.println("Could not update expense, expense not found");
         }
-    }
+    } // end editExpense()
 
     // Remove one expense from the viewModels expenseList
     public void deleteExpense(Expense expense) {
         BudgetMonth current = currentMonth.getValue();
 
-        //ArrayList<Expense> expenseList = currentMonth2.getValue().getMonthlyExpensesList();
         ArrayList<Expense> expenseList = current.getMonthlyExpenses();
 
         if(expenseList.contains(expense)) {
@@ -141,8 +151,7 @@ public class BudgetMonthViewModel extends ViewModel {
 
         current.updateTotalExpenses();
         currentMonth.setValue(current);
-
-    }
+    } // end deleteExpense()
 
     // Get current month year / month value - Used to set the year / month text in the YearMonth TextInput
     public int getBudgetMonthYearValue() {
@@ -153,6 +162,7 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
 
+    // Get date for date picker in month_overview layout
     public String getDateString() {
         int year = currentMonth.getValue().getYear();
         int month = currentMonth.getValue().getMonth();
@@ -168,12 +178,13 @@ public class BudgetMonthViewModel extends ViewModel {
     public void testSaveToDatabase() {
         repository.saveMonth(currentMonth.getValue());
     }
-    public void testGetData() { repository.testGetAllDataFromDatabase();}
+    public void testGetData() {
+
+    }
 
 
-
+    // Only for testing purposes, returns a sample month
     private BudgetMonth getDefaultMonth(int year, int month) {
-
         return repository.getTestMonth(year, month);
     }
 

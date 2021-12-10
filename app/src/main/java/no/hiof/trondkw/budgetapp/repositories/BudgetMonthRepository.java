@@ -2,12 +2,7 @@ package no.hiof.trondkw.budgetapp.repositories;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,9 +18,9 @@ import no.hiof.trondkw.budgetapp.models.Expense;
 public class BudgetMonthRepository {
 
     private final FirebaseDatabase database;
-
     private static BudgetMonthRepository instance;
 
+    private BudgetMonth test;
 
     private BudgetMonthRepository() {
         database = FirebaseDatabase.getInstance("https://eksamen-budgetapp-default-rtdb.europe-west1.firebasedatabase.app");
@@ -43,17 +38,57 @@ public class BudgetMonthRepository {
         //int monthId = Integer.parseInt("" + year + month);
         String monthId = year + String.valueOf(month);
 
+        System.out.println("Repository.getMonth(): ");
+
         // check local storage
         if(LocalDatabase.contains(monthId)) {
+            System.out.println("Found month in local database");
             return LocalDatabase.getMonth(monthId);
+        } else {
+            System.out.println("Could not find month in local database");
         }
 
         // check firebase storage
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference reference = database.getReference("users").child(uid).child("months");
 
+        reference.child(monthId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                System.out.println("database task is successful...");
+                test = task.getResult().getValue(BudgetMonth.class);
+            } else {
+                System.out.println("Could get month from DB");
+            }
+        });
 
-        // if doesn't exist, create new empty BudgetMonth
-        return new BudgetMonth(year, month);
-    }
+        // getMonthFromDatabase() with listener
+        /*
+        getMonthFromDatabase(monthId, new OnGetDataListener() {
+            @Override
+            public void onSuccess(BudgetMonth budgetMonth) {
+                System.out.println("onSuccess finished");
+                test = budgetMonth;
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+
+                test = new BudgetMonth(year, month);
+            }
+        });
+        */
+
+        if(test != null) {
+            System.out.println("Could get month from DB");
+            System.out.println("BudgetMonth from DB: " + test);
+            return test;
+        }
+        else {
+            System.out.println("Could not get month from DB");
+            System.out.println("Creating new month");
+            return new BudgetMonth(year, month);
+        }
+    } // end getMonth()
 
 
     public void saveMonth(BudgetMonth month) {
@@ -61,14 +96,39 @@ public class BudgetMonthRepository {
         // save to local storage first
         LocalDatabase.addMonth(String.valueOf(month.getId()), month);
 
-
         // save to firebase
-
         testSaveToDatabase(month);
     }
 
+
+    private void getMonthFromDatabase(String monthId, OnGetDataListener listener) {
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference reference = database.getReference("users").child(uid).child("months");
+
+        reference.child(monthId).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                listener.onSuccess(task.getResult().getValue(BudgetMonth.class));
+            }
+            else {
+                listener.onFailure(task.getException());
+            }
+        });
+    }
+
+
+    // ---------------------------------------------------------------------------------------
+    // Test stuff
+
     // Test saving data to database
     private void testSaveToDatabase(BudgetMonth month) {
+
+        System.out.println("testSaveToDatabase()");
+        System.out.println(month);
+        System.out.println(month.getMonthlyExpenses());
+        System.out.println("_-----------------------------_");
+
+
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String monthId = String.valueOf(month.getId());
 
@@ -79,29 +139,59 @@ public class BudgetMonthRepository {
     }
 
     // Test getting data from database
-    public void testGetAllDataFromDatabase() {
+    public void testGetAllDataFromDatabase(OnGetDataListener repositoryChange) {
 
         DatabaseReference monthsRef = database.getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("months");
 
-        monthsRef.child("202112").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
+        monthsRef.child("202112").get().addOnCompleteListener(task -> {
 
-                BudgetMonth month = null;
+            // TODO: test
+            //repositoryChange.onChanged(true);
 
-                if (!task.isSuccessful()) {
-                    Log.d("firebase", "Error getting data", task.getException());
-                }
+            BudgetMonth month;
 
-                else {
-                    month = task.getResult().getValue(BudgetMonth.class);
-                    printMonth(month);
-                }
+            if (!task.isSuccessful()) {
+                Log.d("firebase", "Error getting data", task.getException());
+            }
+            else {
+                month = task.getResult().getValue(BudgetMonth.class);
+                printMonth(month);
             }
         });
     }
+
+    // ---------------------------------------------------------------------------------------
+    // Generate dummy data
+    public BudgetMonth getTestMonth(int year, int month) {
+        return createTestData(year, month);
+    }
+
+    private BudgetMonth createTestData(int year, int month) {
+        double budget = 15000;
+        ArrayList<Expense> list = new ArrayList<>(getTestExpenseList());
+        return new BudgetMonth(year, month, budget, list);
+    }
+
+
+    public static List<Expense> getTestExpenseList() {
+        ArrayList<Category> defaultCategories = Category.getDefaultCategoriesArray();
+        List<Expense> list = new ArrayList<>();
+        Category category;
+
+        for (int i = 0; i < 5; i++) {
+            String title = "Expense " + i;
+            int sum = 1000;
+
+            LocalDate date = LocalDate.now();
+            category = defaultCategories.get(i);
+            list.add(new Expense(date, title, category , sum));
+        }
+        return list;
+    }
+
+    // ---------------------------------------------------------------------------------------
 
     private void printMonth(BudgetMonth month) {
         System.out.println("ID: " + month.getId());
@@ -118,64 +208,5 @@ public class BudgetMonthRepository {
             System.out.println("\t-----------------------------------------");
         }
     }
-
-
-
-
-    // other
-
-    public BudgetMonth getTestMonth(int year, int month) {
-        return createTestData(year, month);
-    }
-
-    private BudgetMonth createTestData(int year, int month) {
-        double budget = 100000;
-        ArrayList<Expense> list = new ArrayList<>(getTestExpenseList());
-        return new BudgetMonth(year, month, budget, list);
-    }
-
-    // Generate dummy data
-    public static List<Expense> getTestExpenseList() {
-        ArrayList<Category> defaultCategories = Category.getDefaultCategoriesArray();
-        List<Expense> list = new ArrayList<>();
-        Category category = defaultCategories.get(4);
-
-        for (int i = 0; i < 5; i++) {
-            String title = "Expense " + i;
-            //int sum = 1000 + i;
-            int sum = 1000;
-
-            LocalDate date = LocalDate.now();
-
-            if(i<5) {
-                category = defaultCategories.get(i);
-            }
-            // TODO: fix category
-            /*
-            if (i%2 == 0) {
-                category = defaultCategories.get(i);
-            }else {
-                category = new Category("cat2");
-            }
-            */
-
-            list.add(new Expense(date, title, category , sum));
-        }
-        return list;
-    }
-
-    private int generateMonthId() {
-        int year = LocalDate.now().getYear();
-        int month = LocalDate.now().getMonth().getValue();
-        return Integer.parseInt("" + year + month);
-    }
-
-
-
-
-
-
-
-
 
 } // end BudgetMonthRepository class

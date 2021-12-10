@@ -67,6 +67,7 @@ public class RegisterFragment extends Fragment {
 
             // Try to create new user
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            //FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
                 if(task.isSuccessful()) {
                     // User successfully registered

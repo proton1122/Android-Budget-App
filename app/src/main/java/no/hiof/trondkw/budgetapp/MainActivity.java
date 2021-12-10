@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     }
 
     // Send input from MonthYearPickerDialog to viewModel
+    // TODO: should be moved to fragment?
     @Override
     public void loadMonth(int year, int month) {
         budgetMonthViewModel.setBudgetMonth(year, month);
@@ -102,13 +103,12 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId() == R.id.overflow_settings) {
-            // TODO: Navigate to settings fragment
+            // TODO: Create settings fragment -> navigate
             return true;
         }
 
         else if(item.getItemId() == R.id.overflow_logout) {
-            Thread t = new Thread(this::logOutUser);
-            t.start();
+            logOutUser();
             return true;
         }
 
