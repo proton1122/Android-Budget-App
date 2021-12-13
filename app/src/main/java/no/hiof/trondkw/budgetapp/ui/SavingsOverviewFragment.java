@@ -39,7 +39,6 @@ public class SavingsOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSavingsOverviewBinding.inflate(inflater, container, false);
         binding.setBudgetMonthViewModel(budgetMonthViewModel);
-        requireActivity().setTitle("Savings Overview");
 
         return binding.getRoot();
     }

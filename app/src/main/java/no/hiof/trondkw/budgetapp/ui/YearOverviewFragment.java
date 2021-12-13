@@ -26,9 +26,6 @@ public class YearOverviewFragment extends Fragment {
     private BudgetMonthViewModel budgetMonthViewModel;
     private FragmentYearOverviewBinding binding;
 
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase firebaseDatabase;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,29 +37,8 @@ public class YearOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentYearOverviewBinding.inflate(inflater, container, false);
 
-        requireActivity().setTitle("Year Overview");
-
-        mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-
-
-        binding.testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                budgetMonthViewModel.testSaveToDatabase();
-
-            }
-        });
-
-
-        binding.testButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                budgetMonthViewModel.testGetData();
-            }
-        });
-
+        //binding.testButton.setOnClickListener(view -> budgetMonthViewModel.testSaveToDatabase());
+        //binding.testButton2.setOnClickListener(view -> budgetMonthViewModel.testGetData());
 
         return binding.getRoot();
     }

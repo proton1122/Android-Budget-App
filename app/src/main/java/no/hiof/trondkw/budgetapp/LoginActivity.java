@@ -25,8 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Get firebase instance
-        Thread t = new Thread(() -> mAuth = FirebaseAuth.getInstance());
-        t.start();
+        mAuth = FirebaseAuth.getInstance();
 
         // Set data binding
         ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
