@@ -1,4 +1,4 @@
-package no.hiof.trondkw.budgetapp.repositories;
+package no.hiof.trondkw.budgetapp.interfaces;
 
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 

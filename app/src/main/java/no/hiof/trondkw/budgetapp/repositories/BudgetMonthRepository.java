@@ -2,7 +2,6 @@ package no.hiof.trondkw.budgetapp.repositories;
 
 import android.util.Log;
 
-import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.hiof.trondkw.budgetapp.database.LocalDatabase;
+import no.hiof.trondkw.budgetapp.interfaces.OnGetDataListener;
 import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Category;
 import no.hiof.trondkw.budgetapp.models.Expense;
