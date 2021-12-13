@@ -155,7 +155,4 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     }
 
 
-
-
-
 } // end MainActivity class
