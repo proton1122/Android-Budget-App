@@ -153,5 +153,13 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
         });
     }
 
+    // Save data on app pause
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BudgetMonth currentMonth = budgetMonthViewModel.getCurrentBudgetMonth().getValue();
+        repository.saveMonth(currentMonth);
+    }
+
 
 } // end MainActivity class
