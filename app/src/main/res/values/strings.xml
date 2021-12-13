@@ -66,5 +66,7 @@
     <string name="YEAR">Year</string>
     <string name="MONTH">Month</string>
 
+    <!-- Other -->
+    <string name="not_implemented">Not implemented</string>
 
 </resources>
