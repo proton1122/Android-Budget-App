@@ -63,8 +63,8 @@
 
     <!-- Budget / YearMonthPicker Dialogs -->
     <string name="BUDGET">budget</string>
-    <string name="YEAR">year</string>
-    <string name="MONTH">month</string>
+    <string name="YEAR">Year</string>
+    <string name="MONTH">Month</string>
 
 
 </resources>

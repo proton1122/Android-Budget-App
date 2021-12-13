@@ -28,13 +28,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Year"/>
+                android:textColor="@color/white"
+                android:text="@string/YEAR"/>
 
             <NumberPicker
+                android:theme="@style/NumberPickerDarkStyle"
                 android:id="@+id/year_number_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"/>
+                android:layout_margin="16dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -47,9 +49,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Month" />
+                android:textColor="@color/white"
+                android:text="@string/MONTH" />
 
             <NumberPicker
+                android:theme="@style/NumberPickerDarkStyle"
                 android:id="@+id/month_number_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,6 +62,5 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </layout>

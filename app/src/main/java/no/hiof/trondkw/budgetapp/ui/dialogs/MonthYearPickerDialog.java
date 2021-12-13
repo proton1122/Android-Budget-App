@@ -33,7 +33,7 @@ public class MonthYearPickerDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.DialogDarkStyle);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.month_year_picker_dialog, null);
 
