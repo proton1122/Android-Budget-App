@@ -2,6 +2,7 @@ package no.hiof.trondkw.budgetapp.repositories;
 
 import android.util.Log;
 
+import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -17,17 +18,17 @@ import no.hiof.trondkw.budgetapp.models.Expense;
 
 public class BudgetMonthRepository {
 
-    private final String TAG = "BudgetMonthRepository";
 
     private final FirebaseDatabase database;
     private static BudgetMonthRepository instance;
 
-    private BudgetMonth test;
 
+    // Constructor
     private BudgetMonthRepository() {
         database = FirebaseDatabase.getInstance("https://eksamen-budgetapp-default-rtdb.europe-west1.firebasedatabase.app");
     }
 
+    // Get singleton instance
     public static BudgetMonthRepository getInstance() {
         if(instance == null) {
             instance = new BudgetMonthRepository();
@@ -35,81 +36,57 @@ public class BudgetMonthRepository {
         return instance;
     }
 
+    // Get one month from local DB or Firebase DB
     public void getMonth(int year, int month, OnGetDataListener listener) {
-        //int monthId = Integer.parseInt("" + year + month);
         String monthId = year + String.valueOf(month);
 
-        Log.d(TAG, "getMonth()");
-        System.out.println("Repository.getMonth(): ");
 
-        // check local storage
+        // Check local storage first
         if(LocalDatabase.contains(monthId)) {
-            System.out.println("Found month in local database");
             listener.onSuccess(LocalDatabase.getMonth(monthId));
             return;
-            //return LocalDatabase.getMonth(monthId);
         } else {
-            System.out.println("Could not find month in local database");
+            Log.d("BudgetMonthRepository", "Could not find month in local DB");
         }
 
-        // check firebase storage
-
+        // Check firebase storage
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference reference = database.getReference("users").child(uid).child("months");
 
         reference.child(monthId).get().addOnCompleteListener(task -> {
+
             if (task.isSuccessful()) {
-                System.out.println("database task is successful...");
-                // returns null if not found in DB...
                 BudgetMonth dbMonth = task.getResult().getValue(BudgetMonth.class);
 
-                if(dbMonth == null) {
-                    listener.onSuccess(new BudgetMonth(year, month));
+                // If month is null, it was not found in Firebase DB, create new empty month
+                if (dbMonth == null) {
+                    BudgetMonth newMonth = new BudgetMonth(year, month);
+                    newMonth.setMonthlyExpenses(new ArrayList<>());
+                    listener.onSuccess(newMonth);
                     return;
+                }
+                else {
+                    // TODO: Fix issue when saving month with empty arraylist to database
+                    // Saving month with empty arraylist causes it to be null when retrieving
+                    try {
+                        int listSize = dbMonth.getMonthlyExpenses().size();
+                    } catch (NullPointerException e) {
+                        dbMonth.setMonthlyExpenses(new ArrayList<>());
+                    }
                 }
 
                 listener.onSuccess(dbMonth);
-                //test = task.getResult().getValue(BudgetMonth.class);
+
             } else {
+                // TODO: Handle exception from Firebase
                 listener.onFailure(task.getException());
-                System.out.println("Could not get month from DB");
-                System.out.println("----------------------------------");
             }
         });
 
-        /*
-        // getMonthFromDatabase() with listener
-        getMonthFromDatabase(monthId, new OnGetDataListener() {
-            @Override
-            public void onSuccess(BudgetMonth budgetMonth) {
-                System.out.println("onSuccess finished");
-                test = budgetMonth;
-            }
-
-            @Override
-            public void onFailure(Exception exception) {
-                System.out.println("Could not get month from DB");
-
-                test = new BudgetMonth(year, month);
-            }
-        });
-        */
-
-        /*
-        if(test != null) {
-            System.out.println("Could get month from DB");
-            System.out.println("BudgetMonth from DB: " + test);
-            return test;
-        }
-        else {
-            System.out.println("Could not get month from DB");
-            System.out.println("Creating new month");
-            return new BudgetMonth(year, month);
-        }
-         */
     } // end getMonth()
 
 
+    // Save month to local and remote database
     public void saveMonth(BudgetMonth month) {
 
         // save to local storage first
@@ -120,33 +97,11 @@ public class BudgetMonthRepository {
     }
 
 
-    private void getMonthFromDatabase(String monthId, OnGetDataListener listener) {
-
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference reference = database.getReference("users").child(uid).child("months");
-
-        reference.child(monthId).get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                listener.onSuccess(task.getResult().getValue(BudgetMonth.class));
-            }
-            else {
-                listener.onFailure(task.getException());
-            }
-        });
-    }
-
-
     // ---------------------------------------------------------------------------------------
     // Test stuff
 
     // Test saving data to database
     private void testSaveToDatabase(BudgetMonth month) {
-
-        System.out.println("testSaveToDatabase()");
-        System.out.println(month);
-        System.out.println(month.getMonthlyExpenses());
-        System.out.println("_-----------------------------_");
-
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String monthId = String.valueOf(month.getId());
@@ -155,30 +110,6 @@ public class BudgetMonthRepository {
         DatabaseReference oneMonthRef = allMonthsRef.child(monthId);
 
         oneMonthRef.setValue(month);
-    }
-
-    // Test getting data from database
-    public void testGetAllDataFromDatabase(OnGetDataListener repositoryChange) {
-
-        DatabaseReference monthsRef = database.getReference("users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("months");
-
-        monthsRef.child("202112").get().addOnCompleteListener(task -> {
-
-            // TODO: test
-            //repositoryChange.onChanged(true);
-
-            BudgetMonth month;
-
-            if (!task.isSuccessful()) {
-                Log.d("firebase", "Error getting data", task.getException());
-            }
-            else {
-                month = task.getResult().getValue(BudgetMonth.class);
-                printMonth(month);
-            }
-        });
     }
 
     // ---------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 package no.hiof.trondkw.budgetapp.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -22,7 +20,6 @@ import no.hiof.trondkw.budgetapp.utils.Utilities;
 public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecyclerAdapter.ExpenseViewHolder> {
 
     private List<Expense> expenseList;
-    private LayoutInflater inflater;
     private IOnItemClickListener listener;
 
 
@@ -30,19 +27,14 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
     }
 
     public ExpenseRecyclerAdapter(Context context, List<Expense> expenseList) {
-        inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
         this.expenseList = expenseList;
     }
 
     @NonNull
     @Override
     public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // from youtube example
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_list_item_2, parent, false);
-
-        // old from school example
-        //View itemView = inflater.inflate(R.layout.expense_list_item, parent, false);
-
         return new ExpenseViewHolder(itemView);
     }
 
@@ -50,8 +42,6 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         Expense expenseToDisplay = expenseList.get(position);
 
-        // TODO: fix category
-        // from youtube example
         holder.expenseTitleTextView.setText(expenseToDisplay.getTitle());
         holder.expenseSumTextView.setText(Utilities.getFormattedSum(expenseToDisplay.getSum()));
         holder.expenseDateTextView.setText(Utilities.getFormattedDate(expenseToDisplay.getDate()));
@@ -59,11 +49,6 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
 
         int categoryColor = expenseToDisplay.getCategory().getColor();
         holder.expenseCategoryColorBlobImageView.setColorFilter(categoryColor);
-        //holder.expenseCategoryColorBlobImageView.setColorFilter();
-
-
-        // old from school example
-        //holder.setExpense(expenseToDisplay);
     }
 
     @Override
@@ -78,7 +63,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
     public void setExpenses(List<Expense> expenses) {
         this.expenseList = expenses;
 
-        // will be changed later
+        // TODO: change this
         notifyDataSetChanged();
     }
 
@@ -107,7 +92,7 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecycler
             expenseCategoryTextView = itemView.findViewById(R.id.ExpenseCardView_Category);
             expenseCategoryColorBlobImageView = itemView.findViewById(R.id.category_color_image);
 
-            // handle onclick for each card view
+            // Handle onclick for each card view
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

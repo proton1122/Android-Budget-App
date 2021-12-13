@@ -12,11 +12,8 @@ import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Category;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
-import no.hiof.trondkw.budgetapp.repositories.OnGetDataListener;
 
 public class BudgetMonthViewModel extends ViewModel {
-
-    private final String TAG = "BudgetMonthViewModel";
 
 
     private final BudgetMonthRepository repository;
@@ -30,6 +27,7 @@ public class BudgetMonthViewModel extends ViewModel {
         // When first creating the view model, display en empty month while loading real data
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonth().getValue();
+
         currentMonth.setValue(new BudgetMonth(year, month));
 
     } // end BudgetMonthViewModel constructor
@@ -49,13 +47,6 @@ public class BudgetMonthViewModel extends ViewModel {
         // Update view model
         currentMonth.setValue(budgetMonth);
         currentMonth.getValue().updateTotalExpenses();
-    }
-
-    public void setDummyMonth() {
-        int year = LocalDate.now().getYear();
-        int month = LocalDate.now().getMonth().getValue();
-        BudgetMonth dummy = new BudgetMonth(year, month);
-        currentMonth.setValue(dummy);
     }
 
     // Get Budget -- Returns the budget for current month
@@ -92,7 +83,7 @@ public class BudgetMonthViewModel extends ViewModel {
                 }
             }
         }
-        // TODO: Fix this, shouldn't return null
+        // TODO: Handle error
         return null;
     }
 
@@ -125,7 +116,7 @@ public class BudgetMonthViewModel extends ViewModel {
             currentMonth.setValue(current);
 
         } else {
-            // throw error?
+            // TODO: handle error
             System.out.println("Could not update expense, expense not found");
         }
     } // end editExpense()
@@ -139,7 +130,7 @@ public class BudgetMonthViewModel extends ViewModel {
         if(expenseList.contains(expense)) {
             expenseList.remove(expense);
         } else {
-            // throw error?
+            // TODO: handle error
             System.out.println("Could not delete expense, expense not found");
         }
 
@@ -174,12 +165,6 @@ public class BudgetMonthViewModel extends ViewModel {
     }
     public void testGetData() {
 
-    }
-
-
-    // Only for testing purposes, returns a sample month
-    private BudgetMonth getDefaultMonth(int year, int month) {
-        return repository.getTestMonth(year, month);
     }
 
 

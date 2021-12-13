@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.adapter.ExpenseRecyclerAdapter;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthDetailsBinding;
@@ -55,7 +57,7 @@ public class MonthDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // set the adapter for recycler view and push list of expenses to be shown
+        // Set the adapter for recycler view and push list of expenses to be shown
         ExpenseRecyclerAdapter adapter = new ExpenseRecyclerAdapter();
         binding.recyclerView.setAdapter(adapter);
         adapter.setExpenses(budgetMonthViewModel.getExpenseList());
