@@ -6,17 +6,24 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.time.LocalDate;
+
 import no.hiof.trondkw.budgetapp.R;
 import no.hiof.trondkw.budgetapp.databinding.FragmentMonthOverviewBinding;
+import no.hiof.trondkw.budgetapp.models.BudgetMonth;
+import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
+import no.hiof.trondkw.budgetapp.repositories.OnGetDataListener;
 import no.hiof.trondkw.budgetapp.ui.dialogs.BudgetDialog;
 import no.hiof.trondkw.budgetapp.ui.dialogs.MonthYearPickerDialog;
 import no.hiof.trondkw.budgetapp.utils.Utilities;
@@ -24,8 +31,12 @@ import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MonthOverviewFragment extends Fragment {
 
+    private final String TAG = "MonthOverviewFragment";
+
+
     private BudgetMonthViewModel budgetMonthViewModel;
     private FragmentMonthOverviewBinding binding;
+    private BudgetMonthRepository repository;
     private Canvas canvas;
 
 
@@ -34,6 +45,7 @@ public class MonthOverviewFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Get view model
+        repository = BudgetMonthRepository.getInstance();
         budgetMonthViewModel = new ViewModelProvider(requireActivity()).get(BudgetMonthViewModel.class);
 
     } // end onCreate
@@ -67,6 +79,7 @@ public class MonthOverviewFragment extends Fragment {
 
         // Observe viewModel
         budgetMonthViewModel.getCurrentBudgetMonth().observe(requireActivity(), budgetMonth -> {
+            Log.d(TAG, "Observer called on ViewModel.currentMonth");
             System.out.println("Observer called on ViewModel.currentMonth in onViewCreated().");
 
             // ViewModel changed, update data binding
@@ -79,8 +92,6 @@ public class MonthOverviewFragment extends Fragment {
 
         });
 
-        // TODO: fix too many calls after changing fragment
-        System.out.println("calling drawGraph() from onViewCreated\n");
         drawGraph();
 
     } // end onViewCreated
@@ -120,6 +131,8 @@ public class MonthOverviewFragment extends Fragment {
     // Draw main graph
     // TODO: Move to separate class
     private void drawGraph() {
+
+        Log.d(TAG, "Entered drawGraph()");
 
             RectF rectangle = new RectF(100, 100, 900, 900);
 

@@ -12,8 +12,11 @@ import no.hiof.trondkw.budgetapp.models.BudgetMonth;
 import no.hiof.trondkw.budgetapp.models.Category;
 import no.hiof.trondkw.budgetapp.models.Expense;
 import no.hiof.trondkw.budgetapp.repositories.BudgetMonthRepository;
+import no.hiof.trondkw.budgetapp.repositories.OnGetDataListener;
 
 public class BudgetMonthViewModel extends ViewModel {
+
+    private final String TAG = "BudgetMonthViewModel";
 
 
     private final BudgetMonthRepository repository;
@@ -22,15 +25,12 @@ public class BudgetMonthViewModel extends ViewModel {
 
     public BudgetMonthViewModel() {
         repository = BudgetMonthRepository.getInstance();
+        currentMonth = new MutableLiveData<>();
 
-        // Set the default displaying month to current month
+        // When first creating the view model, display en empty month while loading real data
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonth().getValue();
-
-        BudgetMonth defaultMonth = getDefaultMonth(year, month);
-        //BudgetMonth defaultMonth = repository.getMonth(year, month);
-        currentMonth = new MutableLiveData<>();
-        currentMonth.setValue(defaultMonth);
+        currentMonth.setValue(new BudgetMonth(year, month));
 
     } // end BudgetMonthViewModel constructor
 
@@ -41,27 +41,21 @@ public class BudgetMonthViewModel extends ViewModel {
     }
 
     // Set new current month based on month/year picker input
-    public void setBudgetMonth(int year, int month) {
+    public void setBudgetMonth(BudgetMonth budgetMonth) {
 
         // save current month to database
         repository.saveMonth(currentMonth.getValue());
 
-        // get new month from database
-
-        BudgetMonth test = repository.getMonth(year, month);
-
-        System.out.println("ViewModel.setBudgetMonth(): ");
-        System.out.println(test);
-        System.out.println("-------------------------------");
-
-
-        currentMonth.setValue(test);
-        //currentMonth.setValue(repository.getMonth(year, month));
-
-
-
-        // update viewModel
+        // Update view model
+        currentMonth.setValue(budgetMonth);
         currentMonth.getValue().updateTotalExpenses();
+    }
+
+    public void setDummyMonth() {
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonth().getValue();
+        BudgetMonth dummy = new BudgetMonth(year, month);
+        currentMonth.setValue(dummy);
     }
 
     // Get Budget -- Returns the budget for current month

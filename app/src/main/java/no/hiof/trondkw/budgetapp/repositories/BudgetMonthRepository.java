@@ -17,6 +17,8 @@ import no.hiof.trondkw.budgetapp.models.Expense;
 
 public class BudgetMonthRepository {
 
+    private final String TAG = "BudgetMonthRepository";
+
     private final FirebaseDatabase database;
     private static BudgetMonthRepository instance;
 
@@ -33,36 +35,50 @@ public class BudgetMonthRepository {
         return instance;
     }
 
-
-    public BudgetMonth getMonth(int year, int month) {
+    public void getMonth(int year, int month, OnGetDataListener listener) {
         //int monthId = Integer.parseInt("" + year + month);
         String monthId = year + String.valueOf(month);
 
+        Log.d(TAG, "getMonth()");
         System.out.println("Repository.getMonth(): ");
 
         // check local storage
         if(LocalDatabase.contains(monthId)) {
             System.out.println("Found month in local database");
-            return LocalDatabase.getMonth(monthId);
+            listener.onSuccess(LocalDatabase.getMonth(monthId));
+            return;
+            //return LocalDatabase.getMonth(monthId);
         } else {
             System.out.println("Could not find month in local database");
         }
 
         // check firebase storage
+
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference reference = database.getReference("users").child(uid).child("months");
 
         reference.child(monthId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("database task is successful...");
-                test = task.getResult().getValue(BudgetMonth.class);
+                // returns null if not found in DB...
+                BudgetMonth dbMonth = task.getResult().getValue(BudgetMonth.class);
+
+                if(dbMonth == null) {
+                    listener.onSuccess(new BudgetMonth(year, month));
+                    return;
+                }
+
+                listener.onSuccess(dbMonth);
+                //test = task.getResult().getValue(BudgetMonth.class);
             } else {
-                System.out.println("Could get month from DB");
+                listener.onFailure(task.getException());
+                System.out.println("Could not get month from DB");
+                System.out.println("----------------------------------");
             }
         });
 
-        // getMonthFromDatabase() with listener
         /*
+        // getMonthFromDatabase() with listener
         getMonthFromDatabase(monthId, new OnGetDataListener() {
             @Override
             public void onSuccess(BudgetMonth budgetMonth) {
@@ -72,12 +88,14 @@ public class BudgetMonthRepository {
 
             @Override
             public void onFailure(Exception exception) {
+                System.out.println("Could not get month from DB");
 
                 test = new BudgetMonth(year, month);
             }
         });
         */
 
+        /*
         if(test != null) {
             System.out.println("Could get month from DB");
             System.out.println("BudgetMonth from DB: " + test);
@@ -88,6 +106,7 @@ public class BudgetMonthRepository {
             System.out.println("Creating new month");
             return new BudgetMonth(year, month);
         }
+         */
     } // end getMonth()
 
 
