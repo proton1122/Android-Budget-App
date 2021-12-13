@@ -47,6 +47,7 @@ public class Category {
 
 
 
+    // TODO: Move categories to user preferences
     public static ArrayList<Category> getDefaultCategoriesArray() {
 
         Category housing = new Category(HOUSING, Color.parseColor("#ff857c"));

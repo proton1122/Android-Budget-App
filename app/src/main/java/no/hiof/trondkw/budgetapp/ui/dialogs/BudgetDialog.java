@@ -18,8 +18,7 @@ import no.hiof.trondkw.budgetapp.interfaces.IBudgetDialogListener;
 
 public class BudgetDialog extends DialogFragment {
 
-    // TODO: how to use binding with alert dialog?
-    //EditBudgetBinding binding;
+
     private EditText budgetInput;
     private IBudgetDialogListener listener;
 
@@ -27,8 +26,6 @@ public class BudgetDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        // TODO: how to use binding with alert dialog?
-        //binding = FragmentMonthOverviewBinding.inflate(inflater, container, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.DialogDarkStyle);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.edit_budget, null);

@@ -82,7 +82,7 @@ public class LoginFragment extends Fragment {
 
             binding.progressBar.setVisibility(View.VISIBLE);
 
-            //FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            // Try to sign in user
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
                 if(task.isSuccessful()) {

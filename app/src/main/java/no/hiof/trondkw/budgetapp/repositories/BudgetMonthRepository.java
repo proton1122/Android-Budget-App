@@ -93,15 +93,12 @@ public class BudgetMonthRepository {
         LocalDatabase.addMonth(String.valueOf(month.getId()), month);
 
         // save to firebase
-        testSaveToDatabase(month);
+        saveToFirebaseDatabase(month);
     }
 
 
-    // ---------------------------------------------------------------------------------------
-    // Test stuff
-
-    // Test saving data to database
-    private void testSaveToDatabase(BudgetMonth month) {
+    // Save to firebase
+    private void saveToFirebaseDatabase(BudgetMonth month) {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String monthId = String.valueOf(month.getId());
