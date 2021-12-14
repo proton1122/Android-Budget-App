@@ -19,6 +19,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.time.LocalDate;
 
@@ -32,6 +34,7 @@ import no.hiof.trondkw.budgetapp.viewmodels.BudgetMonthViewModel;
 
 public class MainActivity extends AppCompatActivity implements IBudgetDialogListener, IMonthYearPickerDialogListener {
 
+    private FirebaseAuth mAuth;
     private ActivityMainBinding binding;
     private BudgetMonthViewModel budgetMonthViewModel;
     private BudgetMonthRepository repository;
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Get firebase instance
+        mAuth = FirebaseAuth.getInstance();
 
         // Set view model and repository
         repository = BudgetMonthRepository.getInstance();
@@ -147,6 +153,11 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
 
     // Log out user
     private void logOutUser() {
+
+        // Save current state before logging out
+        BudgetMonth currentMonth = budgetMonthViewModel.getCurrentBudgetMonth().getValue();
+        repository.saveMonth(currentMonth);
+
         AuthUI.getInstance().signOut(getApplicationContext()).addOnCompleteListener(task -> {
             Toast.makeText(getApplicationContext(), "Signed out", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -157,8 +168,13 @@ public class MainActivity extends AppCompatActivity implements IBudgetDialogList
     @Override
     protected void onPause() {
         super.onPause();
-        BudgetMonth currentMonth = budgetMonthViewModel.getCurrentBudgetMonth().getValue();
-        repository.saveMonth(currentMonth);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null) {
+            BudgetMonth currentMonth = budgetMonthViewModel.getCurrentBudgetMonth().getValue();
+            repository.saveMonth(currentMonth);
+        }
     }
 
 
