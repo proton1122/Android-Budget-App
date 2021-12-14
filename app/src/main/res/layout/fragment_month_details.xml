@@ -38,7 +38,7 @@
             app:layout_constraintBottom_toTopOf="@id/summary_layout"
 
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/expense_list_item" />
+            tools:listitem="@layout/expense_list_item_2" />
 
 
         <!-- Bottom info layout -->
